@@ -1,0 +1,9 @@
+scalarm_rest_client_mono.userprefs
+examples/
+packages/
+scalarm_client_mono_app/scalarm_client_mono_app.csproj
+scalarm_client_mono_app/bin/
+scalarm_rest_client_mono/scalarm_rest_client_mono.csproj
+scalarm_rest_client_mono/bin/
+scalarm_rest_client_mono/obj/
+scalarm_rest_client_mono/scalarm_rest_client_mono.pidb
