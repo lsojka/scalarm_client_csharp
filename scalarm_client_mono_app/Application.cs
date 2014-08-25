@@ -51,10 +51,10 @@ namespace Scalarm
 ";
 			// TODO: use JSON serializer
 			string experimentDoe = @"
-doe = [
+[
     [ ""2k"",
       [ ""main_category___main_group___parameter1"",
-         ""main_category___main_group___parameter1""
+        ""main_category___main_group___parameter2""
       ]
     ]
 ]
@@ -81,14 +81,23 @@ doe = [
                 Console.WriteLine("Got scenario with name: {0}, created at: {1}", scenario.Name, scenario.CreatedAt);
 
 				// TODO: internally, get scenario input and mix with experiment-specific
-				Experiment experiment = scenario.CreateExperiment(experimentInput, experimentParams);
+				//Experiment experiment = scenario.CreateExperiment(experimentInput, experimentParams);
+
+                var point = new Dictionary<string, float>() {
+                    {"main_category___main_group___parameter1", 3},
+                    {"main_category___main_group___parameter2", 4},
+                };
+
+                Experiment experiment = scenario.CreateExperimentWithSinglePoint(point, experimentParams);
 				
+                Console.WriteLine("Created experiment with ID: {0}", experiment.ExperimentId);
+
 			} catch (RegisterSimulationScenarioException e) {
 				Console.WriteLine("Registering simulation scenario failed: " + e);
 			} catch (CreateExperimentException e) {
 				Console.WriteLine("Creating experiment failed: " + e);
 			} catch (InvalidResponseException e) {
-                Console.WriteLine("Invalid response: {0}; {1}; {2};\n{3}", e.Response.Content, e.Response.ErrorMessage, e.GetBaseException(), e.Response.ErrorException);
+                Console.WriteLine("Invalid response: {0};\n\n{1};\n\n{2}", e.Response.Content, e.Response.ErrorMessage, e.Response.ErrorException);
             } catch (ScalarmResourceException e) {
                 Console.WriteLine("Error getting Scalarm resource: {0}", e.Resource.ErrorCode);
             } catch (FileNotFoundException e) {

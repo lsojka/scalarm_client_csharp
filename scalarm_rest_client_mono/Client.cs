@@ -7,18 +7,17 @@ using RestSharp;
 
 namespace Scalarm
 {	
-	public class Client
+	public class Client : RestClient
 	{
-		public RestClient RestClient {get; private set;}
-		
 		public Client(string baseUrl, string login, string password)
 		{
 			ServicePointManager.ServerCertificateValidationCallback +=
         		(sender, certificate, chain, sslPolicyErrors) => true;
 			
-			RestClient = new RestClient();
-			RestClient.BaseUrl = baseUrl;
-			RestClient.Authenticator = new HttpBasicAuthenticator(login, password);
+            this.BaseUrl = baseUrl;
+			this.Authenticator = new HttpBasicAuthenticator(login, password);
+            // Cannot use this because of bug in JSON.net for Mono!
+            // this.AddHandler("application/json", new JsonConvertDeserializer());
 		}
 
 		/// <exception cref="RegisterSimulationScenarioException">On error</exception>
@@ -34,7 +33,7 @@ namespace Scalarm
             var request = new RestRequest("/simulation_scenarios/{id}", Method.GET);
             request.AddUrlSegment("id", scenarioId);
 
-            var response = RestClient.Execute<ScalarmResource<SimulationScenario>>(request);
+            var response = this.Execute<ScalarmResource<SimulationScenario>>(request);
 
             if (response.ResponseStatus != ResponseStatus.Completed) {
                 throw new InvalidResponseStatusException(response);
@@ -45,7 +44,9 @@ namespace Scalarm
             var resource = response.Data;
 
             if (resource.Status == "ok") {
-                return resource.Data;
+                SimulationScenario scenario = resource.Data;
+                scenario.Client = this;
+                return scenario;
             } else if (resource.Status == "error") {
                 throw new ScalarmResourceException(resource);
             } else {

@@ -8,6 +8,9 @@ namespace Scalarm
 {	
 	public class CreateExperimentException : Exception
 	{
+        public CreateExperimentException(string message) : base(message)
+        {
+        }
 	}
 
 }
