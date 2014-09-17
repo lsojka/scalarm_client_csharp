@@ -6,14 +6,14 @@ using Scalarm.ExperimentInput;
 
 namespace Scalarm
 {	
-	public class Experiment
+	public class Experiment : ScalarmObject
 	{
-        public Client Client {get; private set;}
+        // TODO: make full experiment model
+
         public string ExperimentId {get; private set;}
 
-        public Experiment(string experimentId, Client client)
+        public Experiment(string experimentId, Client client) : base(client)
         {
-            Client = client;
             ExperimentId = experimentId;
         }
 	}

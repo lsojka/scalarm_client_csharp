@@ -7,15 +7,15 @@ using RestSharp;
 
 namespace Scalarm
 {	
-	public class ScalarmResourceException : Exception
+	public class ScalarmResourceException<T> : Exception
 	{
-        public ScalarmResource<SimulationScenario> Resource
+        public ResourceEnvelope<T> Resource
         {
             get;
             protected set;
         }
 
-		public ScalarmResourceException(ScalarmResource<SimulationScenario> resource)
+		public ScalarmResourceException(ResourceEnvelope<T> resource)
 		{
             Resource = resource;
 		}

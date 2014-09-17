@@ -7,7 +7,7 @@ using RestSharp;
 
 namespace Scalarm
 {	
-	public class ScalarmResource<T>
+	public class ResourceEnvelope<T>
 	{
         [JsonProperty(PropertyName = "status")]
         public string Status {get; set;}
