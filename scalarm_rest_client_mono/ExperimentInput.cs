@@ -66,7 +66,7 @@ namespace Scalarm
 		
 		public class Entity
 		{
-			[JsonProperty(PropertyName = "id")]
+			[JsonProperty(PropertyName = "id", NullValueHandling = NullValueHandling.Ignore)]
 			public string Id {get; set;}
 			
 			[JsonProperty(PropertyName = "label", NullValueHandling = NullValueHandling.Ignore)]
@@ -85,7 +85,7 @@ namespace Scalarm
 		
 		public class Category
 		{
-			[JsonProperty(PropertyName = "id")]
+			[JsonProperty(PropertyName = "id", NullValueHandling = NullValueHandling.Ignore)]
 			public string Id {get; set;}
 				
 			[JsonProperty(PropertyName = "label", NullValueHandling = NullValueHandling.Ignore)]

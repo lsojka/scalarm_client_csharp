@@ -7,6 +7,8 @@ using RestSharp;
 
 namespace Scalarm
 {	
+    // Resource envelopes are currently experimental in Scalarm REST API
+    // and are not used everywhere.
 	public class ResourceEnvelope<T>
 	{
         [JsonProperty(PropertyName = "status")]
