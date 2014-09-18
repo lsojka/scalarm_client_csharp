@@ -52,6 +52,7 @@ namespace Scalarm
 				SimulationScenario scenario = client.RegisterSimulationScenario(
 					simulationName, simulationBinariesPath, simulationParameters, executorPath, scenarioParams);
 				
+                // Get existing scenario object
 				// SimulationScenario scenario = client.GetScenarioById("53ecace520a6f1565500000c");
 				
                 Console.WriteLine("Got scenario with name: {0}, created at: {1}", scenario.Name, scenario.CreatedAt);
@@ -66,6 +67,14 @@ namespace Scalarm
                 Experiment experiment = scenario.CreateExperimentWithSinglePoint(point, experimentParams);
 				
                 Console.WriteLine("Created experiment with ID: {0}", experiment.ExperimentId);
+
+                var jobs = experiment.ScheduleZeusJobs(4);
+
+                foreach (var j in jobs) {
+                    Console.WriteLine("Scheduled: {0} {1}", j.Id, j.State);
+                }
+
+
 
 			} catch (RegisterSimulationScenarioException e) {
 				Console.WriteLine("Registering simulation scenario failed: " + e);

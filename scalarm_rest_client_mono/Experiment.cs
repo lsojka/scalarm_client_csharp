@@ -16,6 +16,17 @@ namespace Scalarm
         {
             ExperimentId = experimentId;
         }
+
+        public List<SimulationManager> ScheduleSimulationManagers(string infrastructure, int count, Dictionary<string, string> parameters) {
+            return Client.ScheduleSimulationManagers(ExperimentId, infrastructure, count, parameters);
+        }
+
+        public List<SimulationManager> ScheduleZeusJobs(int count)
+        {
+            return ScheduleSimulationManagers("qsub", count, new Dictionary<string, string> {
+                {"time_limit", "60"}
+            });
+        }
 	}
 
 }

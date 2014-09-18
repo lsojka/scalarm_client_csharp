@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Linq;
 
 namespace Scalarm
 {	
@@ -187,6 +188,81 @@ namespace Scalarm
                 return GetScenarioById(creationResult.simulation_id);
             } else if (creationResult.status == "error") {
                 throw new CreateScenarioException(creationResult.message);
+            } else {
+                throw new InvalidResponseException(response);
+            }
+        }
+
+        public List<SimulationManager> ScheduleSimulationManagers(
+            string experimentId, string infrastructureName, int jobCounter, Dictionary<string, string> additionalParams) {
+            
+            var request = new RestRequest("infrastructure/schedule_simulation_managers", Method.POST);
+            
+            request.AddParameter("experiment_id", experimentId);
+            request.AddParameter("infrastructure_name", infrastructureName);
+            request.AddParameter("job_counter", jobCounter);
+        
+            if (additionalParams != null) {
+                foreach (var entry in additionalParams) {
+                  request.AddParameter(entry.Key, entry.Value);
+                }
+            }
+            
+            return HandleScheduleSimulationManagerResult(this.Execute<ScheduleSimulationManagersResult>(request));
+        }
+
+        private List<SimulationManager> HandleScheduleSimulationManagerResult(IRestResponse<ScheduleSimulationManagersResult> response) {
+            ValidateResponseStatus(response);
+
+            var scheduleResult = response.Data;
+
+            if (scheduleResult.status == "ok")
+            {
+                return GetSimulationManagersByIds(scheduleResult.records_ids, scheduleResult.infrastructure);
+            } else if (scheduleResult.status == "error") {
+                throw new ScheduleSimulationManagerException(scheduleResult.error_code,
+                                                             scheduleResult.msg);
+            } else {
+                throw new InvalidResponseException(response);
+            }
+        }
+
+        // TODO: swap parameters order
+        public string GetResourceStatus(string infrastructureName, string id)
+        {
+            // TODO
+            throw new NotImplementedException();
+        }
+
+        public List<SimulationManager> GetSimulationManagersByIds(List<string> ids, string infrastructure)
+        {
+            // TODO: add method in Scalarm to handle queries with multiple ids
+            return ids.Select(id => this.GetSimulationManagerById(id, infrastructure)).ToList();
+        }
+
+        public SimulationManager GetSimulationManagerById(string recordId, string infrastructure)
+        {
+            var request = new RestRequest("/simulation_managers/{id}", Method.GET);
+            request.AddUrlSegment("id", recordId);
+            request.AddParameter("infrastructure", infrastructure);
+
+            var response = this.Execute<SimulationManagerResource>(request);
+
+            if (response.ResponseStatus != ResponseStatus.Completed) {
+                throw new InvalidResponseStatusException(response);
+            } else if (response.StatusCode != HttpStatusCode.OK) {
+                throw new InvalidHttpStatusCodeException(response);
+            }
+
+            var resource = response.Data;
+
+            if (resource.status == "ok") {
+                SimulationManager simulationManager = resource.record;
+                simulationManager.Client = this;
+                return simulationManager;
+                // TODO
+//            } else if (resource.Status == "error") {
+//                throw new ScalarmResourceException<SimulationScenario>(resource);
             } else {
                 throw new InvalidResponseException(response);
             }
