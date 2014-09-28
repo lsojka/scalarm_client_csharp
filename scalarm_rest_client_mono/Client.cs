@@ -248,12 +248,13 @@ namespace Scalarm
 
             var response = this.Execute<SimulationManagerResource>(request);
 
-            if (response.ResponseStatus != ResponseStatus.Completed) {
-                throw new InvalidResponseStatusException(response);
-            } else if (response.StatusCode != HttpStatusCode.OK) {
-                throw new InvalidHttpStatusCodeException(response);
-            }
+            ValidateResponseStatus(response);
 
+            return HandleGetSimulationManagerResult(response);
+        }
+
+        private SimulationManager HandleGetSimulationManagerResult(IRestResponse<SimulationManagerResource> response)
+        {
             var resource = response.Data;
 
             if (resource.status == "ok") {
@@ -267,7 +268,25 @@ namespace Scalarm
                 throw new InvalidResponseException(response);
             }
         }
-	}
+
+        public ExperimentStatistics GetExperimentStatistics(string experimentId)
+        {
+            var request = new RestRequest("/experiments/{id}/experiment_stats", Method.GET);
+            request.AddUrlSegment("id", experimentId);
+
+            var response = this.Execute<ExperimentStatistics>(request);
+
+            ValidateResponseStatus(response);
+
+            return HandleExperimentsStatisticsResponse(response);
+        }
+
+        // TODO: envelope needed?
+        private ExperimentStatistics HandleExperimentsStatisticsResponse(IRestResponse<ExperimentStatistics> response)
+        {
+            return response.Data;
+        }
+    }
 
 }
 

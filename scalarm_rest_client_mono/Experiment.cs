@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using Scalarm.ExperimentInput;
+using System.Threading;
 
 namespace Scalarm
 {	
@@ -26,6 +27,35 @@ namespace Scalarm
             return ScheduleSimulationManagers("qsub", count, new Dictionary<string, string> {
                 {"time_limit", "60"}
             });
+        }
+
+        public ExperimentStatistics GetStatistics()
+        {
+            return Client.GetExperimentStatistics(ExperimentId);
+        }
+
+        public bool IsDone()
+        {
+            var stats = GetStatistics();
+			Console.WriteLine("DEBUG: exp stats: " + stats.ToString());
+            return stats.All == stats.Done;
+        }
+
+        // TODO: check if there are workers running - if not - throw exception!
+        /// <summary>
+        ///  Actively waits for experiment for completion. 
+        /// </summary>
+        public void WaitForDone(int timeoutSecs=-1, int pollingIntervalSeconds=5)
+        {
+            var startTime = DateTime.UtcNow;
+
+            while (timeoutSecs <= 0 || (DateTime.UtcNow - startTime).TotalSeconds < timeoutSecs) {
+                if (IsDone()) {
+                    return;
+                }
+                Thread.Sleep(pollingIntervalSeconds*1000);
+            }
+            throw new TimeoutException();
         }
 	}
 

@@ -68,13 +68,15 @@ namespace Scalarm
 				
                 Console.WriteLine("Created experiment with ID: {0}", experiment.ExperimentId);
 
-                var jobs = experiment.ScheduleZeusJobs(4);
+                var jobs = experiment.ScheduleZeusJobs(1);
 
                 foreach (var j in jobs) {
                     Console.WriteLine("Scheduled: {0} {1}", j.Id, j.State);
                 }
 
+                experiment.WaitForDone();
 
+                Console.WriteLine("OK!");
 
 			} catch (RegisterSimulationScenarioException e) {
 				Console.WriteLine("Registering simulation scenario failed: " + e);
