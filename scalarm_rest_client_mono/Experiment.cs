@@ -6,11 +6,26 @@ using Scalarm.ExperimentInput;
 using System.Threading;
 using System.Linq;
 using System.Collections;
+using System.ComponentModel;
 
 namespace Scalarm
 {	
+	public delegate void ExperimentCompletedEventHandler(object sender, EventArgs e);
+
 	public class Experiment : ScalarmObject
 	{
+		public event ExperimentCompletedEventHandler ExperimentCompleted;
+
+		private int _watchingIntervalMillis = 5000;
+		public int WatchingIntervalSecs {
+			get {
+				return _watchingIntervalMillis;
+			}
+			set {
+				_watchingIntervalMillis = value * 1000;
+			}
+		}
+
         // TODO: make full experiment model
 
         public string ExperimentId {get; private set;}
@@ -22,6 +37,11 @@ namespace Scalarm
         {
             ExperimentId = experimentId;
         }
+
+		protected void OnExperimentCompleted(EventArgs e)
+		{
+			if (ExperimentCompleted != null) ExperimentCompleted(this, e);
+		}
 
         public List<SimulationManager> ScheduleSimulationManagers(string infrastructure, int count, Dictionary<string, string> parameters) {
             return Client.ScheduleSimulationManagers(ExperimentId, infrastructure, count, parameters);
@@ -62,6 +82,55 @@ namespace Scalarm
             }
             throw new TimeoutException();
     	}
+
+		private BackgroundWorker _worker;
+
+		public void StartWatching()
+		{
+			if (_worker == null) {
+				_worker = new BackgroundWorker();
+				_worker.WorkerSupportsCancellation = true;
+				_worker.WorkerReportsProgress = false;
+				_worker.DoWork += _watchCompletion;
+				_worker.RunWorkerCompleted += _workerCompleted;
+			}
+
+			if (!_worker.IsBusy) {
+				_worker.RunWorkerAsync();
+			}
+		}
+
+		public void StopWatching()
+		{
+			if (_worker != null) {
+				_worker.CancelAsync();
+			}
+		}
+
+		private void _watchCompletion(object sender, DoWorkEventArgs e)
+		{
+			BackgroundWorker worker = sender as BackgroundWorker;
+
+			Console.WriteLine("Starting experiment watching thread");
+			while (!worker.CancellationPending && !IsDone()) {
+				Thread.Sleep(_watchingIntervalMillis);
+			}
+
+			if (worker.CancellationPending) {
+				e.Cancel = true;
+			}
+		}
+
+		private void _workerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		{
+			if (!e.Cancelled) {
+				if (e.Error == null) {
+					OnExperimentCompleted(EventArgs.Empty);
+				} else {
+					throw e.Error;
+				}
+			}
+		}
 
 		// TODO: parse json to resolve types?
 		// <summary>

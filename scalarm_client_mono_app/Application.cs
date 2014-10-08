@@ -4,11 +4,30 @@ using System.IO;
 using Newtonsoft.Json;
 using Scalarm.ExperimentInput;
 using RestSharp.Deserializers;
+using System.Threading;
 
 namespace Scalarm
 {
 	public class Application
-	{		
+	{	
+		private static bool shouldWait = true;
+
+		static void ShowResults(object sender, EventArgs e)
+		{
+			Console.WriteLine("Experiment done!");
+
+			// retunrs dictionary
+			var result = experiment.GetSingleResult(point);
+			var productResult = result["product"];
+
+			Console.WriteLine("Result for single point: " + productResult);
+
+			shouldWait = false;
+		}
+
+		private static Experiment experiment;
+		private static ValuesMap point;
+
 		static void Main()
 		{
 			// TODO: it will be good to use camelCase param names that is not the same as REST params,
@@ -64,12 +83,12 @@ namespace Scalarm
 				// TODO: internally, get scenario input and mix with experiment-specific
 				//Experiment experiment = scenario.CreateExperiment(experimentInput, experimentParams);
 
-                var point = new ValuesMap() {
+                point = new ValuesMap() {
                     {"parameter1", 3.0},
 					{"parameter2", 4.0}
                 };
 
-                Experiment experiment = scenario.CreateExperimentWithSinglePoint(point, experimentParams);
+                experiment = scenario.CreateExperimentWithSinglePoint(point, experimentParams);
 				
                 Console.WriteLine("Created experiment with ID: {0}", experiment.ExperimentId);
 
@@ -79,15 +98,17 @@ namespace Scalarm
                     Console.WriteLine("Scheduled: {0} {1}", j.Id, j.State);
                 }
 
-                experiment.WaitForDone();
+                // experiment.WaitForDone();
 
-                Console.WriteLine("Experiment done!");
+				experiment.ExperimentCompleted += ShowResults;
+				experiment.WatchingIntervalSecs = 3;
+				experiment.StartWatching();
 
-				// retunrs dictionary
-				var result = experiment.GetSingleResult(point);
-				var productResult = result["product"];
+				while (shouldWait) {
+					Console.WriteLine("DEBUG: waiting...");
+					Thread.Sleep(1000);
+				}
 
-				Console.WriteLine("Result for single point: " + productResult);
 
 			} catch (RegisterSimulationScenarioException e) {
 				Console.WriteLine("Registering simulation scenario failed: " + e);
@@ -101,6 +122,7 @@ namespace Scalarm
                 Console.WriteLine("Configuration file not found ({0})", e.FileName);
             }
 		}
+
 	}
 }
 
