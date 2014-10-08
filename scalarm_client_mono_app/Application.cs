@@ -21,13 +21,12 @@ namespace Scalarm
             var randomNum = new Random((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).Next(1000);
 
             var simulationName = String.Format("New simulation {0}", randomNum);
-            var baseScenarioPath = "/home/kliput/Programowanie/scalarm/inne/moja-symulacja-0/";
+            var baseScenarioPath = "/home/kliput/Programowanie/scalarm/inne/moja-symulacja-double/";
 
             Func<string, string> scenarioPath = p => string.Format("{0}/{1}", baseScenarioPath, p);
             var simulationBinariesPath = scenarioPath("bin.zip");
             var executorPath = scenarioPath("executor.py");
-            var inputDefinition = new Dictionary<string, object>() {};
-
+            
             var scenarioParams = new Dictionary<string, object>() {};
 
 			var experimentParams = new Dictionary<string, object>()
@@ -37,31 +36,37 @@ namespace Scalarm
 				// {"doe", experimentDoe},
 				{"execution_time_constraint", 3600}
 			};
-			
+
 			try {
 				// TODO: below method with executor id instead of path overload
 
                 var simulationParameters = new List<ExperimentInput.Parameter>() {
-                    new Parameter("p1", "Param 1") {
+                    new Parameter("parameter1", "Param 1") {
                         ParametrizationType = ExperimentInput.ParametrizationType.RANGE,
                         Type = ExperimentInput.Type.FLOAT,
                         Min = 0, Max = 1000
-                    }
+                    },
+					new Parameter("parameter2", "Param 2") {
+						ParametrizationType = ExperimentInput.ParametrizationType.RANGE,
+						Type = ExperimentInput.Type.FLOAT,
+						Min = -100, Max = 100
+					}
                 };
 
 				SimulationScenario scenario = client.RegisterSimulationScenario(
 					simulationName, simulationBinariesPath, simulationParameters, executorPath, scenarioParams);
 				
                 // Get existing scenario object
-				// SimulationScenario scenario = client.GetScenarioById("53ecace520a6f1565500000c");
+				// SimulationScenario scenario = client.GetScenarioById("54293cce20a6f123c5000038");
 				
                 Console.WriteLine("Got scenario with name: {0}, created at: {1}", scenario.Name, scenario.CreatedAt);
 
 				// TODO: internally, get scenario input and mix with experiment-specific
 				//Experiment experiment = scenario.CreateExperiment(experimentInput, experimentParams);
 
-                var point = new Dictionary<string, float>() {
-                    {"p1", 3}
+                var point = new ValuesMap() {
+                    {"parameter1", 3.0},
+					{"parameter2", 4.0}
                 };
 
                 Experiment experiment = scenario.CreateExperimentWithSinglePoint(point, experimentParams);
@@ -76,7 +81,13 @@ namespace Scalarm
 
                 experiment.WaitForDone();
 
-                Console.WriteLine("OK!");
+                Console.WriteLine("Experiment done!");
+
+				// retunrs dictionary
+				var result = experiment.GetSingleResult(point);
+				var productResult = result["product"];
+
+				Console.WriteLine("Result for single point: " + productResult);
 
 			} catch (RegisterSimulationScenarioException e) {
 				Console.WriteLine("Registering simulation scenario failed: " + e);

@@ -60,7 +60,7 @@ namespace Scalarm
         // TODO: handle wrong scenario id
         public Experiment CreateExperimentWithSinglePoint(
             string simulationScenarioId,
-            Dictionary<string, float> point,
+            ValuesMap point,
             Dictionary<string, object> additionalParameters = null
             )
         {
@@ -286,6 +286,46 @@ namespace Scalarm
         {
             return response.Data;
         }
+
+		public IList<ValuesMap> GetExperimentResults(string experimentId)
+		{
+			var request = new RestRequest("/experiments/{id}/file_with_configurations", Method.GET);
+			request.AddUrlSegment("id", experimentId);
+
+			var response = this.Execute(request);
+
+			ValidateResponseStatus(response);
+
+			return ParseExperimentsConfigurationsCsv(response.Content);
+		}
+
+		public static IList<ValuesMap> ParseExperimentsConfigurationsCsv(string responseCsv)
+		{
+			string[] lines = responseCsv.Split('\n');
+
+			string[] headers = lines[0].Split(',');
+
+			// TODO: a memory usage disaster!
+			var recordsList = new List<ValuesMap>();
+
+			for (int lineIndex=1; lineIndex<lines.Length; ++lineIndex) {
+				var line = lines[lineIndex];
+				var values = line.Split(',');
+
+				// TODO: check values count in each line?
+				if (values.Length > 0 && values[0] != "") {
+					var record = new ValuesMap();
+
+					for (int valIndex=0; valIndex<values.Length; ++valIndex) {
+						record.Add(headers [valIndex], values [valIndex]);
+					}
+
+					recordsList.Add(record);
+				}
+			}
+
+			return recordsList;
+		}
     }
 
 }

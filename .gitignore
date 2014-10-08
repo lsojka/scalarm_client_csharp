@@ -10,4 +10,9 @@ scalarm_rest_client_mono/scalarm_rest_client_mono.csproj
 scalarm_rest_client_mono/bin/
 scalarm_rest_client_mono/obj/
 scalarm_rest_client_mono/scalarm_rest_client_mono.pidb
+scalarm_client_mono_tests/scalarm_client_mono_tests.csproj
+scalarm_client_mono_tests/bin/
+scalarm_client_mono_tests/obj/
+scalarm_client_mono_tests/scalarm_client_mono_tests.pidb
+scalarm_client_mono_tests/test-results
 

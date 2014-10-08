@@ -4,6 +4,8 @@ using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using Scalarm.ExperimentInput;
 using System.Threading;
+using System.Linq;
+using System.Collections;
 
 namespace Scalarm
 {	
@@ -12,6 +14,9 @@ namespace Scalarm
         // TODO: make full experiment model
 
         public string ExperimentId {get; private set;}
+
+		// TODO: it should be retrieved with experiment data from controller
+		public List<Category> InputSpecification { get; set; }
 
         public Experiment(string experimentId, Client client) : base(client)
         {
@@ -56,7 +61,66 @@ namespace Scalarm
                 Thread.Sleep(pollingIntervalSeconds*1000);
             }
             throw new TimeoutException();
-        }
+    	}
+
+		// TODO: parse json to resolve types?
+		// <summary>
+		//  Gets results in form od Dictionary: input parameters -> MoEs
+		//  Input parameters and MoEs are in form of dictionaries: id -> value; both keys and values are string!
+		// </summary>
+		public IDictionary<ValuesMap, ValuesMap> GetResults()
+		{
+			var results = Client.GetExperimentResults(ExperimentId);
+			var parametersIds = InputDefinition.ParametersIdsForCategories(InputSpecification);
+
+			return SplitParametersAndResults(ConvertTypes(results), parametersIds);
+		}
+
+		// TODO: can modify results, use with caution
+		public static IList<ValuesMap> ConvertTypes(IList<ValuesMap> results)
+		{
+			var convertedResults = new List<ValuesMap>();
+			foreach (var item in results) {
+				convertedResults.Add(item);
+			}
+
+			foreach (var record in convertedResults) {
+				foreach (var singleResult in record) {
+					// TODO: check with string values - probably there will bo problem with deserializing because lack of ""
+					record [singleResult.Key] = JsonConvert.DeserializeObject(singleResult.Value.ToString());
+				}
+			}
+
+			return convertedResults;
+		}
+
+		public static IDictionary<ValuesMap, ValuesMap> SplitParametersAndResults(IList<ValuesMap> results, IList<string> parametersIds)
+		{
+			var finalDict = new Dictionary<ValuesMap, ValuesMap>();
+
+			foreach (var result in results) {
+				var resultDict = result.ShallowCopy();
+
+				var paramsDict = new ValuesMap();
+
+				foreach (string id in parametersIds) {
+					if (resultDict.ContainsKey(id)) {
+						paramsDict.Add(id, resultDict[id]);
+						resultDict.Remove(id);
+					}
+				}
+				finalDict.Add(paramsDict, resultDict);
+			}
+
+			return finalDict;
+		}
+
+		// TODO: this should be method for "Results" object?
+		public ValuesMap GetSingleResult(ValuesMap point)
+		{
+			var results = GetResults();
+			return results[point];
+		}
 	}
 
 }

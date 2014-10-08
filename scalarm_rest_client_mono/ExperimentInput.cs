@@ -57,6 +57,10 @@ namespace Scalarm
             [JsonProperty(PropertyName = "max", NullValueHandling = NullValueHandling.Ignore)]
             public float Max {get; set;}
 
+			public Parameter()
+			{
+			}
+
 			public Parameter(string id, string label=null)
 			{
 				Id = id;
@@ -73,13 +77,17 @@ namespace Scalarm
 			public string Label {get; set;}
 			
 			[JsonProperty(PropertyName = "parameters")]
-			public List<Parameter> Parameters = new List<Parameter>();
+			public List<Parameter> Parameters { get; set; }
 			
+			public Entity()
+			{
+				Parameters = new List<Parameter>();
+			}
+
 			public Entity(string id, string label=null)
 			{
 				Id = id;
 				Label = label;
-				Parameters = new List<Parameter>();
 			}
 		}
 		
@@ -92,11 +100,11 @@ namespace Scalarm
 			public string Label {get; set;}
 			
 			[JsonProperty(PropertyName = "entities")]
-			public List<Entity> Entities = new List<Entity>();
+			public List<Entity> Entities { get; set; }
 		
             public Category()
             {
-                Entities = new List<Entity>();
+				Entities = new List<Entity>();
             }
 
 			public Category(string id, string label=null) : this()
@@ -116,6 +124,23 @@ namespace Scalarm
 			public string ToJSON()
 			{
 				return JsonConvert.SerializeObject(Categories);
+			}
+
+			public static IList<string> ParametersIdsForCategories(IList<Category> categories)
+			{
+				var parametersIds = new List<string>();
+				foreach (Category c in categories) {
+					foreach (Entity e in c.Entities) {
+						foreach (Parameter p in e.Parameters) {
+							parametersIds.Add(string.Format("{0}{1}{2}",
+							                                (c.Id == null || c.Id == "") ? "" : c.Id + "__",
+							                                (e.Id == null || e.Id == "") ? "" : e.Id + "__",
+							                                p.Id));
+						}
+					}
+				}
+
+				return parametersIds;
 			}
 			
 	//		public Category GetCategory(string id)

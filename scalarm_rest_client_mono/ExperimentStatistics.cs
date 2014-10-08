@@ -13,7 +13,8 @@ namespace Scalarm
         [JsonProperty(PropertyName = "sent")]
         public int InProgress {get; private set;}
 
-        [JsonProperty(PropertyName = "done_num")]
+		// strange bug - JsonProperty does not work with done_num (underscore problem?)
+		[DeserializeAs(Name = "done_num")]
         public int Done {get; private set;}
 
         public ExperimentStatistics()
