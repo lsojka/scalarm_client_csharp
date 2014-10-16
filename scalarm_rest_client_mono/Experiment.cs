@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Scalarm
 {	
-	public delegate void ExperimentCompletedEventHandler(object sender, EventArgs e);
+	public delegate void ExperimentCompletedEventHandler(object sender, Experiment exp);
 
 	public class Experiment : ScalarmObject
 	{
@@ -40,18 +40,30 @@ namespace Scalarm
 
 		protected void OnExperimentCompleted(EventArgs e)
 		{
-			if (ExperimentCompleted != null) ExperimentCompleted(this, e);
+			// TODO not this this
+			if (ExperimentCompleted != null) ExperimentCompleted(this, this);
 		}
 
-        public List<SimulationManager> ScheduleSimulationManagers(string infrastructure, int count, Dictionary<string, string> parameters) {
+        public List<SimulationManager> ScheduleSimulationManagers(string infrastructure, int count, Dictionary<string, object> parameters) {
             return Client.ScheduleSimulationManagers(ExperimentId, infrastructure, count, parameters);
         }
 
-        public List<SimulationManager> ScheduleZeusJobs(int count)
+        public List<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridPassword)
         {
-            return ScheduleSimulationManagers("qsub", count, new Dictionary<string, string> {
-                {"time_limit", "60"}
-            });
+			var reqParams = new Dictionary<string, object> {
+				{"time_limit", "60"}
+			};
+
+			if (plgridLogin != null) {
+				if (plgridPassword == null) {
+					new ArgumentNullException ("PL-Grid password must not be null");
+				}
+				reqParams ["plgrid_login"] = plgridLogin;
+				reqParams ["plgrid_password"] = plgridPassword;
+				reqParams ["onsite_monitoring"] = true;
+			}
+
+            return ScheduleSimulationManagers("qsub", count, reqParams);
         }
 
         public ExperimentStatistics GetStatistics()

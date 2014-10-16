@@ -194,7 +194,7 @@ namespace Scalarm
         }
 
         public List<SimulationManager> ScheduleSimulationManagers(
-            string experimentId, string infrastructureName, int jobCounter, Dictionary<string, string> additionalParams) {
+            string experimentId, string infrastructureName, int jobCounter, Dictionary<string, object> additionalParams) {
             
             var request = new RestRequest("infrastructure/schedule_simulation_managers", Method.POST);
             

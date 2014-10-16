@@ -12,12 +12,13 @@ namespace Scalarm
 	{	
 		private static bool shouldWait = true;
 
-		static void ShowResults(object sender, EventArgs e)
+		static void ShowResults(object sender, Experiment exp)
 		{
 			Console.WriteLine("Experiment done!");
 
-			// retunrs dictionary
-			var result = experiment.GetSingleResult(point);
+			// TODO: consider sending Results object (sender is Experiment)
+
+			var result = exp.GetSingleResult(point);
 			var productResult = result["product"];
 
 			Console.WriteLine("Result for single point: " + productResult);
@@ -25,11 +26,46 @@ namespace Scalarm
 			shouldWait = false;
 		}
 
-		private static Experiment experiment;
+		//private static Experiment experiment;
 		private static ValuesMap point;
 
-		static void Main()
+		public static string ReadPassword()
 		{
+			string pass = "";
+			Console.Write("Enter your PL-Grid password: ");
+			ConsoleKeyInfo key;
+
+			do
+			{
+				key = Console.ReadKey(true);
+
+				// Backspace Should Not Work
+				if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+				{
+					pass += key.KeyChar;
+					Console.Write("*");
+				}
+				else
+				{
+					if (key.Key == ConsoleKey.Backspace && pass.Length > 0)
+					{
+						pass = pass.Substring(0, (pass.Length - 1));
+						Console.Write("\b \b");
+					}
+				}
+			}
+			// Stops Receving Keys Once Enter is Pressed
+			while (key.Key != ConsoleKey.Enter);
+
+			Console.WriteLine("\n");
+
+			return pass;
+		}
+
+		static void Main()
+		{	
+			string plgPass = ReadPassword();
+
 			// TODO: it will be good to use camelCase param names that is not the same as REST params,
 			// and convert these names to REST keys, e.g. input_writer -> inputWriterPath
             string configText = System.IO.File.ReadAllText("config.json");
@@ -88,11 +124,11 @@ namespace Scalarm
 					{"parameter2", 4.0}
                 };
 
-                experiment = scenario.CreateExperimentWithSinglePoint(point, experimentParams);
+                Experiment experiment = scenario.CreateExperimentWithSinglePoint(point, experimentParams);
 				
                 Console.WriteLine("Created experiment with ID: {0}", experiment.ExperimentId);
 
-                var jobs = experiment.ScheduleZeusJobs(1);
+                var jobs = experiment.ScheduleZeusJobs(1, "plgjliput", plgPass);
 
                 foreach (var j in jobs) {
                     Console.WriteLine("Scheduled: {0} {1}", j.Id, j.State);
