@@ -66,6 +66,31 @@ namespace Scalarm
             return ScheduleSimulationManagers("qsub", count, reqParams);
         }
 
+		public List<SimulationManager> SchedulePlGridJobs(int count, string plgridLogin, string plgridPassword, string keyPassphrase) {
+			return SchedulePlGridJobs(null, count, plgridLogin, plgridPassword, keyPassphrase);
+		}
+
+		public List<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPassword, string keyPassphrase)
+		{
+			var reqParams = new Dictionary<string, object> {
+				{"time_limit", "60"}
+			};
+
+			reqParams ["plgrid_host"] = (plgridCe != null ? plgridCe : PLGridCE.ZEUS);
+
+			if (plgridLogin != null) {
+				if (plgridPassword == null || keyPassphrase == null) {
+					new ArgumentNullException ("PL-Grid password and private key passphrase must not be null");
+				}
+				reqParams ["plgrid_login"] = plgridLogin;
+				reqParams ["plgrid_password"] = plgridPassword;
+				reqParams ["key_passphrase"] = keyPassphrase;
+				reqParams ["onsite_monitoring"] = true;
+			}
+
+			return ScheduleSimulationManagers("qcg", count, reqParams);
+		}
+
         public ExperimentStatistics GetStatistics()
         {
             return Client.GetExperimentStatistics(ExperimentId);

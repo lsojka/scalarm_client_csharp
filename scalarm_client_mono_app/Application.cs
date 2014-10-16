@@ -128,7 +128,8 @@ namespace Scalarm
 				
                 Console.WriteLine("Created experiment with ID: {0}", experiment.ExperimentId);
 
-                var jobs = experiment.ScheduleZeusJobs(1, "plgjliput", plgPass);
+                // var jobs = experiment.ScheduleZeusJobs(1, "plgjliput", plgPass);
+				var jobs = experiment.SchedulePlGridJobs(PLGridCE.HYDRA, 1, "plgjliput", plgPass, plgPass);
 
                 foreach (var j in jobs) {
                     Console.WriteLine("Scheduled: {0} {1}", j.Id, j.State);
