@@ -48,9 +48,9 @@ namespace Scalarm
         public SimulationScenario()
         {}
 
-        public Experiment CreateExperimentWithSinglePoint(ValuesMap point, Dictionary<string, object> experimentParams)
+        public Experiment CreateExperimentWithPoints(List<ValuesMap> points, Dictionary<string, object> experimentParams)
         {
-            var experiment = Client.CreateExperimentWithSinglePoint(Id, point, experimentParams);
+            var experiment = Client.CreateExperimentWithPoints(Id, points, experimentParams);
 			experiment.InputSpecification = this.InputSpecification;
 			return experiment;
         }

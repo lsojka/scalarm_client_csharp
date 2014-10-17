@@ -49,22 +49,44 @@ namespace Scalarm
 
         public Experiment GetExperimentById(string experimentId)
         {
-            // TODO: fetch full info about experiment and deserialize
+			var request = new RestRequest("/experiments/{id}", Method.GET);
+			request.AddUrlSegment("id", experimentId);
 
-            Experiment experiment = new Experiment(experimentId, this);
+			var response = this.Execute<ResourceEnvelope<Experiment>>(request);
 
-            // TODO!
-            return null;
+			if (response.ResponseStatus != ResponseStatus.Completed) {
+				throw new InvalidResponseStatusException(response);
+			} else if (response.StatusCode != HttpStatusCode.OK) {
+				throw new InvalidHttpStatusCodeException(response);
+			}
+
+			var resource = response.Data;
+
+			if (resource.Status == "ok") {
+				Experiment experiment = resource.Data;
+				experiment.Client = this;
+				return experiment;
+			} else if (resource.Status == "error") {
+				throw new ScalarmResourceException<Experiment>(resource);
+			} else {
+				throw new InvalidResponseException(response);
+			}
         }
 
         // TODO: handle wrong scenario id
-        public Experiment CreateExperimentWithSinglePoint(
+        public Experiment CreateExperimentWithPoints(
             string simulationScenarioId,
-            ValuesMap point,
+            List<ValuesMap> points,
             Dictionary<string, object> additionalParameters = null
             )
         {
-            string csv = String.Join(",", point.Keys) + "\n" + string.Join(",", point.Values);
+			// assuming, that all point objects have the same keys
+			var pointsKeys = points[0].Keys;
+
+			string csv = String.Join(",", pointsKeys) + "\n";
+			foreach (var point in points) {
+				csv += string.Join(",", point.Values) + "\n";
+			}
 
             var request = new RestRequest("experiments/start_import_based_experiment", Method.POST);
             // Add user additional parameters
@@ -72,7 +94,7 @@ namespace Scalarm
                 foreach (var p in additionalParameters) request.AddParameter(p.Key, p.Value);
             }
             // Create special usage-parameters for used experiment parameters
-            foreach (var expParamName in point.Keys) request.AddParameter("param_" + expParamName, 1);
+			foreach (var expParamName in pointsKeys) request.AddParameter("param_" + expParamName, 1);
             // Add CSV file
             request.AddParameter("parameter_space_file", csv);
             request.AddParameter("simulation_id", simulationScenarioId);

@@ -12,22 +12,22 @@ namespace Scalarm
 	{	
 		private static bool shouldWait = true;
 
-		static void ShowResults(object sender, Experiment exp)
+		static void ShowResults(object sender, IList<SimulationParams> results)
 		{
 			Console.WriteLine("Experiment done!");
 
 			// TODO: consider sending Results object (sender is Experiment)
 
-			var result = exp.GetSingleResult(point);
-			var productResult = result["product"];
-
-			Console.WriteLine("Result for single point: " + productResult);
+			Console.WriteLine("Results:");
+			foreach (var r in results) {
+				Console.WriteLine(string.Format("{0} -> {1}", r.Input, r.Output));
+			}
 
 			shouldWait = false;
 		}
 
 		//private static Experiment experiment;
-		private static ValuesMap point;
+		private static List<ValuesMap> points = new List<ValuesMap>();
 
 		public static string ReadPassword()
 		{
@@ -66,8 +66,6 @@ namespace Scalarm
 		{	
 			string plgPass = ReadPassword();
 
-			// TODO: it will be good to use camelCase param names that is not the same as REST params,
-			// and convert these names to REST keys, e.g. input_writer -> inputWriterPath
             string configText = System.IO.File.ReadAllText("config.json");
             var config = JsonConvert.DeserializeAnonymousType(configText, new {base_url = "", login = "", password = ""});
 			
@@ -95,52 +93,86 @@ namespace Scalarm
 			try {
 				// TODO: below method with executor id instead of path overload
 
-                var simulationParameters = new List<ExperimentInput.Parameter>() {
-                    new Parameter("parameter1", "Param 1") {
-                        ParametrizationType = ExperimentInput.ParametrizationType.RANGE,
-                        Type = ExperimentInput.Type.FLOAT,
-                        Min = 0, Max = 1000
-                    },
-					new Parameter("parameter2", "Param 2") {
-						ParametrizationType = ExperimentInput.ParametrizationType.RANGE,
-						Type = ExperimentInput.Type.FLOAT,
-						Min = -100, Max = 100
-					}
-                };
+				// define input parameters specification
+//                var simulationParameters = new List<ExperimentInput.Parameter>() {
+//                    new Parameter("parameter1", "Param 1") {
+//                        ParametrizationType = ExperimentInput.ParametrizationType.RANGE,
+//                        Type = ExperimentInput.Type.FLOAT,
+//                        Min = 0, Max = 1000
+//                    },
+//					new Parameter("parameter2", "Param 2") {
+//						ParametrizationType = ExperimentInput.ParametrizationType.RANGE,
+//						Type = ExperimentInput.Type.FLOAT,
+//						Min = -100, Max = 100
+//					}
+//                };
 
-				SimulationScenario scenario = client.RegisterSimulationScenario(
-					simulationName, simulationBinariesPath, simulationParameters, executorPath, scenarioParams);
+				// create new scenario based on parameters specification
+//				SimulationScenario scenario = client.RegisterSimulationScenario(
+//					simulationName, simulationBinariesPath, simulationParameters, executorPath, scenarioParams);
 				
                 // Get existing scenario object
 				// SimulationScenario scenario = client.GetScenarioById("54293cce20a6f123c5000038");
 				
-                Console.WriteLine("Got scenario with name: {0}, created at: {1}", scenario.Name, scenario.CreatedAt);
+//                Console.WriteLine("Got scenario with name: {0}, created at: {1}", scenario.Name, scenario.CreatedAt);
 
-				// TODO: internally, get scenario input and mix with experiment-specific
-				//Experiment experiment = scenario.CreateExperiment(experimentInput, experimentParams);
+				// define few point of parameter space
+//                points = new List<ValuesMap>() {
+//					new ValuesMap() {
+//	                    {"parameter1", 3.0},
+//						{"parameter2", 4.0}
+//					},
+//					new ValuesMap() {
+//						{"parameter1", 5.0},
+//						{"parameter2", 7.0}
+//					},
+//					new ValuesMap() {
+//						{"parameter1", 2.0},
+//						{"parameter2", 9.0}
+//					},
+//					new ValuesMap() {
+//						{"parameter1", 12.0},
+//						{"parameter2", 2.0}
+//					}
+//				};
 
-                point = new ValuesMap() {
-                    {"parameter1", 3.0},
-					{"parameter2", 4.0}
-                };
+				// create new experiment based on scenario
+//                Experiment experiment = scenario.CreateExperimentWithPoints(points, experimentParams);
 
-                Experiment experiment = scenario.CreateExperimentWithSinglePoint(point, experimentParams);
-				
-                Console.WriteLine("Created experiment with ID: {0}", experiment.ExperimentId);
+				// get existing experiment
+				Experiment experiment = client.GetExperimentById("5440526220a6f11a97000151");
 
-                // var jobs = experiment.ScheduleZeusJobs(1, "plgjliput", plgPass);
-				var jobs = experiment.SchedulePlGridJobs(PLGridCE.HYDRA, 1, "plgjliput", plgPass, plgPass);
+                Console.WriteLine("Got experiment with ID: {0}", experiment.Id);
+
+				// -- workers scheduling --
+				/*
+				 * 
+				// will contain list of worker objects
+				var jobs = new List<SimulationManager>();
+
+				// schedule directly on Zeus PBS (preferred for Zeus)
+				jobs.AddRange(experiment.ScheduleZeusJobs(1, "plgjliput", plgPass));
+
+				// schedule on several PL-Grid Computin Engines using QosCosGrid
+				var ces = new List<string> {PLGridCE.NOVA, PLGridCE.REEF};
+				foreach (string ce in ces) {
+					jobs.AddRange(experiment.SchedulePlGridJobs(ce, 1, "plgjliput", plgPass, plgPass));
+				}
 
                 foreach (var j in jobs) {
                     Console.WriteLine("Scheduled: {0} {1}", j.Id, j.State);
                 }
+				*/
 
+				// Blocking method
                 // experiment.WaitForDone();
 
+				// using event to wait for experiment completion
 				experiment.ExperimentCompleted += ShowResults;
 				experiment.WatchingIntervalSecs = 3;
 				experiment.StartWatching();
 
+				// idle loop... remove if using WaitForDone!
 				while (shouldWait) {
 					Console.WriteLine("DEBUG: waiting...");
 					Thread.Sleep(1000);

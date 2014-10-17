@@ -7,10 +7,11 @@ using System.Threading;
 using System.Linq;
 using System.Collections;
 using System.ComponentModel;
+using RestSharp.Deserializers;
 
 namespace Scalarm
 {	
-	public delegate void ExperimentCompletedEventHandler(object sender, Experiment exp);
+	public delegate void ExperimentCompletedEventHandler(object sender, IList<SimulationParams> results);
 
 	public class Experiment : ScalarmObject
 	{
@@ -26,26 +27,77 @@ namespace Scalarm
 			}
 		}
 
+		public Dictionary<ValuesMap, ValuesMap> SimulationParamsMap { get; private set; }
+
+		// TODO support for parameter constraints
+
         // TODO: make full experiment model
+		#region model
 
-        public string ExperimentId {get; private set;}
+		[DeserializeAs(Name = "_id")]
+        public string Id {get; private set;}
 
-		// TODO: it should be retrieved with experiment data from controller
+		[DeserializeAs(Name = "name")]
+		public string Name {get; private set;}
+
+		[DeserializeAs(Name = "description")]
+		public string Description {get; private set;}
+
+		[DeserializeAs(Name = "simulation_id")]
+		public string SimulationId {get; private set;}
+
+		[DeserializeAs(Name = "is_running")]
+		public bool IsRunning {get; private set;}
+
+		[DeserializeAs(Name = "replication_level")]
+		public int ReplicationLevel {get; private set;}
+
+		[DeserializeAs(Name = "time_constraint_in_sec")]
+		public int TimeConstraintSec {get; private set;}
+
+		[DeserializeAs(Name = "start_at")]
+		public DateTime StartAt {get; private set;}
+
+		[DeserializeAs(Name = "user_id")]
+		public string UserId {get; private set;}
+
+		[DeserializeAs(Name = "scheduling_policy")]
+		public string SchedulingPolicy {get; private set;}
+
+		[DeserializeAs(Name = "experiment_input")]
 		public List<Category> InputSpecification { get; set; }
+
+		[DeserializeAs(Name = "size")]
+		public int Size {get; private set;}
+
+		#endregion
+
+		public Experiment()
+		{
+			SimulationParamsMap = new Dictionary<ValuesMap, ValuesMap>();
+		}
 
         public Experiment(string experimentId, Client client) : base(client)
         {
-            ExperimentId = experimentId;
+            Id = experimentId;
+			SimulationParamsMap = new Dictionary<ValuesMap, ValuesMap>();
         }
+
+		public void CreateParamsMap(List<ValuesMap> parameters)
+		{
+			foreach (var p in parameters) {
+				SimulationParamsMap.Add(p, null);
+			}
+		}
 
 		protected void OnExperimentCompleted(EventArgs e)
 		{
 			// TODO not this this
-			if (ExperimentCompleted != null) ExperimentCompleted(this, this);
+			if (ExperimentCompleted != null) ExperimentCompleted(this, GetResults());
 		}
 
         public List<SimulationManager> ScheduleSimulationManagers(string infrastructure, int count, Dictionary<string, object> parameters) {
-            return Client.ScheduleSimulationManagers(ExperimentId, infrastructure, count, parameters);
+            return Client.ScheduleSimulationManagers(Id, infrastructure, count, parameters);
         }
 
         public List<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridPassword)
@@ -93,7 +145,7 @@ namespace Scalarm
 
         public ExperimentStatistics GetStatistics()
         {
-            return Client.GetExperimentStatistics(ExperimentId);
+            return Client.GetExperimentStatistics(Id);
         }
 
         public bool IsDone()
@@ -174,12 +226,17 @@ namespace Scalarm
 		//  Gets results in form od Dictionary: input parameters -> MoEs
 		//  Input parameters and MoEs are in form of dictionaries: id -> value; both keys and values are string!
 		// </summary>
-		public IDictionary<ValuesMap, ValuesMap> GetResults()
+		public IList<SimulationParams> GetResults()
 		{
-			var results = Client.GetExperimentResults(ExperimentId);
-			var parametersIds = InputDefinition.ParametersIdsForCategories(InputSpecification);
+			// TODO: iterate all this experiment's SimulationParams and fill results to outputs
 
-			return SplitParametersAndResults(ConvertTypes(results), parametersIds);
+			IList<ValuesMap> results = Client.GetExperimentResults(Id);
+			IList<string> parametersIds = InputDefinition.ParametersIdsForCategories(InputSpecification);
+
+			FillSimulationParamsMap(ConvertTypes(results), parametersIds);
+
+			// cast to SimulationParam (list)
+			return SimulationParamsMap.ToList().Select(p => (SimulationParams)p).ToList();
 		}
 
 		// TODO: can modify results, use with caution
@@ -200,10 +257,8 @@ namespace Scalarm
 			return convertedResults;
 		}
 
-		public static IDictionary<ValuesMap, ValuesMap> SplitParametersAndResults(IList<ValuesMap> results, IList<string> parametersIds)
+		public void FillSimulationParamsMap(IList<ValuesMap> results, IList<string> parametersIds)
 		{
-			var finalDict = new Dictionary<ValuesMap, ValuesMap>();
-
 			foreach (var result in results) {
 				var resultDict = result.ShallowCopy();
 
@@ -215,18 +270,21 @@ namespace Scalarm
 						resultDict.Remove(id);
 					}
 				}
-				finalDict.Add(paramsDict, resultDict);
+
+				if (SimulationParamsMap.ContainsKey(paramsDict)) {
+					SimulationParamsMap [paramsDict] = resultDict;
+				} else {
+					SimulationParamsMap.Add(paramsDict, resultDict);
+				}
 			}
-
-			return finalDict;
 		}
 
-		// TODO: this should be method for "Results" object?
-		public ValuesMap GetSingleResult(ValuesMap point)
-		{
-			var results = GetResults();
-			return results[point];
-		}
+//		// TODO: this should be method for "Results" object?
+//		public ValuesMap GetSingleResult(ValuesMap point)
+//		{
+//			var results = GetResults();
+//			return results[point];
+//		}
 	}
 
 }
