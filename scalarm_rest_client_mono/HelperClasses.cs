@@ -32,5 +32,13 @@ namespace Scalarm
         public string status {get; set;}
         public SimulationManager record {get; set;}
     }
+
+	public class AddCredentialsResult
+	{
+		public string status { get; set; }
+		public string record_id { get; set; }
+		public string msg { get; set; }
+		public string error_code { get; set; }
+	}
 }
 

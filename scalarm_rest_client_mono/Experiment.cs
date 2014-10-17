@@ -31,7 +31,6 @@ namespace Scalarm
 
 		// TODO support for parameter constraints
 
-        // TODO: make full experiment model
 		#region model
 
 		[DeserializeAs(Name = "_id")]

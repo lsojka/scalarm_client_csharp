@@ -28,11 +28,7 @@ namespace Scalarm
 
             var response = this.Execute<ResourceEnvelope<SimulationScenario>>(request);
 
-            if (response.ResponseStatus != ResponseStatus.Completed) {
-                throw new InvalidResponseStatusException(response);
-            } else if (response.StatusCode != HttpStatusCode.OK) {
-                throw new InvalidHttpStatusCodeException(response);
-            }
+			ValidateResponseStatus(response);
 
             var resource = response.Data;
 
@@ -54,11 +50,7 @@ namespace Scalarm
 
 			var response = this.Execute<ResourceEnvelope<Experiment>>(request);
 
-			if (response.ResponseStatus != ResponseStatus.Completed) {
-				throw new InvalidResponseStatusException(response);
-			} else if (response.StatusCode != HttpStatusCode.OK) {
-				throw new InvalidHttpStatusCodeException(response);
-			}
+			ValidateResponseStatus(response);
 
 			var resource = response.Data;
 
@@ -347,6 +339,73 @@ namespace Scalarm
 			}
 
 			return recordsList;
+		}
+
+		public IList<T> GetInfrastructureCredentials<T>(string infrastructureName, Dictionary<string, object> queryParams = null)
+			where T : InfrastructureCredentials
+		{
+			var request = new RestRequest("/infrastructure/get_infrastructure_credentials", Method.POST);
+			request.AddParameter("infrastructure_name", infrastructureName);
+			if (queryParams != null) {
+				foreach (var p in queryParams) {
+					request.AddParameter(p.Key, p.Value);
+				}
+			}
+
+			var response = this.Execute<ResourceEnvelope<List<T>>>(request);
+
+			ValidateResponseStatus(response);
+
+			var resource = response.Data;
+
+			if (resource.Status == "ok") {
+				List<T> credentialsList = resource.Data;
+				foreach (T c in credentialsList) {
+					c.Client = this;
+				}
+				return credentialsList;
+			} else {
+				throw new InvalidResponseException(response);
+			}
+
+		}
+
+		public T AddInfrastructureCredentials<T>(string infrastructureName, Dictionary<string, object> additionalParams = null)
+			where T : InfrastructureCredentials
+		{
+			var request = new RestRequest("/infrastructure/add_infrastructure_credentials", Method.POST);
+			request.AddParameter("infrastructure_name", infrastructureName);
+			if (additionalParams != null) {
+				foreach (var p in additionalParams) {
+					request.AddParameter(p.Key, p.Value);
+				}
+			}
+
+			var response = this.Execute<AddCredentialsResult>(request);
+
+			ValidateResponseStatus(response);
+
+			var resource = response.Data;
+
+			if (resource.status == "ok") {
+				return GetInfrastructureCredentials<T>(infrastructureName, new Dictionary<string, object> () {
+					{"id", resource.record_id}
+				}) [0];
+			} else if (resource.status == "error" && resource.error_code == "invalid") {
+				throw new CredentialsValidationException(resource.record_id);
+			} else {
+				throw new InvalidResponseException(response);
+			}
+		}
+
+		public PrivateMachineCredentials AddPrivateMachineCredentials(string host, string login, string password, int port=22)
+		{
+			return AddInfrastructureCredentials<PrivateMachineCredentials>("private_machine", new Dictionary<string, object> () {
+				{"host", host},
+				{"login", login},
+				{"secret_password", password},
+				{"port", port},
+			});
 		}
     }
 

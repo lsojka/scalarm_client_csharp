@@ -91,6 +91,13 @@ namespace Scalarm
 			};
 
 			try {
+				// Add private machine credentials
+				var creds = client.AddPrivateMachineCredentials("localhost", "user1", "pass");
+
+				Console.WriteLine("added");
+
+				throw new Exception("aa");
+
 				// TODO: below method with executor id instead of path overload
 
 				// define input parameters specification
