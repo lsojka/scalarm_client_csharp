@@ -62,6 +62,13 @@ namespace Scalarm
 			return pass;
 		}
 
+		static private Random RAND = new Random((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
+
+		static public int GetRandomNumber(int n)
+		{
+			return RAND.Next(n);
+		}
+
 		static void Main()
 		{	
 			string plgPass = ReadPassword();
@@ -70,8 +77,8 @@ namespace Scalarm
             var config = JsonConvert.DeserializeAnonymousType(configText, new {base_url = "", login = "", password = ""});
 			
 			var client = new Client(config.base_url, config.login, config.password);
-			
-            var randomNum = new Random((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).Next(1000);
+
+			var randomNum = GetRandomNumber(1000);
 
             var simulationName = String.Format("New simulation {0}", randomNum);
             var baseScenarioPath = "/home/kliput/Programowanie/scalarm/inne/moja-symulacja-double/";
@@ -91,13 +98,6 @@ namespace Scalarm
 			};
 
 			try {
-				// Add private machine credentials
-				var creds = client.AddPrivateMachineCredentials("localhost", "user1", "pass");
-
-				Console.WriteLine("added");
-
-				throw new Exception("aa");
-
 				// TODO: below method with executor id instead of path overload
 
 				// define input parameters specification
@@ -119,8 +119,8 @@ namespace Scalarm
 //					simulationName, simulationBinariesPath, simulationParameters, executorPath, scenarioParams);
 				
                 // Get existing scenario object
-				// SimulationScenario scenario = client.GetScenarioById("54293cce20a6f123c5000038");
-				
+				SimulationScenario scenario = client.GetScenarioById("5440526220a6f11a9700014f");
+
 //                Console.WriteLine("Got scenario with name: {0}, created at: {1}", scenario.Name, scenario.CreatedAt);
 
 				// define few point of parameter space
@@ -143,20 +143,28 @@ namespace Scalarm
 //					}
 //				};
 
+				// define more point of parameter space
+				points = new List<ValuesMap>();
+				for (int i=0; i<1000; ++i) {
+					points.Add(new ValuesMap() {
+						{"parameter1", (float) GetRandomNumber(1000)},
+						{"parameter2", (float) GetRandomNumber(1000)}
+					});
+				}
+
 				// create new experiment based on scenario
-//                Experiment experiment = scenario.CreateExperimentWithPoints(points, experimentParams);
+                Experiment experiment = scenario.CreateExperimentWithPoints(points, experimentParams);
 
 				// get existing experiment
-				Experiment experiment = client.GetExperimentById("5440526220a6f11a97000151");
+				// Experiment experiment = client.GetExperimentById("5440526220a6f11a97000151");
 
                 Console.WriteLine("Got experiment with ID: {0}", experiment.Id);
 
-				// -- workers scheduling --
-				/*
-				 * 
 				// will contain list of worker objects
 				var jobs = new List<SimulationManager>();
 
+				// -- workers scheduling on PL-Grid --
+				/*
 				// schedule directly on Zeus PBS (preferred for Zeus)
 				jobs.AddRange(experiment.ScheduleZeusJobs(1, "plgjliput", plgPass));
 
@@ -170,6 +178,16 @@ namespace Scalarm
                     Console.WriteLine("Scheduled: {0} {1}", j.Id, j.State);
                 }
 				*/
+
+				// -- workers scheduling on servers --
+
+				// Add private machine credentials
+				//var creds = client.AddPrivateMachineCredentials("localhost", "user1", "pass");
+
+				// Find previously registered private machine credentials
+				var serverCredsList = client.GetPrivateMachineCredentials("localhost", "testowy");
+
+				jobs.AddRange(experiment.SchedulePrivateMachineJobs(2, serverCredsList[0]));
 
 				// Blocking method
                 // experiment.WaitForDone();

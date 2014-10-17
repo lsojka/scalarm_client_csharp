@@ -117,6 +117,26 @@ namespace Scalarm
             return ScheduleSimulationManagers("qsub", count, reqParams);
         }
 
+		public List<SimulationManager> SchedulePrivateMachineJobs(int count, PrivateMachineCredentials credentials)
+		{
+			var reqParams = new Dictionary<string, object> {
+				{"time_limit", "60"},
+				{"credentials_id", credentials.Id}
+			};
+
+			return ScheduleSimulationManagers("private_machine", count, reqParams);
+		}
+
+		public List<SimulationManager> SchedulePrivateMachineJobs(int count, string credentialsId)
+		{
+			var reqParams = new Dictionary<string, object> {
+				{"time_limit", "60"},
+				{"credentials_id", credentialsId}
+			};
+
+			return ScheduleSimulationManagers("private_machine", count, reqParams);
+		}
+
 		public List<SimulationManager> SchedulePlGridJobs(int count, string plgridLogin, string plgridPassword, string keyPassphrase) {
 			return SchedulePlGridJobs(null, count, plgridLogin, plgridPassword, keyPassphrase);
 		}

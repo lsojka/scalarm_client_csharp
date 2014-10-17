@@ -344,8 +344,8 @@ namespace Scalarm
 		public IList<T> GetInfrastructureCredentials<T>(string infrastructureName, Dictionary<string, object> queryParams = null)
 			where T : InfrastructureCredentials
 		{
-			var request = new RestRequest("/infrastructure/get_infrastructure_credentials", Method.POST);
-			request.AddParameter("infrastructure_name", infrastructureName);
+			var request = new RestRequest("/infrastructure/get_infrastructure_credentials", Method.GET);
+			request.AddParameter("infrastructure", infrastructureName);
 			if (queryParams != null) {
 				foreach (var p in queryParams) {
 					request.AddParameter(p.Key, p.Value);
@@ -406,6 +406,27 @@ namespace Scalarm
 				{"secret_password", password},
 				{"port", port},
 			});
+		}
+
+		public IList<PrivateMachineCredentials> GetPrivateMachineCredentials(Dictionary<string, object> queryParams)
+		{
+			return GetInfrastructureCredentials<PrivateMachineCredentials>("private_machine", queryParams);
+		}
+
+		public IList<PrivateMachineCredentials> GetPrivateMachineCredentials(string host=null, string login=null, int port=-1)
+		{
+			var query = new Dictionary<string, object> ();
+
+			if (host != null)
+				query.Add("host", host);
+
+			if (login != null)
+				query.Add("login", login);
+
+			if (port > 0)
+				query.Add("port", port);
+
+			return GetPrivateMachineCredentials(query);
 		}
     }
 
