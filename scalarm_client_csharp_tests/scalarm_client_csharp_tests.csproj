@@ -33,11 +33,10 @@
     <Reference Include="nunit.framework">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=c7439020c8fedf87">
-      <Private>False</Private>
-      <Package>monodevelop</Package>
-    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientTest.cs" />
@@ -52,5 +51,8 @@
       <Project>{AC52A725-90C8-4742-AB35-C221297EE872}</Project>
       <Name>scalarm_client_csharp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
