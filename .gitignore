@@ -1,16 +1,12 @@
 scalarm_client_csharp.userprefs
 examples/
 packages/
-scalarm_client_csharp_app/scalarm_client_csharp_app.csproj
 scalarm_client_csharp_app/bin/
-scalarm_client_csharp_app/build.sh
 scalarm_client_csharp_app/config.json
 scalarm_client_csharp_app/obj/
-scalarm_client_csharp/scalarm_client_csharp.csproj
 scalarm_client_csharp/bin/
 scalarm_client_csharp/obj/
 scalarm_client_csharp/scalarm_client_csharp.pidb
-scalarm_client_csharp_tests/scalarm_client_csharp_tests.csproj
 scalarm_client_csharp_tests/bin/
 scalarm_client_csharp_tests/obj/
 scalarm_client_csharp_tests/scalarm_client_csharp_tests.pidb

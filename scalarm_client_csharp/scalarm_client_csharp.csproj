@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AC52A725-90C8-4742-AB35-C221297EE872}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Scalarm</RootNamespace>
+    <AssemblyName>Scalarm</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="ExperimentInput.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="Experiment.cs" />
+    <Compile Include="SimulationScenario.cs" />
+    <Compile Include="exceptions\InvalidHttpStatusCodeException.cs" />
+    <Compile Include="exceptions\InvalidResponseStatusException.cs" />
+    <Compile Include="exceptions\InvalidResponseException.cs" />
+    <Compile Include="exceptions\RegisterSimulationScenarioException.cs" />
+    <Compile Include="exceptions\ScalarmResourceException.cs" />
+    <Compile Include="JsonConvertDeserializer.cs" />
+    <Compile Include="ScalarmObject.cs" />
+    <Compile Include="ResourceEnvelope.cs" />
+    <Compile Include="HelperClasses.cs" />
+    <Compile Include="exceptions\CreateExperimentException.cs" />
+    <Compile Include="exceptions\CreateScenarioException.cs" />
+    <Compile Include="exceptions\ScheduleSimulationManagerException.cs" />
+    <Compile Include="SimulationManager.cs" />
+    <Compile Include="ExperimentStatistics.cs" />
+    <Compile Include="ValuesMap.cs" />
+    <Compile Include="PLGridCE.cs" />
+    <Compile Include="SimulationParams.cs" />
+    <Compile Include="InfrastructureCredentials.cs" />
+    <Compile Include="PrivateMachineCredentials.cs" />
+    <Compile Include="exceptions\CredentialsValidationException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Dynamic" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.ServiceModel.Routing" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.ServiceModel.Discovery" />
+    <Reference Include="System.IdentityModel.Selectors" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Runtime.DurableInstancing" />
+    <Reference Include="System.Web.Extensions.Design, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="exceptions\" />
+  </ItemGroup>
+</Project>

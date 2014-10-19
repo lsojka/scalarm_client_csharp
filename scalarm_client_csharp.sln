@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scalarm_client_csharp", "scalarm_rest_client_mono\scalarm_client_csharp.csproj", "{AC52A725-90C8-4742-AB35-C221297EE872}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scalarm_client_csharp", "scalarm_client_csharp\scalarm_client_csharp.csproj", "{AC52A725-90C8-4742-AB35-C221297EE872}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scalarm_client_csharp_app", "scalarm_client_mono_app\scalarm_client_csharp_app.csproj", "{132ECB36-90A9-4FE8-987D-9CDD6D5FE153}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "examples", "examples\examples.csproj", "{DFA73799-DDB1-4BBF-BCA9-1E7D1AAED109}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scalarm_client_csharp_app", "scalarm_client_csharp_app\scalarm_client_csharp_app.csproj", "{132ECB36-90A9-4FE8-987D-9CDD6D5FE153}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scalarm_client_csharp_tests", "scalarm_client_csharp_tests\scalarm_client_csharp_tests.csproj", "{0411FD69-46F7-4B36-BF3F-81BBA9353A33}"
 EndProject
