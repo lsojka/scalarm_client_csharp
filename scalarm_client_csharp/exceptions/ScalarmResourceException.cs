@@ -1,7 +1,6 @@
 using System;
 using System.Net;
 using System.Collections.Generic;
-using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using RestSharp;
 
