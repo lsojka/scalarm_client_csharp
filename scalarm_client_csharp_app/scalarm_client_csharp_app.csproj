@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -33,6 +33,8 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="Application.cs" />
+    <Compile Include="ExampleFullRegister.cs" />
+    <Compile Include="ExampleMisc.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\scalarm_client_csharp\scalarm_client_csharp.csproj">
@@ -50,7 +52,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="example_scenario\bin.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="example_scenario\executor.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="example_scenario\input_definition.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
-    <None Include="config.json.example" />
+    <None Include="config.json.example">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+  <ItemGroup />
 </Project>
