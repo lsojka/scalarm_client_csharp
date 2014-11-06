@@ -24,7 +24,9 @@ namespace Scalarm
 
 			Assert.AreEqual(3, results.Count);
 
-			Assert.AreEqual(new Dictionary<string, string>() {
+            Console.WriteLine(results[0]);
+
+			Assert.AreEqual(new ValuesMap() {
 				{"param1", "1"},
 				{"param2", "2"},
 				{"moe1", "3"},
@@ -33,7 +35,7 @@ namespace Scalarm
 			                results [0]
 			);
 
-			Assert.AreEqual(new Dictionary<string, string>() {
+			Assert.AreEqual(new ValuesMap() {
 				{"param1", "5"},
 				{"param2", "6"},
 				{"moe1", "7"},

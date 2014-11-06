@@ -266,10 +266,13 @@ namespace Scalarm
 			}
 
 			foreach (var record in convertedResults) {
-				foreach (var singleResult in record) {
-					// TODO: check with string values - probably there will bo problem with deserializing because lack of ""
-					record [singleResult.Key] = JsonConvert.DeserializeObject(singleResult.Value.ToString());
-				}
+                // http://stackoverflow.com/a/18288740/1367361
+                List<string> keys = new List<string>(record.Keys);
+                foreach (string key in keys)
+                {
+                    // TODO: check with string values - probably there will bo problem with deserializing because lack of ""
+                    record[key] = JsonConvert.DeserializeObject(record[key].ToString());
+                }
 			}
 
 			return convertedResults;

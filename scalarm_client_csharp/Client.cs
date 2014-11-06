@@ -314,7 +314,7 @@ namespace Scalarm
 
 		public static IList<ValuesMap> ParseExperimentsConfigurationsCsv(string responseCsv)
 		{
-			string[] lines = responseCsv.Split('\n');
+            string[] lines = responseCsv.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
 
 			string[] headers = lines[0].Split(',');
 
