@@ -15,7 +15,7 @@ namespace Scalarm
 		public static void ShowResults(object sender, IList<SimulationParams> results)
 		{
             Experiment experiment = sender as Experiment;
-            Console.WriteLine(string.Format("Experiment with id {0} done! Results:"), experiment.Id);
+			Console.WriteLine(string.Format("Experiment with id {0} done! Results:", experiment.Id));
 			foreach (var r in results) {
 				Console.WriteLine(string.Format("{0} -> {1}", r.Input, r.Output));
 			}

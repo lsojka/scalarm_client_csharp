@@ -18,9 +18,9 @@ namespace Scalarm
             var randomNum = Application.GetRandomNumber(1000);
 
             var simulationName = String.Format("New simulation {0}", randomNum);
-            var baseScenarioPath = "example_scenario\\";
+			var baseScenarioPath = "example_scenario";
 
-            Func<string, string> scenarioPath = p => string.Format("{0}\\{1}", baseScenarioPath, p);
+			Func<string, string> scenarioPath = p => string.Format("{0}{1}{2}", baseScenarioPath, Path.DirectorySeparatorChar, p);
             var simulationBinariesPath = scenarioPath("bin.zip");
             var executorPath = scenarioPath("executor.py");
 
