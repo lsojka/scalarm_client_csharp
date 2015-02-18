@@ -90,6 +90,9 @@ namespace Scalarm
             request.AddParameter("parameter_space_file", csv);
             request.AddParameter("simulation_id", simulationScenarioId);
 
+			// TODO: default replication level
+			request.AddParameter ("replication_level", 1);
+
             var response = this.Execute<ExperimentCreationResult>(request);
             return HandleExperimentCreationResponse(response);
         }
