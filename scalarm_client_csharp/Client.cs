@@ -11,6 +11,7 @@ namespace Scalarm
 	{
 		public Client(string baseUrl, string login, string password)
 		{
+			// TODO: certificate check by default, optional insecure
 			ServicePointManager.ServerCertificateValidationCallback +=
         		(sender, certificate, chain, sslPolicyErrors) => true;
 			
