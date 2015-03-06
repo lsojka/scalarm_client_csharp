@@ -98,18 +98,18 @@ namespace Scalarm
             return Client.ScheduleSimulationManagers(Id, infrastructure, count, parameters);
         }
 
-        public List<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridPassword)
+		public List<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridProxy, bool usePassword=true)
         {
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"}
 			};
 
-			if (plgridLogin != null) {
-				if (plgridPassword == null) {
-					new ArgumentNullException ("PL-Grid password must not be null");
+			if (plgridProxy != null) {
+				if (plgridProxy == null) {
+					new ArgumentNullException ("PL-Grid proxy or password must not be null");
 				}
 				reqParams ["plgrid_login"] = plgridLogin;
-				reqParams ["plgrid_password"] = plgridPassword;
+				reqParams [usePassword ? "plgrid_password" : "proxy"] = plgridProxy;
 				reqParams ["onsite_monitoring"] = true;
 			}
 
@@ -137,10 +137,14 @@ namespace Scalarm
 		}
 
 		public List<SimulationManager> SchedulePlGridJobs(int count, string plgridLogin, string plgridPassword, string keyPassphrase) {
-			return SchedulePlGridJobs(null, count, plgridLogin, plgridPassword, keyPassphrase);
+			return _schedulePlGridJobs(null, count, plgridLogin, plgridPassword, keyPassphrase, true);
 		}
 
-		public List<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPassword, string keyPassphrase)
+		public List<SimulationManager> SchedulePlGridJobs(int count, string plgridLogin, string plgridProxy) {
+			return _schedulePlGridJobs(null, count, plgridLogin, plgridProxy, null, false);
+		}
+
+		public List<SimulationManager> _schedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPasswordOrProxy, string keyPassphrase=null, bool usePassword=true)
 		{
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"}
@@ -149,12 +153,14 @@ namespace Scalarm
 			reqParams ["plgrid_host"] = (plgridCe != null ? plgridCe : PLGridCE.ZEUS);
 
 			if (plgridLogin != null) {
-				if (plgridPassword == null || keyPassphrase == null) {
+				if (usePassword && (plgridPasswordOrProxy == null || keyPassphrase == null)) {
 					new ArgumentNullException ("PL-Grid password and private key passphrase must not be null");
+					reqParams ["plgrid_password"] = plgridPasswordOrProxy;
+					reqParams ["key_passphrase"] = keyPassphrase;
+				} else {
+					reqParams ["proxy"] = plgridPasswordOrProxy;
 				}
 				reqParams ["plgrid_login"] = plgridLogin;
-				reqParams ["plgrid_password"] = plgridPassword;
-				reqParams ["key_passphrase"] = keyPassphrase;
 				reqParams ["onsite_monitoring"] = true;
 			}
 
