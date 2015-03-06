@@ -14,7 +14,7 @@ namespace Scalarm
 			ServicePointManager.ServerCertificateValidationCallback +=
         		(sender, certificate, chain, sslPolicyErrors) => true;
 			
-            this.BaseUrl = baseUrl;
+			this.BaseUrl = new Uri(baseUrl);
 			this.Authenticator = new HttpBasicAuthenticator(login, password);
             // Cannot use this because of bug in JSON.net for Mono!
             // this.AddHandler("application/json", new JsonConvertDeserializer());
