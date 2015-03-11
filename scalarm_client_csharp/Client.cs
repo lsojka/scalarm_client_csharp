@@ -7,16 +7,19 @@ using System.Linq;
 
 namespace Scalarm
 {	
-	public class Client : RestClient
+	public abstract class Client : RestClient
 	{
-		public Client(string baseUrl, string login, string password)
+		public static string PrepareStringForHeader(string value) {
+			return value.Replace ("\n", "\\r\\n");
+		}
+
+		public Client(string baseUrl)
 		{
 			// TODO: certificate check by default, optional insecure
 			ServicePointManager.ServerCertificateValidationCallback +=
         		(sender, certificate, chain, sslPolicyErrors) => true;
 			
 			this.BaseUrl = new Uri(baseUrl);
-			this.Authenticator = new HttpBasicAuthenticator(login, password);
             // Cannot use this because of bug in JSON.net for Mono!
             // this.AddHandler("application/json", new JsonConvertDeserializer());
 		}

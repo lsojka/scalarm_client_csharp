@@ -53,6 +53,18 @@ namespace Scalarm
 			results [2]
 			);
 		}
+
+		[Test]
+		public void PrepareStringForHeader()
+		{
+			var originalString = @"one
+two
+three
+";
+			var shouldBeString = "one\r\ntwo\r\nthree\r\n";
+
+			Assert.AreEqual (Client.PrepareStringForHeader(originalString), shouldBeString);
+		}
 	}
 }
 

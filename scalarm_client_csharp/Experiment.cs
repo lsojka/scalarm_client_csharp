@@ -98,23 +98,37 @@ namespace Scalarm
             return Client.ScheduleSimulationManagers(Id, infrastructure, count, parameters);
         }
 
-		public List<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridProxy, bool usePassword=true)
+		public List<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridPassword)
         {
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"}
 			};
 
-			if (plgridProxy != null) {
-				if (plgridProxy == null) {
-					new ArgumentNullException ("PL-Grid proxy or password must not be null");
-				}
-				reqParams ["plgrid_login"] = plgridLogin;
-				reqParams [usePassword ? "plgrid_password" : "proxy"] = plgridProxy;
-				reqParams ["onsite_monitoring"] = true;
+			if (plgridPassword == null) {
+				new ArgumentNullException ("PL-Grid password must not be null");
 			}
+			reqParams ["plgrid_login"] = plgridLogin;
+			reqParams ["plgrid_password"] = plgridPassword;
+			reqParams ["onsite_monitoring"] = true;
 
             return ScheduleSimulationManagers("qsub", count, reqParams);
         }
+
+		public List<SimulationManager> ScheduleZeusJobs(int count)
+		{
+			var reqParams = new Dictionary<string, object> {
+				{"time_limit", "60"}
+			};
+
+			// TODO: this is not true is user has credentials saved in Scalarm DB
+			if (!(Client is ProxyCertClient)) {
+				throw new Exception ("If not using ProxyCertClient, login and password should be used.");
+			}
+
+			reqParams ["onsite_monitoring"] = true;
+
+			return ScheduleSimulationManagers("qsub", count, reqParams);
+		}
 
 		public List<SimulationManager> SchedulePrivateMachineJobs(int count, PrivateMachineCredentials credentials)
 		{
@@ -136,15 +150,28 @@ namespace Scalarm
 			return ScheduleSimulationManagers("private_machine", count, reqParams);
 		}
 
-		public List<SimulationManager> SchedulePlGridJobs(int count, string plgridLogin, string plgridPassword, string keyPassphrase) {
-			return _schedulePlGridJobs(null, count, plgridLogin, plgridPassword, keyPassphrase, true);
+		public List<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPassword, string keyPassphrase)
+		{
+			return _schedulePlGridJobs(plgridCe, count, plgridLogin, plgridPassword, keyPassphrase);
 		}
 
-		public List<SimulationManager> SchedulePlGridJobs(int count, string plgridLogin, string plgridProxy) {
-			return _schedulePlGridJobs(null, count, plgridLogin, plgridProxy, null, false);
+		public List<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridProxy)
+		{
+			return _schedulePlGridJobs(plgridCe, count, plgridProxy);
 		}
 
-		public List<SimulationManager> _schedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPasswordOrProxy, string keyPassphrase=null, bool usePassword=true)
+		/// <summary>
+		///  Schedule jobs on PL-Grid for this experiment using proxy certificate held by associated Client.
+		///  Notice that this method can be used only with ProxyCertClient!
+		/// </summary>
+		/// <returns>The pl grid jobs.</returns>
+		/// <param name="count">How many jobs should be created (parallel computations).</param>
+		public List<SimulationManager> SchedulePlGridJobs(string plgridCe, int count)
+		{
+			return _schedulePlGridJobs (plgridCe, count, null);
+		}
+
+		protected List<SimulationManager> _schedulePlGridJobs(string plgridCe, int count, string plgridLoginOrProxy=null, string plgridPassword=null, string keyPassphrase=null)
 		{
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"}
@@ -152,17 +179,24 @@ namespace Scalarm
 
 			reqParams ["plgrid_host"] = (plgridCe != null ? plgridCe : PLGridCE.ZEUS);
 
-			if (plgridLogin != null) {
-				if (usePassword && (plgridPasswordOrProxy == null || keyPassphrase == null)) {
-					new ArgumentNullException ("PL-Grid password and private key passphrase must not be null");
-					reqParams ["plgrid_password"] = plgridPasswordOrProxy;
+			// job could be scheduled without login/password/key/proxy if client authenticates with proxy certificate
+			if (plgridLoginOrProxy != null) {
+				if (plgridPassword == null && keyPassphrase == null) {
+					new ArgumentNullException ("PL-Grid password and private key passphrase must not be null");	
+					reqParams ["plgrid_login"] = plgridLoginOrProxy;
+					reqParams ["plgrid_password"] = plgridPassword;
 					reqParams ["key_passphrase"] = keyPassphrase;
 				} else {
-					reqParams ["proxy"] = plgridPasswordOrProxy;
+					reqParams ["proxy"] = plgridLoginOrProxy;
 				}
-				reqParams ["plgrid_login"] = plgridLogin;
-				reqParams ["onsite_monitoring"] = true;
+			} else {
+				// TODO: this is not true is user has credentials saved in Scalarm DB
+				if (!(Client is ProxyCertClient)) {
+					throw new Exception ("If not using ProxyCertClient, login and password or explicit proxy should be used.");
+				}
 			}
+
+			reqParams ["onsite_monitoring"] = true;
 
 			return ScheduleSimulationManagers("qcg", count, reqParams);
 		}

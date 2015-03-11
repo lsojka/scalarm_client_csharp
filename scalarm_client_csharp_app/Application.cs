@@ -68,8 +68,13 @@ namespace Scalarm
         public static Client CreateClient(string configFile)
         {
             string configText = System.IO.File.ReadAllText("config.json");
-            var config = JsonConvert.DeserializeAnonymousType(configText, new { base_url = "", login = "", password = "" });
-            return new Client(config.base_url, config.login, config.password);
+            var config = JsonConvert.DeserializeAnonymousType(configText, new { base_url = "", login = "", password = "", proxy_path = "" });
+
+			if (String.IsNullOrEmpty (config.proxy_path)) {
+				return new BasicAuthClient (config.base_url, config.login, config.password);
+			} else {
+				return new ProxyCertClient (config.base_url, new FileStream (config.proxy_path, FileMode.Open));
+			}					
         }
 
 		static void Main()
