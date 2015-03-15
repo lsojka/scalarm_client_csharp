@@ -12,7 +12,7 @@ namespace Scalarm
     {
         public static void Run()
         {
-            string plgPass = Application.ReadPassword();
+//            string plgPass = Application.ReadPassword();
             var client = Application.CreateClient("config.json");
 
             var randomNum = Application.GetRandomNumber(1000);
@@ -102,12 +102,12 @@ namespace Scalarm
                 // TODO: parametrize!
 
                 // schedule directly on Zeus PBS (preferred for Zeus)
-                jobs.AddRange(experiment.ScheduleZeusJobs(1, "plgjliput", plgPass));
+                jobs.AddRange(experiment.ScheduleZeusJobs(1));
 
                 // schedule on several PL-Grid Computing Engines using QosCosGrid
                 var ces = new List<string> {PLGridCE.NOVA, PLGridCE.REEF};
                 foreach (string ce in ces) {
-                    jobs.AddRange(experiment.SchedulePlGridJobs(ce, 1, "plgjliput", plgPass, plgPass));
+                    jobs.AddRange(experiment.SchedulePlGridJobs(ce, 1));
                 }
 
                 foreach (var j in jobs) {

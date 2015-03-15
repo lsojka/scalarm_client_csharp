@@ -6,6 +6,8 @@ namespace Scalarm
 {
 	public class ProxyCertClient : Client
 	{
+		public const string PROXY_HEADER = "X-Proxy-Cert";
+
 		public ProxyCertClient (string baseUrl, string proxyCertificate) : base(baseUrl)
 		{
 			_addProxyHeader (proxyCertificate);
@@ -19,7 +21,7 @@ namespace Scalarm
 		}
 
 		private void _addProxyHeader(string proxyContent) {
-			this.AddDefaultHeader("X509_PROXY_CERT", PrepareStringForHeader(proxyContent));
+			this.AddDefaultHeader("X-Proxy-Cert", PrepareStringForHeader(proxyContent));
 		}
 	}
 }
