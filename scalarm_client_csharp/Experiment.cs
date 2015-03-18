@@ -150,14 +150,49 @@ namespace Scalarm
 			return ScheduleSimulationManagers("private_machine", count, reqParams);
 		}
 
+		/// <summary>
+		///  Schedule jobs on PL-Grid for this experiment using PL-Grid UI login, password and Grid Certificate passphrase.
+		/// </summary>
+		/// <returns>The pl grid jobs.</returns>
+		/// <param name="plgridCe">Target Computing Engine (cluster). Allowed values are stored in PLGridCE class. If null, "zeus.cyfronet.pl" is used.</param>
+		/// <param name="count">How many jobs should be created (parallel computations).</param>
 		public List<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPassword, string keyPassphrase)
 		{
-			return _schedulePlGridJobs(plgridCe, count, plgridLogin, plgridPassword, keyPassphrase);
+			var reqParams = DefaultQcgScheduleParams();
+
+			if (plgridCe != null) {
+				reqParams ["plgrid_host"] = plgridCe;
+			}
+
+			if (plgridLogin == null || plgridPassword == null || keyPassphrase == null) {
+				new ArgumentNullException ("PL-Grid login, password and keyPassphrase should be provided");
+			} else {
+				reqParams ["plgrid_login"] = plgridLogin;
+				reqParams ["plgrid_password"] = plgridPassword;
+				reqParams ["key_passphrase"] = keyPassphrase;
+			}
+
+			return ScheduleSimulationManagers("qcg", count, reqParams);
 		}
 
+		/// <summary>
+		///  Schedule jobs on PL-Grid for this experiment using externally loaded PL-Grid Proxy Certificate string.
+		/// NOTICE: if using ProxyCertClient, please use SchedulePlGridJobs(string plgridCe, int count) method!
+		/// </summary>
+		/// <returns>The pl grid jobs.</returns>
+		/// <param name="plgridCe">Target Computing Engine (cluster). Allowed values are stored in PLGridCE class. If null, "zeus.cyfronet.pl" is used.</param>
+		/// <param name="count">How many jobs should be created (parallel computations).</param>
 		public List<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridProxy)
 		{
-			return _schedulePlGridJobs(plgridCe, count, plgridProxy);
+			var reqParams = DefaultQcgScheduleParams();
+
+			if (plgridCe != null) {
+				reqParams ["plgrid_host"] = plgridCe;
+			}
+
+			reqParams ["proxy"] = plgridProxy;
+
+			return ScheduleSimulationManagers("qcg", count, reqParams);
 		}
 
 		/// <summary>
@@ -165,40 +200,30 @@ namespace Scalarm
 		///  Notice that this method can be used only with ProxyCertClient!
 		/// </summary>
 		/// <returns>The pl grid jobs.</returns>
+		/// <param name="plgridCe">Target Computing Engine (cluster). Allowed values are stored in PLGridCE class. If null, "zeus.cyfronet.pl" is used.</param>
 		/// <param name="count">How many jobs should be created (parallel computations).</param>
 		public List<SimulationManager> SchedulePlGridJobs(string plgridCe, int count)
 		{
-			return _schedulePlGridJobs (plgridCe, count, null);
-		}
-
-		protected List<SimulationManager> _schedulePlGridJobs(string plgridCe, int count, string plgridLoginOrProxy=null, string plgridPassword=null, string keyPassphrase=null)
-		{
-			var reqParams = new Dictionary<string, object> {
-				{"time_limit", "60"}
-			};
-
-			reqParams ["plgrid_host"] = (plgridCe != null ? plgridCe : PLGridCE.ZEUS);
-
-			// job could be scheduled without login/password/key/proxy if client authenticates with proxy certificate
-			if (plgridLoginOrProxy != null) {
-				if (plgridPassword == null && keyPassphrase == null) {
-					new ArgumentNullException ("PL-Grid password and private key passphrase must not be null");	
-					reqParams ["plgrid_login"] = plgridLoginOrProxy;
-					reqParams ["plgrid_password"] = plgridPassword;
-					reqParams ["key_passphrase"] = keyPassphrase;
-				} else {
-					reqParams ["proxy"] = plgridLoginOrProxy;
-				}
-			} else {
-				// TODO: this is not true is user has credentials saved in Scalarm DB
-				if (!(Client is ProxyCertClient)) {
-					throw new Exception ("If not using ProxyCertClient, login and password or explicit proxy should be used.");
-				}
+			if (!(Client is ProxyCertClient)) {
+				throw new Exception ("If not using ProxyCertClient, login and password or explicit proxy should be used.");
 			}
 
-			reqParams ["onsite_monitoring"] = true;
+			var reqParams = DefaultQcgScheduleParams();
+
+			if (plgridCe != null) {
+				reqParams ["plgrid_host"] = plgridCe;
+			}
 
 			return ScheduleSimulationManagers("qcg", count, reqParams);
+		}
+
+		protected Dictionary<string, object> DefaultQcgScheduleParams()
+		{
+			return new Dictionary<string, object> {
+				{"time_limit", "60"},
+				{"onsite_monitoring", true},
+				{"plgrid_host", PLGridCE.ZEUS}
+			};
 		}
 
         public ExperimentStatistics GetStatistics()

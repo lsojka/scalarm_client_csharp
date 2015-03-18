@@ -1,5 +1,7 @@
 {
 	"base_url": "https://system.scalarm.com",
 	"login": "my_login",
-	"password": "my_password"
+	"password": "my_password",
+	"_plgrid_login": "plguser",
+	"_proxy_path": "/home/user/proxy.pem"
 }

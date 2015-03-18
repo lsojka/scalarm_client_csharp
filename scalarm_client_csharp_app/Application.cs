@@ -23,12 +23,18 @@ namespace Scalarm
 			ShouldWait = false;
 		}
 
-		private static List<ValuesMap> points = new List<ValuesMap>();
+		// private static List<ValuesMap> points = new List<ValuesMap>();
 
-		public static string ReadPassword()
+		public static string ReadString(string prompt)
+		{
+			Console.Write(prompt + " ");
+			return Console.ReadLine();
+		}
+
+		public static string ReadPassword(string prompt)
 		{
 			string pass = "";
-			Console.Write("Enter your PL-Grid password: ");
+			Console.Write(prompt + " ");
 			ConsoleKeyInfo key;
 
 			do
@@ -65,11 +71,23 @@ namespace Scalarm
 			return RAND.Next(n);
 		}
 
-        public static Client CreateClient(string configFile)
-        {
-            string configText = System.IO.File.ReadAllText("config.json");
-            var config = JsonConvert.DeserializeAnonymousType(configText, new { base_url = "", login = "", password = "", proxy_path = "" });
+		public class ScalarmAppConfig
+		{
+			public string base_url = null;
+			public string login = null;
+			public string password = null;
+			public string plgrid_login = null;
+			public string proxy_path = null;
+		}
 
+		public static ScalarmAppConfig ReadConfig(string path)
+		{
+			string configText = System.IO.File.ReadAllText(path);
+			return JsonConvert.DeserializeObject<ScalarmAppConfig> (configText);
+		}
+
+        public static Client CreateClient(ScalarmAppConfig config)
+        {
 			if (String.IsNullOrEmpty (config.proxy_path)) {
 				return new BasicAuthClient (config.base_url, config.login, config.password);
 			} else {

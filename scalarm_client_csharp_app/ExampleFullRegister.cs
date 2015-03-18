@@ -12,8 +12,16 @@ namespace Scalarm
     {
         public static void Run()
         {
-//            string plgPass = Application.ReadPassword();
-            var client = Application.CreateClient("config.json");
+			var config = Application.ReadConfig ("config.json");
+            var client = Application.CreateClient(config);
+
+			var usingProxyClient = (client is ProxyCertClient);
+
+			string plgLogin = usingProxyClient ? "" : (String.IsNullOrEmpty(config.plgrid_login)
+			                                           ? Application.ReadString("Enter PL-Grid login:") : config.plgrid_login);
+
+			string plgPass = usingProxyClient ? "" : Application.ReadPassword("Enter PL-Grid UI password:");
+			string plgKeyPass = usingProxyClient ? "" : Application.ReadPassword("Enter PL-Grid Certificate password:");
 
             var randomNum = Application.GetRandomNumber(1000);
 
@@ -102,12 +110,21 @@ namespace Scalarm
                 // TODO: parametrize!
 
                 // schedule directly on Zeus PBS (preferred for Zeus)
-                jobs.AddRange(experiment.ScheduleZeusJobs(1));
+
+				if (usingProxyClient) {
+					jobs.AddRange(experiment.ScheduleZeusJobs(1));
+				} else {
+					jobs.AddRange(experiment.ScheduleZeusJobs(1, plgridLogin: plgLogin, plgridPassword: plgPass));
+				}
 
                 // schedule on several PL-Grid Computing Engines using QosCosGrid
                 var ces = new List<string> {PLGridCE.NOVA, PLGridCE.REEF};
                 foreach (string ce in ces) {
-                    jobs.AddRange(experiment.SchedulePlGridJobs(ce, 1));
+					if (usingProxyClient) {
+						jobs.AddRange(experiment.SchedulePlGridJobs(ce, 1));
+					} else {
+						jobs.AddRange(experiment.SchedulePlGridJobs(ce, 1, plgridLogin: plgLogin, plgridPassword: plgPass, keyPassphrase: plgKeyPass));
+					}
                 }
 
                 foreach (var j in jobs) {
@@ -122,7 +139,7 @@ namespace Scalarm
 
                 // using event to wait for experiment completion
                 experiment.ExperimentCompleted += Application.ShowResults;
-                experiment.WatchingIntervalSecs = 3;
+                experiment.WatchingIntervalSecs = 4;
                 experiment.StartWatching();
 
                 // idle loop... remove if using WaitForDone!
