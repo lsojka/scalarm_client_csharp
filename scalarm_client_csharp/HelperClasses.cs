@@ -40,5 +40,10 @@ namespace Scalarm
 		public string msg { get; set; }
 		public string error_code { get; set; }
 	}
+
+	public class SchedulePointResult
+	{
+		public string status { get; set; }
+	}
 }
 

@@ -68,6 +68,9 @@ namespace Scalarm
 		[DeserializeAs(Name = "size")]
 		public int Size {get; private set;}
 
+		[DeserializeAs(Name = "supervised")]
+		public bool IsSupervised {get; private set;}
+
 		#endregion
 
 		public Experiment()
