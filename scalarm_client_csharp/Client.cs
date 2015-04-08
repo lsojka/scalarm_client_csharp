@@ -214,7 +214,7 @@ namespace Scalarm
         }
 
         public List<SimulationManager> ScheduleSimulationManagers(
-            string experimentId, string infrastructureName, int jobCounter, Dictionary<string, object> additionalParams) {
+            string experimentId, string infrastructureName, int jobCounter, Dictionary<string, object> additionalParams = null) {
             
             var request = new RestRequest("infrastructure/schedule_simulation_managers", Method.POST);
             
@@ -272,6 +272,54 @@ namespace Scalarm
 
             return HandleGetSimulationManagerResult(response);
         }
+
+		/// <summary>
+		/// Gets all simulation managers objects.
+		/// </summary>
+		/// <param name="additionalParams">Optional params for request:
+		/// 	- string infrastructure - Get objects only for specified infrastructure name
+		/// 	- string experiment_id - Get objects only for experiment with specified ID
+		/// 	- IList<String> states - Get objects only in specified states, allowed: created, initializing, running, terminating, error
+		/// 	- IList<String> states_not - Get objects that are not in specified states, allowed: created, initializing, running, terminating, error
+		/// 	- bool onsite_monitoring - Get objects that are onsite_monitored (defatult: true)
+		/// </param>
+		/// <returns>List of SimulationManager objects.</returns>
+		/// <param name="additionalParams">Additional parameters.</param>
+		public IList<SimulationManager> GetAllSimulationManagers(IDictionary<String, Object> additionalParams)
+		{
+			var request = new RestRequest("/simulation_managers", Method.GET);
+
+			if (additionalParams != null) {
+				foreach (var entry in additionalParams) {
+					request.AddParameter(entry.Key, entry.Value);
+				}
+			}
+
+			string onsiteMonitored = (additionalParams.ContainsKey("onsite_monitoring") ? ((bool)additionalParams["onsite_monitoring"] ? "true" : "false") : "true");
+			request.AddParameter("onsite_monitoring", onsiteMonitored);
+
+			var response = this.Execute<SimulationManagersList>(request);
+
+			ValidateResponseStatus(response);
+
+			return HandleGetSimulationManagersResult(response);
+
+		}
+
+		private IList<SimulationManager> HandleGetSimulationManagersResult(IRestResponse<SimulationManagersList> response)
+		{
+			var data = response.Data;
+
+			if (data.status == "ok") {
+				List<SimulationManager> simulationManagers = data.sm_records;
+				foreach (SimulationManager sim in simulationManagers) {
+					sim.Client = this;
+				}
+				return simulationManagers;
+			} else {
+				throw new InvalidResponseException(response);
+			}
+		}
 
         private SimulationManager HandleGetSimulationManagerResult(IRestResponse<SimulationManagerResource> response)
         {

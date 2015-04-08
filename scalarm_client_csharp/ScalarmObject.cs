@@ -5,6 +5,8 @@ namespace Scalarm
     {
         public Scalarm.Client Client {get; set;}
 
+
+
         public ScalarmObject()
         {}
 

@@ -23,6 +23,14 @@ namespace Scalarm
 			ShouldWait = false;
 		}
 
+		public static void HandleNoResources(object sender)
+		{
+			Experiment experiment = sender as Experiment;
+			Console.WriteLine(string.Format("Experiment with id {0} has no resources!", experiment.Id));
+
+			ShouldWait = false;
+		}
+
 		// private static List<ValuesMap> points = new List<ValuesMap>();
 
 		public static string ReadString(string prompt)
@@ -78,6 +86,7 @@ namespace Scalarm
 			public string password = null;
 			public string plgrid_login = null;
 			public string proxy_path = null;
+			public string experiment_id = null;
 		}
 
 		public static ScalarmAppConfig ReadConfig(string path)
@@ -97,7 +106,7 @@ namespace Scalarm
 
 		static void Main()
 		{
-            ExampleFullRegister.Run();
+            ExampleSimple.Run();
 		}
 
 	}

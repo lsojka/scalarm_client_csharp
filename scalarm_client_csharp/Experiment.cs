@@ -11,10 +11,12 @@ using RestSharp.Deserializers;
 namespace Scalarm
 {	
 	public delegate void ExperimentCompletedEventHandler(object sender, IList<SimulationParams> results);
+	public delegate void NoResourcesEventHandler(object sender); // TODO: should got failed simulation managers list
 
 	public class Experiment : ScalarmObject
 	{
 		public event ExperimentCompletedEventHandler ExperimentCompleted;
+		public event NoResourcesEventHandler NoResources;
 
 		private int _watchingIntervalMillis = 5000;
 		public int WatchingIntervalSecs {
@@ -94,7 +96,12 @@ namespace Scalarm
 			if (ExperimentCompleted != null) ExperimentCompleted(this, GetResults());
 		}
 
-        public List<SimulationManager> ScheduleSimulationManagers(string infrastructure, int count, Dictionary<string, object> parameters) {
+		protected void OnNoResources(EventArgs e)
+		{
+			if (NoResources != null) NoResources(this); // TODO: should send failed SiM list
+		}
+
+        public List<SimulationManager> ScheduleSimulationManagers(string infrastructure, int count, Dictionary<string, object> parameters = null) {
             return Client.ScheduleSimulationManagers(Id, infrastructure, count, parameters);
         }
 
@@ -247,9 +254,11 @@ namespace Scalarm
             var startTime = DateTime.UtcNow;
 
             while (timeoutSecs <= 0 || (DateTime.UtcNow - startTime).TotalSeconds < timeoutSecs) {
-                if (IsDone()) {
-                    return;
-                }
+				if (IsDone()) {
+					return;
+				} else if (GetActiveSimulationManagers().Any()) {
+					throw new NoActiveSimulationManagersException();
+				}
                 Thread.Sleep(pollingIntervalSeconds*1000);
             }
             throw new TimeoutException();
@@ -285,6 +294,9 @@ namespace Scalarm
 
 			Console.WriteLine("Starting experiment watching thread");
 			while (!worker.CancellationPending && !IsDone()) {
+				if (!GetActiveSimulationManagers().Any()) {
+					throw new NoActiveSimulationManagersException();
+				}
 				Thread.Sleep(_watchingIntervalMillis);
 			}
 
@@ -298,6 +310,8 @@ namespace Scalarm
 			if (!e.Cancelled) {
 				if (e.Error == null) {
 					OnExperimentCompleted(EventArgs.Empty);
+				} else if (e.Error is NoActiveSimulationManagersException) {
+					OnNoResources(EventArgs.Empty);
 				} else {
 					throw e.Error;
 				}
@@ -363,6 +377,14 @@ namespace Scalarm
 					SimulationParamsMap.Add(paramsDict, resultDict);
 				}
 			}
+		}
+
+		public IList<SimulationManager> GetActiveSimulationManagers()
+		{
+			return Client.GetAllSimulationManagers(new Dictionary<string, object>() {
+				{"experiment_id", this.Id},
+				{"states_not", new List<string> {"error", "terminating"}}
+			});
 		}
 
 //		// TODO: this should be method for "Results" object?

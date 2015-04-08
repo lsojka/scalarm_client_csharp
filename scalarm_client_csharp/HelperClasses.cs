@@ -33,6 +33,12 @@ namespace Scalarm
         public SimulationManager record {get; set;}
     }
 
+	public class SimulationManagersList
+	{
+		public string status { get; set; }
+		public List<SimulationManager> sm_records { get; set; }
+	}
+
 	public class AddCredentialsResult
 	{
 		public string status { get; set; }

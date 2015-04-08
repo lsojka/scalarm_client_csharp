@@ -7,6 +7,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>scalarm_client_csharp_app</RootNamespace>
     <AssemblyName>scalarm_client_csharp_app</AssemblyName>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,6 +35,7 @@
     <Compile Include="Application.cs" />
     <Compile Include="ExampleFullRegister.cs" />
     <Compile Include="ExampleMisc.cs" />
+    <Compile Include="ExampleSimple.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\scalarm_client_csharp\scalarm_client_csharp.csproj">

@@ -3,5 +3,6 @@
 	"login": "my_login",
 	"password": "my_password",
 	"_plgrid_login": "plguser",
-	"_proxy_path": "/home/user/proxy.pem"
+	"_proxy_path": "/home/user/proxy.pem",
+	"experiment_id": ""
 }
