@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Scalarm
 {
@@ -10,6 +11,13 @@ namespace Scalarm
 		public ClientTest()
 		{
 		}
+
+		[Test]
+		public void Xca()
+		{
+			Assert.True("aa" is IEnumerable);
+		}
+
 
 		[Test]
 		public void ParseExperimentsConfigurationsCsv()

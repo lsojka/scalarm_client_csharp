@@ -101,11 +101,11 @@ namespace Scalarm
 			if (NoResources != null) NoResources(this); // TODO: should send failed SiM list
 		}
 
-        public List<SimulationManager> ScheduleSimulationManagers(string infrastructure, int count, Dictionary<string, object> parameters = null) {
+        public IList<SimulationManager> ScheduleSimulationManagers(string infrastructure, int count, IDictionary<string, object> parameters = null) {
             return Client.ScheduleSimulationManagers(Id, infrastructure, count, parameters);
         }
 
-		public List<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridPassword)
+		public IList<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridPassword)
         {
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"}
@@ -121,7 +121,7 @@ namespace Scalarm
             return ScheduleSimulationManagers("qsub", count, reqParams);
         }
 
-		public List<SimulationManager> ScheduleZeusJobs(int count)
+		public IList<SimulationManager> ScheduleZeusJobs(int count)
 		{
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"}
@@ -137,7 +137,7 @@ namespace Scalarm
 			return ScheduleSimulationManagers("qsub", count, reqParams);
 		}
 
-		public List<SimulationManager> SchedulePrivateMachineJobs(int count, PrivateMachineCredentials credentials)
+		public IList<SimulationManager> SchedulePrivateMachineJobs(int count, PrivateMachineCredentials credentials)
 		{
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"},
@@ -147,7 +147,7 @@ namespace Scalarm
 			return ScheduleSimulationManagers("private_machine", count, reqParams);
 		}
 
-		public List<SimulationManager> SchedulePrivateMachineJobs(int count, string credentialsId)
+		public IList<SimulationManager> SchedulePrivateMachineJobs(int count, string credentialsId)
 		{
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"},
@@ -163,7 +163,7 @@ namespace Scalarm
 		/// <returns>The pl grid jobs.</returns>
 		/// <param name="plgridCe">Target Computing Engine (cluster). Allowed values are stored in PLGridCE class. If null, "zeus.cyfronet.pl" is used.</param>
 		/// <param name="count">How many jobs should be created (parallel computations).</param>
-		public List<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPassword, string keyPassphrase)
+		public IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPassword, string keyPassphrase)
 		{
 			var reqParams = DefaultQcgScheduleParams();
 
@@ -189,7 +189,7 @@ namespace Scalarm
 		/// <returns>The pl grid jobs.</returns>
 		/// <param name="plgridCe">Target Computing Engine (cluster). Allowed values are stored in PLGridCE class. If null, "zeus.cyfronet.pl" is used.</param>
 		/// <param name="count">How many jobs should be created (parallel computations).</param>
-		public List<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridProxy)
+		public IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridProxy)
 		{
 			var reqParams = DefaultQcgScheduleParams();
 
@@ -209,7 +209,7 @@ namespace Scalarm
 		/// <returns>The pl grid jobs.</returns>
 		/// <param name="plgridCe">Target Computing Engine (cluster). Allowed values are stored in PLGridCE class. If null, "zeus.cyfronet.pl" is used.</param>
 		/// <param name="count">How many jobs should be created (parallel computations).</param>
-		public List<SimulationManager> SchedulePlGridJobs(string plgridCe, int count)
+		public IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count)
 		{
 			if (!(Client is ProxyCertClient)) {
 				throw new Exception ("If not using ProxyCertClient, login and password or explicit proxy should be used.");
@@ -224,7 +224,7 @@ namespace Scalarm
 			return ScheduleSimulationManagers("qcg", count, reqParams);
 		}
 
-		protected Dictionary<string, object> DefaultQcgScheduleParams()
+		protected IDictionary<string, object> DefaultQcgScheduleParams()
 		{
 			return new Dictionary<string, object> {
 				{"time_limit", "60"},
@@ -383,7 +383,7 @@ namespace Scalarm
 		{
 			return Client.GetAllSimulationManagers(new Dictionary<string, object>() {
 				{"experiment_id", this.Id},
-				{"states_not", new List<string> {"error", "terminating"}}
+				{"states_not", new string[] {"error", "terminating"}}
 			});
 		}
 

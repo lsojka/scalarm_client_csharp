@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Linq;
+using System.Collections;
 
 namespace Scalarm
 {	
@@ -84,10 +85,8 @@ namespace Scalarm
 			}
 
             var request = new RestRequest("experiments/start_import_based_experiment", Method.POST);
-            // Add user additional parameters
-            if (additionalParameters != null) {
-                foreach (var p in additionalParameters) request.AddParameter(p.Key, p.Value);
-            }
+			AddAdditionalParameters(request, additionalParameters);
+
             // Create special usage-parameters for used experiment parameters
 			foreach (var expParamName in pointsKeys) request.AddParameter("param_" + expParamName, 1);
             // Add CSV file
@@ -151,7 +150,7 @@ namespace Scalarm
                                                executorPath);
         }
 
-        private string _createInputDefinition(List<ExperimentInput.Parameter> simpleInputDefinition) {
+        private string _createInputDefinition(IList<ExperimentInput.Parameter> simpleInputDefinition) {
             var cats = new List<ExperimentInput.Category>() {
                 new ExperimentInput.Category(null, null) { Entities = new List<ExperimentInput.Entity>() {
                         new ExperimentInput.Entity(null, null) { Parameters = new List<ExperimentInput.Parameter>() }
@@ -213,8 +212,8 @@ namespace Scalarm
             }
         }
 
-        public List<SimulationManager> ScheduleSimulationManagers(
-            string experimentId, string infrastructureName, int jobCounter, Dictionary<string, object> additionalParams = null) {
+        public IList<SimulationManager> ScheduleSimulationManagers(
+            string experimentId, string infrastructureName, int jobCounter, IDictionary<string, object> additionalParams = null) {
             
             var request = new RestRequest("infrastructure/schedule_simulation_managers", Method.POST);
             
@@ -222,16 +221,12 @@ namespace Scalarm
             request.AddParameter("infrastructure_name", infrastructureName);
             request.AddParameter("job_counter", jobCounter);
         
-            if (additionalParams != null) {
-                foreach (var entry in additionalParams) {
-                  request.AddParameter(entry.Key, entry.Value);
-                }
-            }
+			AddAdditionalParameters(request, additionalParams);
             
             return HandleScheduleSimulationManagerResult(this.Execute<ScheduleSimulationManagersResult>(request));
         }
 
-        private List<SimulationManager> HandleScheduleSimulationManagerResult(IRestResponse<ScheduleSimulationManagersResult> response) {
+        private IList<SimulationManager> HandleScheduleSimulationManagerResult(IRestResponse<ScheduleSimulationManagersResult> response) {
             ValidateResponseStatus(response);
 
             var scheduleResult = response.Data;
@@ -254,7 +249,7 @@ namespace Scalarm
             throw new NotImplementedException();
         }
 
-        public List<SimulationManager> GetSimulationManagersByIds(List<string> ids, string infrastructure)
+        public List<SimulationManager> GetSimulationManagersByIds(IList<string> ids, string infrastructure)
         {
             // TODO: add method in Scalarm to handle queries with multiple ids
             return ids.Select(id => this.GetSimulationManagerById(id, infrastructure)).ToList();
@@ -285,15 +280,11 @@ namespace Scalarm
 		/// </param>
 		/// <returns>List of SimulationManager objects.</returns>
 		/// <param name="additionalParams">Additional parameters.</param>
-		public IList<SimulationManager> GetAllSimulationManagers(IDictionary<String, Object> additionalParams)
+		public IList<SimulationManager> GetAllSimulationManagers(IDictionary<string, object> additionalParams = null)
 		{
 			var request = new RestRequest("/simulation_managers", Method.GET);
 
-			if (additionalParams != null) {
-				foreach (var entry in additionalParams) {
-					request.AddParameter(entry.Key, entry.Value);
-				}
-			}
+			AddAdditionalParameters(request, additionalParams);
 
 			string onsiteMonitored = (additionalParams.ContainsKey("onsite_monitoring") ? ((bool)additionalParams["onsite_monitoring"] ? "true" : "false") : "true");
 			request.AddParameter("onsite_monitoring", onsiteMonitored);
@@ -395,16 +386,12 @@ namespace Scalarm
 			return recordsList;
 		}
 
-		public IList<T> GetInfrastructureCredentials<T>(string infrastructureName, Dictionary<string, object> queryParams = null)
+		public IList<T> GetInfrastructureCredentials<T>(string infrastructureName, IDictionary<string, object> queryParams = null)
 			where T : InfrastructureCredentials
 		{
 			var request = new RestRequest("/infrastructure/get_infrastructure_credentials", Method.GET);
 			request.AddParameter("infrastructure", infrastructureName);
-			if (queryParams != null) {
-				foreach (var p in queryParams) {
-					request.AddParameter(p.Key, p.Value);
-				}
-			}
+			AddAdditionalParameters(request, queryParams);
 
 			var response = this.Execute<ResourceEnvelope<List<T>>>(request);
 
@@ -424,16 +411,12 @@ namespace Scalarm
 
 		}
 
-		public T AddInfrastructureCredentials<T>(string infrastructureName, Dictionary<string, object> additionalParams = null)
+		public T AddInfrastructureCredentials<T>(string infrastructureName, IDictionary<string, object> additionalParams = null)
 			where T : InfrastructureCredentials
 		{
 			var request = new RestRequest("/infrastructure/add_infrastructure_credentials", Method.POST);
 			request.AddParameter("infrastructure_name", infrastructureName);
-			if (additionalParams != null) {
-				foreach (var p in additionalParams) {
-					request.AddParameter(p.Key, p.Value);
-				}
-			}
+			AddAdditionalParameters(request, additionalParams);
 
 			var response = this.Execute<AddCredentialsResult>(request);
 
@@ -462,7 +445,7 @@ namespace Scalarm
 			});
 		}
 
-		public IList<PrivateMachineCredentials> GetPrivateMachineCredentials(Dictionary<string, object> queryParams)
+		public IList<PrivateMachineCredentials> GetPrivateMachineCredentials(IDictionary<string, object> queryParams)
 		{
 			return GetInfrastructureCredentials<PrivateMachineCredentials>("private_machine", queryParams);
 		}
@@ -481,6 +464,28 @@ namespace Scalarm
 				query.Add("port", port);
 
 			return GetPrivateMachineCredentials(query);
+		}
+
+		/// <summary>
+		/// Helper method to add any parameters to request. It supports C# Arrays as a parameter that are converted to REST paramteer arrays.
+		/// TODO: support Dictionaries
+		/// </summary>
+		/// <param name="request">The RestRequest that will be modified by adding params. Cannot be null.</param>
+		/// <param name="parameters">Dictionary of HTTP parameters. If null, method does nothing.</param>
+		public static void AddAdditionalParameters(IRestRequest request, IDictionary<string, object> parameters)
+		{
+			if (parameters != null) {
+				foreach (var p in parameters) {
+					if (!(p.Value is string) && p.Value is IEnumerable) {
+						string arrayName = string.Format("{0}[]", p.Key);
+						foreach (string arrayValue in (p.Value as IEnumerable)) {
+							request.AddParameter(arrayName, arrayValue);
+						}
+					} else {
+						request.AddParameter(p.Key, p.Value);
+					}
+				}
+			}
 		}
     }
 
