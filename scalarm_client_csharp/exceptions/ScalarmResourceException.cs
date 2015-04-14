@@ -6,7 +6,7 @@ using RestSharp;
 
 namespace Scalarm
 {	
-	public class ScalarmResourceException<T> : Exception
+	public class ScalarmResourceException<T> : ScalarmException
 	{
         public ResourceEnvelope<T> Resource
         {
@@ -14,7 +14,7 @@ namespace Scalarm
             protected set;
         }
 
-		public ScalarmResourceException(ResourceEnvelope<T> resource)
+		public ScalarmResourceException(ResourceEnvelope<T> resource) : base(typeof(T).Name)
 		{
             Resource = resource;
 		}

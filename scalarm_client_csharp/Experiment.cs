@@ -379,10 +379,24 @@ namespace Scalarm
 			}
 		}
 
+		/// <summary>
+		/// Gets simulation managers for this Experiment.
+		/// </summary>
+		/// <returns>All simulation managers associated with this Experiment.</returns>
+		/// <param name="additionalParams">Additional query parameters.
+		/// See additionalParams for Client.GetAllSimulationManagers for details (except for experiment_id).</param>
+		public IList<SimulationManager> GetSimulationManagers(IDictionary<string, object> additionalParams = null)
+		{
+			if (additionalParams == null) {
+				additionalParams = new Dictionary<string, object>();
+			}
+			additionalParams.Add("experiment_id", this.Id);
+			return Client.GetAllSimulationManagers(additionalParams);
+		}
+
 		public IList<SimulationManager> GetActiveSimulationManagers()
 		{
-			return Client.GetAllSimulationManagers(new Dictionary<string, object>() {
-				{"experiment_id", this.Id},
+			return GetSimulationManagers(new Dictionary<string, object>() {
 				{"states_not", new string[] {"error", "terminating"}}
 			});
 		}

@@ -59,6 +59,7 @@
     <Compile Include="BasicAuthClient.cs" />
     <Compile Include="ProxyCertClient.cs" />
     <Compile Include="exceptions\NoActiveSimulationManagersException.cs" />
+    <Compile Include="exceptions\ScalarmException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

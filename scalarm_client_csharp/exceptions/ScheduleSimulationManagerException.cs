@@ -5,7 +5,7 @@ using Scalarm.ExperimentInput;
 
 namespace Scalarm
 {	
-	public class ScheduleSimulationManagerException : Exception
+	public class ScheduleSimulationManagerException : ScalarmException
 	{
         public string ErrorCode { get; private set; }
 

@@ -116,7 +116,7 @@ namespace Scalarm
             }
         }
 
-        protected void ValidateResponseStatus(IRestResponse response)
+        public static void ValidateResponseStatus(IRestResponse response)
         {
             if (response.ResponseStatus != ResponseStatus.Completed) {
                 throw new InvalidResponseStatusException(response);
@@ -285,9 +285,6 @@ namespace Scalarm
 			var request = new RestRequest("/simulation_managers", Method.GET);
 
 			AddAdditionalParameters(request, additionalParams);
-
-			string onsiteMonitored = (additionalParams.ContainsKey("onsite_monitoring") ? ((bool)additionalParams["onsite_monitoring"] ? "true" : "false") : "true");
-			request.AddParameter("onsite_monitoring", onsiteMonitored);
 
 			var response = this.Execute<SimulationManagersList>(request);
 

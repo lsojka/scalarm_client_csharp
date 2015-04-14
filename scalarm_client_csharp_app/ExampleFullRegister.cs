@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Dynamic.Utils;
 
 namespace Scalarm
 {
@@ -103,7 +104,7 @@ namespace Scalarm
                 Console.WriteLine("Got experiment with ID: {0}", experiment.Id);
 
                 // will contain list of worker objects
-                var jobs = new List<SimulationManager>();
+                List<SimulationManager> jobs = new List<SimulationManager>();
 
                 // -- workers scheduling on PL-Grid --
                 
@@ -117,7 +118,7 @@ namespace Scalarm
 					jobs.AddRange(experiment.ScheduleZeusJobs(1, plgridLogin: plgLogin, plgridPassword: plgPass));
 				}
 
-                // schedule on several PL-Grid Computing Engines using QosCosGrid
+                // schedule on several PL-Grid Computing Engines using QosCosGrid: Nova and Reef clusters
                 var ces = new List<string> {PLGridCE.NOVA, PLGridCE.REEF};
                 foreach (string ce in ces) {
 					if (usingProxyClient) {
@@ -131,6 +132,17 @@ namespace Scalarm
                     Console.WriteLine("Scheduled: {0} {1}", j.Id, j.State);
                 }
                 
+				// Let's stop last started SimulationManager
+				SimulationManager lastSim = jobs.Last();
+				Console.WriteLine("Stopping Simulation Manager with ID: {0}", lastSim);
+				lastSim.Stop();
+
+				// and check current simulation managers state
+				IList<SimulationManager> currentJobs = experiment.GetSimulationManagers();
+				Console.WriteLine("Current Simulation Managers:");
+				foreach (var j in jobs) {
+					Console.WriteLine("{0} -> {1}", j.Id, j.State);
+				}
 
                 // -- workers scheduling on servers -- TODO
 
@@ -139,6 +151,7 @@ namespace Scalarm
 
                 // using event to wait for experiment completion
                 experiment.ExperimentCompleted += Application.ShowResults;
+				experiment.NoResources += Application.HandleNoResources;
                 experiment.WatchingIntervalSecs = 4;
                 experiment.StartWatching();
 
@@ -146,10 +159,10 @@ namespace Scalarm
                 while (Application.ShouldWait)
                 {
                     Console.WriteLine("DEBUG: waiting...");
+					currentJobs = experiment.GetSimulationManagers();
+					Console.WriteLine("State of Simulation Managers: {0}", string.Join(", ", jobs.Select(i => i.State)));
                     Thread.Sleep(1000);
                 }
-
-
             }
             catch (RegisterSimulationScenarioException e)
             {

@@ -13,13 +13,6 @@ namespace Scalarm
 		}
 
 		[Test]
-		public void Xca()
-		{
-			Assert.True("aa" is IEnumerable);
-		}
-
-
-		[Test]
 		public void ParseExperimentsConfigurationsCsv()
 		{
 			var csv = @"param1,param2,moe1,moe2

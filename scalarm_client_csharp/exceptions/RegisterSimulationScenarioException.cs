@@ -5,8 +5,11 @@ using Scalarm.ExperimentInput;
 
 namespace Scalarm
 {	
-	public class RegisterSimulationScenarioException : Exception
+	public class RegisterSimulationScenarioException : ScalarmException
 	{
+		public RegisterSimulationScenarioException() : base("Simulation scenario registration failed")
+		{
+		}
 	}
 
 }

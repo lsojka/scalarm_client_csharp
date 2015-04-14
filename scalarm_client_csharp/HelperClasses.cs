@@ -46,5 +46,13 @@ namespace Scalarm
 		public string msg { get; set; }
 		public string error_code { get; set; }
 	}
+
+	public class SimulationManagerCommandResult
+	{
+		public string status { get; set; }
+		public string msg { get; set; }
+		public string cmd { get; set; }
+		public string error_code { get; set; }
+	}
 }
 

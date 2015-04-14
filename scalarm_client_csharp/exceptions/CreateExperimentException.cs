@@ -5,7 +5,7 @@ using Scalarm.ExperimentInput;
 
 namespace Scalarm
 {	
-	public class CreateExperimentException : Exception
+	public class CreateExperimentException : ScalarmException
 	{
         public CreateExperimentException(string message) : base(message)
         {

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Scalarm
 {
-	public class CredentialsValidationException : Exception
+	public class CredentialsValidationException : ScalarmException
 	{
 		public string RecordId { get; private set; }
 
