@@ -47,23 +47,31 @@ namespace Scalarm
             }
 		}
 
-        public Experiment GetExperimentById(string experimentId)
+		/// <summary>
+		///  Fetches the model object of Experiment from Scalarm.
+		/// Note, that it will represent state of Experiment from time of this method invocation.
+		/// To update the state (eg. to check Experiment's state) please use this method again to fetch new data.
+		/// </summary>
+		/// <returns>The experiment by identifier.</returns>
+		/// <param name="experimentId">Experiment identifier.</param>
+		/// <typeparam name="T">The class of Experiment. It can be Experiment or SupervisedExperiment.</typeparam>
+        public T GetExperimentById<T>(string experimentId) where T : Experiment
         {
 			var request = new RestRequest("/experiments/{id}", Method.GET);
 			request.AddUrlSegment("id", experimentId);
 
-			var response = this.Execute<ResourceEnvelope<Experiment>>(request);
+			var response = this.Execute<ResourceEnvelope<T>>(request);
 
 			ValidateResponseStatus(response);
 
 			var resource = response.Data;
 
 			if (resource.Status == "ok") {
-				Experiment experiment = resource.Data;
+				T experiment = resource.Data;
 				experiment.Client = this;
 				return experiment;
 			} else if (resource.Status == "error") {
-				throw new ScalarmResourceException<Experiment>(resource);
+				throw new ScalarmResourceException<T>(resource);
 			} else {
 				throw new InvalidResponseException(response);
 			}
@@ -97,10 +105,30 @@ namespace Scalarm
 			request.AddParameter ("replication_level", 1);
 
             var response = this.Execute<ExperimentCreationResult>(request);
-            return HandleExperimentCreationResponse(response);
+            return HandleExperimentCreationResponse<Experiment>(response);
         }
 
-        private Experiment HandleExperimentCreationResponse(IRestResponse<ExperimentCreationResult> response)
+		// TODO: handle wrong scenario id
+		public SupervisedExperiment CreateSupervisedExperiment(
+			string simulationScenarioId,
+			Dictionary<string, object> additionalParameters = null
+			)
+		{
+			// TODO: use start_supervised_experiment
+			var request = new RestRequest("experiments/start_custom_points_experiment", Method.POST);
+			// Add user additional parameters
+			if (additionalParameters != null) {
+				foreach (var p in additionalParameters) request.AddParameter(p.Key, p.Value);
+			}
+
+			request.AddParameter("simulation_id", simulationScenarioId);
+
+			var response = this.Execute<ExperimentCreationResult>(request);
+			return HandleExperimentCreationResponse<SupervisedExperiment>(response);
+		}
+
+        private T HandleExperimentCreationResponse<T>(IRestResponse<ExperimentCreationResult> response)
+			where T : Experiment
         {
             ValidateResponseStatus(response);
 
@@ -108,7 +136,7 @@ namespace Scalarm
 
             if (creationResult.status == "ok")
             {
-                return new Experiment(creationResult.experiment_id, this);
+				return (T)Activator.CreateInstance(typeof(T), creationResult.experiment_id, this);
             } else if (creationResult.status == "error") {
                 throw new CreateScenarioException(creationResult.message);
             } else {

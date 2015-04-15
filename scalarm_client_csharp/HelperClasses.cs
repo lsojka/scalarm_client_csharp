@@ -54,5 +54,16 @@ namespace Scalarm
 		public string cmd { get; set; }
 		public string error_code { get; set; }
 	}
+
+	public class SchedulePointResult
+	{
+		public string status { get; set; }
+	}
+
+	// TODO: merge with other, change name
+	public class ScalarmStatus
+	{
+		public string status { get; set; }
+	}
 }
 

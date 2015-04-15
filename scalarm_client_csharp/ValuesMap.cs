@@ -40,6 +40,19 @@ namespace Scalarm
 
 			return vmp;
 		}
+
+		public object[] Flatten(string[] customKeys = null)
+		{
+			if (customKeys != null) {
+				object[] results = new object[customKeys.Count()];
+				for (int i=0; i<customKeys.Count(); ++i) {
+					results[i] = this[customKeys[i]];
+				}
+				return results;
+			} else {
+				return this.Values.ToArray();
+			}
+		}
 	}
 }
 

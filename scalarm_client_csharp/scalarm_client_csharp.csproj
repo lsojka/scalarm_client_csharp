@@ -60,6 +60,8 @@
     <Compile Include="ProxyCertClient.cs" />
     <Compile Include="exceptions\NoActiveSimulationManagersException.cs" />
     <Compile Include="exceptions\ScalarmException.cs" />
+    <Compile Include="SupervisedExperiment.cs" />
+    <Compile Include="exceptions\SchedulePointException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
