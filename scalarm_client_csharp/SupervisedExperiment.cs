@@ -44,6 +44,15 @@ namespace Scalarm
 			HandleSchedulePointResponse(result);
 		}
 
+		public void SchedulePoints(IEnumerable<ValuesMap> points)
+		{
+			// TODO: implement multi-point scheduling in Scalarm
+
+			foreach (ValuesMap point in points) {
+				SchedulePoint(point);
+			}
+		}
+
 		private void HandleSchedulePointResponse(IRestResponse<SchedulePointResult> response)
 		{
 			Client.ValidateResponseStatus(response);
@@ -60,6 +69,26 @@ namespace Scalarm
 			}
 		}
 
+		// TODO: values parameter (point) support
+		public void MarkAsComplete(string results, bool success = true, string errorReason = null)
+		{
+			var request = new RestRequest(String.Format("experiments/{0}/mark_as_complete", this.Id), Method.POST);
+			request.AddParameter("status", success ? "ok" : "error");
+			request.AddParameter("results", results);
+			if (errorReason != null) {
+				request.AddParameter("reason", errorReason);
+			}
+
+			var result = Client.Execute<ScalarmStatus>(request);
+
+			Client.ValidateResponseStatus(result);
+			if (result.Data.status == "ok") {
+				return;
+			} else {
+				// TODO: use ScalarmException
+				throw new Exception("Invalid experiment mark as complete result");
+			}
+		}
 	}
 }
 

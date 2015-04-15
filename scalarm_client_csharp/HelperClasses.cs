@@ -45,5 +45,11 @@ namespace Scalarm
 	{
 		public string status { get; set; }
 	}
+
+	// TODO: merge with other, change name
+	public class ScalarmStatus
+	{
+		public string status { get; set; }
+	}
 }
 
