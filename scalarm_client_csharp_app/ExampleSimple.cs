@@ -28,7 +28,7 @@ namespace Scalarm
 			try
             {
                 // create new experiment based on scenario
-                Experiment experiment = client.GetExperimentById(config.experiment_id);
+				Experiment experiment = client.GetExperimentById<Experiment>(config.experiment_id);
 
                 Console.WriteLine("Got experiment with ID: {0}", experiment.Id);
 
