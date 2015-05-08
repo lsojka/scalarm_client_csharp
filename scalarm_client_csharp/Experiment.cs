@@ -259,7 +259,7 @@ namespace Scalarm
             while (timeoutSecs <= 0 || (DateTime.UtcNow - startTime).TotalSeconds < timeoutSecs) {
 				if (IsDone()) {
 					return;
-				} else if (GetActiveSimulationManagers().Any()) {
+				} else if (!GetActiveSimulationManagers().Any()) {
 					throw new NoActiveSimulationManagersException();
 				}
                 Thread.Sleep(pollingIntervalSeconds*1000);
