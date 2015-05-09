@@ -12,6 +12,12 @@ namespace Scalarm
 
 	public class SupervisedExperiment : Experiment
 	{
+		public SupervisedExperiment() : base()
+		{}
+
+		public SupervisedExperiment(string experimentId, Client client) : base(experimentId, client)
+		{}
+
 		// TODO
 //		public void SchedulePoints(List<ValuesMap> points)
 //		{
@@ -89,6 +95,8 @@ namespace Scalarm
 				throw new Exception("Invalid experiment mark as complete result");
 			}
 		}
+
+
 	}
 }
 

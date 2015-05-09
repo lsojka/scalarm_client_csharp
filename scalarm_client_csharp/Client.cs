@@ -114,8 +114,7 @@ namespace Scalarm
 			Dictionary<string, object> additionalParameters = null
 			)
 		{
-			// TODO: use start_supervised_experiment
-			var request = new RestRequest("experiments/start_custom_points_experiment", Method.POST);
+			var request = new RestRequest("experiments/start_supervised_experiment", Method.POST);
 			// Add user additional parameters
 			if (additionalParameters != null) {
 				foreach (var p in additionalParameters) request.AddParameter(p.Key, p.Value);
