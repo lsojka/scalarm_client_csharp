@@ -133,8 +133,8 @@ namespace Scalarm
 					foreach (Entity e in c.Entities) {
 						foreach (Parameter p in e.Parameters) {
 							parametersIds.Add(string.Format("{0}{1}{2}",
-							                                (c.Id == null || c.Id == "") ? "" : c.Id + "__",
-							                                (e.Id == null || e.Id == "") ? "" : e.Id + "__",
+							                                (c.Id == null || c.Id == "") ? "" : c.Id + "___",
+							                                (e.Id == null || e.Id == "") ? "" : e.Id + "___",
 							                                p.Id));
 						}
 					}
