@@ -173,8 +173,8 @@ namespace Scalarm
 
 
             return _registerSimulationScenario(simulationName, simulationBinariesPath,
-                                               _createInputDefinition(simpleInputDefinition),
-                                               executorPath);
+				_createInputDefinition(simpleInputDefinition),
+				executorPath, attributes);
         }
 
         private string _createInputDefinition(IList<ExperimentInput.Parameter> simpleInputDefinition) {
