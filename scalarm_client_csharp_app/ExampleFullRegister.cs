@@ -72,8 +72,8 @@ namespace Scalarm
                 // define few point of parameter space
                 points = new List<ValuesMap>() {
                 	new ValuesMap() {
-                	    {"parameter1", 3.0},
-                		{"parameter2", 4.0}
+                	    {"parameter1", 1.5},
+                		{"parameter2", 3}
                 	},
                 	new ValuesMap() {
                 		{"parameter1", 5.0},
@@ -134,7 +134,7 @@ namespace Scalarm
                 
 				// Let's stop last started SimulationManager
 				SimulationManager lastSim = jobs.Last();
-				Console.WriteLine("Stopping Simulation Manager with ID: {0}", lastSim);
+				Console.WriteLine("Stopping Simulation Manager with ID: {0}", lastSim.Id);
 				lastSim.Stop();
 
 				// and check current simulation managers state
