@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Collections;
+using Scalarm;
 
 namespace Scalarm
 {
@@ -62,9 +63,49 @@ namespace Scalarm
 two
 three
 ";
-			var shouldBeString = "one\r\ntwo\r\nthree\r\n";
+			var shouldBeString = "one\\r\\ntwo\\r\\nthree\\r\\n";
 
-			Assert.AreEqual (Client.PrepareStringForHeader(originalString), shouldBeString);
+			Assert.AreEqual(shouldBeString, Client.PrepareStringForHeader(originalString));
+		}
+
+		[Test]
+		public void ToRubyFormat()
+		{
+			Assert.AreEqual("1", Client.ToRubyFormat(1.0));
+			Assert.AreEqual("1", Client.ToRubyFormat(1));
+			Assert.AreEqual("hello", Client.ToRubyFormat("hello"));
+
+			Assert.AreEqual("1.2", Client.ToRubyFormat(1.2));
+			Assert.AreEqual("262", Client.ToRubyFormat(262.0f));
+			Assert.AreEqual("262.4", Client.ToRubyFormat(262.4f));
+		}
+
+		[Test]
+		public void CreateCsvFromPoints()
+		{
+			var keys = new List<string> {"a", "b"};
+			var values = new List<ValuesMap> {
+				new ValuesMap() {
+					{"parameter1", 1.5},
+					{"parameter2", 3}
+				},
+				new ValuesMap() {
+					{"parameter1", 2.0},
+					{"parameter2", 4.1}
+				},
+			};
+
+			string expectedCsv = @"a,b
+1.5,3
+2,4.1
+";
+
+			string csv = Client.CreateCsvFromPoints(keys, values);
+
+			Assert.AreEqual(
+				expectedCsv,
+				csv
+			);
 		}
 	}
 }

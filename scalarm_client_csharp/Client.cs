@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using System.Linq;
 using System.Collections;
+using System.Globalization;
 
 namespace Scalarm
 {	
@@ -77,6 +78,32 @@ namespace Scalarm
 			}
         }
 
+		public static string ToRubyFormat(object value)
+		{
+			string stringVal = "";
+			if (value is double) {
+				stringVal = ((Double)value).ToString(CultureInfo.CreateSpecificCulture("en-GB"));
+			} else if (value is float) {
+				stringVal = ((Single)value).ToString(CultureInfo.CreateSpecificCulture("en-GB"));
+			} else {
+				stringVal = value.ToString();
+			}
+
+			return stringVal;
+		}
+
+		public static string CreateCsvFromPoints(List<string> pointsKeys, List<ValuesMap> points)
+		{
+			string csv = String.Join(",", pointsKeys) + "\n";
+			foreach (var point in points) {
+				// using CultureInfo to force generate floats with "." instead of ","
+				csv += string.Join(",", point.Values.Select(v => Client.ToRubyFormat(v))) + "\n";
+			}
+
+			return csv;
+		}
+
+
         // TODO: handle wrong scenario id
         public Experiment CreateExperimentWithPoints(
             string simulationScenarioId,
@@ -85,12 +112,9 @@ namespace Scalarm
             )
         {
 			// assuming, that all point objects have the same keys
-			var pointsKeys = points[0].Keys;
+			var pointsKeys = points[0].Keys.ToList();
 
-			string csv = String.Join(",", pointsKeys) + "\n";
-			foreach (var point in points) {
-				csv += string.Join(",", point.Values) + "\n";
-			}
+			string csv = CreateCsvFromPoints(pointsKeys, points);
 
             var request = new RestRequest("experiments/start_import_based_experiment", Method.POST);
 			AddAdditionalParameters(request, additionalParameters);
