@@ -55,9 +55,9 @@ namespace Scalarm
 			return experiment;
         }
 
-		public SupervisedExperiment CreateSupervisedExperiment(Dictionary<string, object> experimentParams)
+		public SupervisedExperiment CreateSupervisedExperiment(string supervisorId, Dictionary<string, object> experimentParams)
 		{
-			SupervisedExperiment experiment = Client.CreateSupervisedExperiment(Id, experimentParams);
+			SupervisedExperiment experiment = Client.CreateSupervisedExperiment(Id, supervisorId, experimentParams);
 			experiment.InputSpecification = this.InputSpecification;
 			return experiment;
 		}

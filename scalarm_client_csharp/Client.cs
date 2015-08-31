@@ -133,18 +133,26 @@ namespace Scalarm
         }
 
 		// TODO: handle wrong scenario id
+		// Starts supervised experiment
+		// If supervisorId is null, do not start any supervisor (must be invoked manually)
 		public SupervisedExperiment CreateSupervisedExperiment(
 			string simulationScenarioId,
+			string supervisorId,
 			Dictionary<string, object> additionalParameters = null
 			)
 		{
-			var request = new RestRequest("experiments/start_supervised_experiment", Method.POST);
+			var request = new RestRequest("experiments", Method.POST);
 			// Add user additional parameters
 			if (additionalParameters != null) {
 				foreach (var p in additionalParameters) request.AddParameter(p.Key, p.Value);
 			}
 
+			request.AddParameter("type", "supervised");
 			request.AddParameter("simulation_id", simulationScenarioId);
+
+			if (supervisorId != null) {
+				request.AddParameter ("supervisor_script_id", supervisorId);
+			}
 
 			var response = this.Execute<ExperimentCreationResult>(request);
 			return HandleExperimentCreationResponse<SupervisedExperiment>(response);
