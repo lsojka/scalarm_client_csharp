@@ -12,3 +12,4 @@ scalarm_client_csharp_tests/obj/
 scalarm_client_csharp_tests/scalarm_client_csharp_tests.pidb
 scalarm_client_csharp_tests/test-results
 test-results/
+.DS_Store
