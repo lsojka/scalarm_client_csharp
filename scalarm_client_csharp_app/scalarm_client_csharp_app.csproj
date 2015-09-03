@@ -34,7 +34,8 @@
     <Compile Include="ExampleFullRegister.cs" />
     <Compile Include="ExampleMisc.cs" />
     <Compile Include="ExampleSimple.cs" />
-    <Compile Include="TestGetSimError.cs" />
+    <Compile Include="TestGetSimErrorZeus.cs" />
+    <Compile Include="AbstractTestGetSimError.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\scalarm_client_csharp\scalarm_client_csharp.csproj">

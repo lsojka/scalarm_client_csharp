@@ -3,16 +3,15 @@ using Scalarm;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Scalarm
 {
-	public class TestGetSimError
+	public abstract class AbstractTestGetSimError
 	{
-		public TestGetSimError()
-		{
-		}
+		public abstract void scheduleWorkers(Experiment experiment);
 
-		public static void Run()
+		public void Run()
 		{
 			var config = Application.ReadConfig ("config.json");
 			var client = Application.CreateClient(config);
@@ -43,7 +42,7 @@ namespace Scalarm
 			List<Scalarm.ValuesMap> points = new List<ValuesMap>();
 
 			Random rnd = new Random();
-			for (int i=0; i<1000; ++i) {
+			for (int i=0; i<5; ++i) {
 				points.Add(new ValuesMap {
 					{"a", rnd.NextDouble()}
 				});
@@ -56,7 +55,7 @@ namespace Scalarm
 
 			var experiment = simScenario.CreateExperimentWithPoints(points, experimentParams);
 
-			experiment.ScheduleZeusJobs(1);
+			scheduleWorkers(experiment);
 
 			try {
 				experiment.WaitForDone(5*60*1000, 10);
@@ -66,6 +65,16 @@ namespace Scalarm
 					throw new ApplicationException("Invalid workers count: " + workers.Count);
 				}
 				var sim = workers.First();
+				// waiting for log fetch
+				for (int i = 1; i < 30; ++i) {
+					if (String.IsNullOrEmpty(sim.ErrorDetails)) {
+						Console.WriteLine("No error log fetched yet, waiting...");
+						Thread.Sleep(1000);
+					} else {
+						break;
+					}
+				}
+
 				Console.WriteLine("Simulation Manager failed with error/log:");
 				Console.WriteLine(sim.Error);
 				Console.WriteLine(sim.ErrorDetails);
