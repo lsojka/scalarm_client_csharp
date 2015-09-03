@@ -14,6 +14,16 @@ namespace Scalarm
         {
             Response = response;
         }
+
+		public override string ToString()
+		{
+			return string.Format("InvalidResponseException: " +
+				"StatusCode: {0}, " +
+				"Body: {1}",
+				Response.StatusCode,
+				Response.Content
+			);
+		}
 	}
 }
 
