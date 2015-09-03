@@ -124,8 +124,9 @@ namespace Scalarm
             return ScheduleSimulationManagers("qsub", count, reqParams);
         }
 
-		public IList<SimulationManager> ScheduleZeusJobs(int count)
+		public IList<SimulationManager> ScheduleZeusJobs(int count, IDictionary<string, object> parameters = null)
 		{
+			// default time limit
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"}
 			};
@@ -135,7 +136,11 @@ namespace Scalarm
 				throw new Exception ("If not using ProxyCertClient, login and password should be used.");
 			}
 
-			reqParams ["onsite_monitoring"] = true;
+			foreach (var param in parameters) {
+				reqParams[param.Key] = param.Value;
+			}
+
+			reqParams["onsite_monitoring"] = true;
 
 			return ScheduleSimulationManagers("qsub", count, reqParams);
 		}
