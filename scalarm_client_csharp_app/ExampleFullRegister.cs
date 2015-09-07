@@ -1,4 +1,4 @@
-﻿using Scalarm.ExperimentInput;
+using Scalarm.ExperimentInput;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ namespace Scalarm
 {
     public class ExampleFullRegister
     {
-        public static void Run()
+        public void Run()
         {
 			var config = Application.ReadConfig ("config.json");
             var client = Application.CreateClient(config);
@@ -25,7 +25,6 @@ namespace Scalarm
 			string plgKeyPass = usingProxyClient ? "" : Application.ReadPassword("Enter PL-Grid Certificate password:");
 
             var randomNum = Application.GetRandomNumber(1000);
-
             var simulationName = String.Format("New simulation {0}", randomNum);
 			var baseScenarioPath = "example_scenario";
 
@@ -36,12 +35,12 @@ namespace Scalarm
             var scenarioParams = new Dictionary<string, object>() { };
 
             var experimentParams = new Dictionary<string, object>()
-		{
-            {"experiment_name", String.Format("New experiment {0}", randomNum)},
-			{"experiment_description", "This is a dummy experiment"},
-			// {"doe", experimentDoe},
-			{"execution_time_constraint", 3600}
-		};
+			{
+	            {"experiment_name", String.Format("New experiment {0}", randomNum)},
+				{"experiment_description", "This is a dummy experiment"},
+				// {"doe", experimentDoe},
+				{"execution_time_constraint", 3600}
+			};
 
             try
             {
