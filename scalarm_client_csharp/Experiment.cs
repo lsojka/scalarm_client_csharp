@@ -136,8 +136,10 @@ namespace Scalarm
 				throw new Exception ("If not using ProxyCertClient, login and password should be used.");
 			}
 
-			foreach (var param in parameters) {
-				reqParams[param.Key] = param.Value;
+			if (parameters != null) {
+				foreach (var param in parameters) {
+					reqParams[param.Key] = param.Value;
+				}
 			}
 
 			reqParams["onsite_monitoring"] = true;
