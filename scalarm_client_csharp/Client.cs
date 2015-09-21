@@ -48,6 +48,24 @@ namespace Scalarm
             }
 		}
 
+		// Get object containing lists of all experiments reachable for user
+		// The object has three lists, splitting experiments by their state:
+		// - running (not completed)
+		// - completed (all simulation are done or reached experiment's goal)
+		// - historical (that was explicitly stopped by user)
+		public ExperimentsListResult GetAllExperimentIds()
+		{	
+			var request = new RestRequest("experiments", Method.GET);
+			var response = Execute<ExperimentsListResult>(request);
+			Client.ValidateResponseStatus(response);
+			var el = response.Data;
+			if (el.status == "ok") {
+				return el;
+			} else {
+				throw new InvalidResponseStatusException(response);
+			}
+		}
+
 		/// <summary>
 		///  Fetches the model object of Experiment from Scalarm.
 		/// Note, that it will represent state of Experiment from time of this method invocation.

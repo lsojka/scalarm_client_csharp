@@ -65,5 +65,13 @@ namespace Scalarm
 	{
 		public string status { get; set; }
 	}
+
+	public class ExperimentsListResult
+	{
+		public string status { get; set; }
+		public List<string> running { get; set; }
+		public List<string> completed { get; set; }
+		public List<string> historical { get; set; }
+	}
 }
 
