@@ -23,7 +23,6 @@ namespace Scalarm
 			//var path = Environment.CurrentDirectory;
 			var request = new RestRequest ("/simulation_scenarios/{id}/code_base", Method.GET);
 			request.AddUrlSegment ("id", scenarioId);
-			//var response = this.Execute (request);
 			IRestResponse restResponse = this.Execute (request);
 			if (restResponse.ErrorException != null) {
 				const string message = "Error retrieving response.  Check inner details for more info.";
@@ -33,12 +32,6 @@ namespace Scalarm
 				var code = restResponse.RawBytes;
 				code.SaveAs (path + "/" + scenarioId + "code_base.tar.gz");
 				return "OK";
-
-				//this.DownloadData(request).SaveAs(path+"/"+scenarioId+"code_base.tar.gz");
-				//request.ResponseWriter = (responseStream) => responseStream.CopyTo(writer);
-				//var response = this.Execute(request);
-				//ValidateResponseStatus (response);
-				//var code_base = response.RawByt;
 			}
 		}
 
