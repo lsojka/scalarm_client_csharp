@@ -3,6 +3,7 @@ using System.Net;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
+using RestSharp.Extensions;
 using System.Linq;
 using System.Collections;
 using System.Globalization;
@@ -25,6 +26,42 @@ namespace Scalarm
             // Cannot use this because of bug in JSON.net for Mono!
             // this.AddHandler("application/json", new JsonConvertDeserializer());
 		}
+
+
+		public string GetSimulationScenarioFiles(string scenarioId, string path)
+		{
+			//var path = Environment.CurrentDirectory;
+			var request = new RestRequest("/simulation_scenarios/{id}/code_base", Method.GET);
+			request.AddUrlSegment("id", scenarioId);
+			IRestResponse restResponse = this.Execute (request);
+			if (restResponse.ErrorException != null) {
+				const string message = "Error retrieving response.  Check inner details for more info.";
+				var ResponseException = new ApplicationException (message, restResponse.ErrorException);
+				throw ResponseException;
+			} else {
+				var code = restResponse.RawBytes;
+				code.SaveAs(path + "/" + scenarioId + "code_base.tar.gz");
+				return "OK";
+			}
+		}
+
+		public string GetExperimentBinaryFiles(string scenarioId, string path)
+		{
+			//var path = Environment.CurrentDirectory;
+			var request = new RestRequest("/experiments/{id}/results_binaries", Method.GET);
+			request.AddUrlSegment("id", scenarioId);
+			IRestResponse restResponse = this.Execute(request);
+			if (restResponse.ErrorException != null) {
+				const string message = "Error retrieving response.  Check inner details for more info.";
+				var ResponseException = new ApplicationException (message, restResponse.ErrorException);
+				throw ResponseException;
+			} else {
+				var code = restResponse.RawBytes;
+				code.SaveAs(path + "/" + scenarioId + "_results_binaries.tar.gz");
+				return "OK";
+			}
+		}
+
 
 		public SimulationScenario GetScenarioById(string scenarioId)
 		{
