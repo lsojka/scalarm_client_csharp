@@ -35,6 +35,23 @@ namespace Scalarm
 			}
 		}
 
+		public string GetExperimentBinaryFiles(string scenarioId, string path)
+		{
+			//var path = Environment.CurrentDirectory;
+			var request = new RestRequest ("/experiments/{id}/results_binaries", Method.GET);
+			request.AddUrlSegment ("id", scenarioId);
+			IRestResponse restResponse = this.Execute (request);
+			if (restResponse.ErrorException != null) {
+				const string message = "Error retrieving response.  Check inner details for more info.";
+				var ResponseException = new ApplicationException (message, restResponse.ErrorException);
+				throw ResponseException;
+			} else {
+				var code = restResponse.RawBytes;
+				code.SaveAs (path + "/" + scenarioId + "_results_binaries.tar.gz");
+				return "OK";
+			}
+		}
+
 		public Client (string baseUrl)
 		{
 			// TODO: certificate check by default, optional insecure
