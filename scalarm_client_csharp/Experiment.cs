@@ -86,6 +86,15 @@ namespace Scalarm
 			SimulationParamsMap = new Dictionary<ValuesMap, ValuesMap>();
         }
 
+		/// <summary>
+		/// Get and save experiment binary package in .zip format.
+		/// </summary>
+		/// <param name="path">Local path to save results (.zip file will be created)</param>
+		public void GetBinaryResults(string path)
+		{
+			Client.GetExperimentBinaryResults(Id, path);
+		}
+
 		public void CreateParamsMap(List<ValuesMap> parameters)
 		{
 			foreach (var p in parameters) {
