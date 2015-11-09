@@ -422,9 +422,8 @@ namespace Scalarm
 
 		public IList<ValuesMap> GetExperimentResults(string experimentId)
 		{
-			var request = new RestRequest("/experiments/{id}/file_with_configurations", Method.GET);
+			var request = new RestRequest("/experiments/{id}/file_with_configurations?error_description=1", Method.GET);
 			request.AddUrlSegment("id", experimentId);
-
 			var response = this.Execute(request);
 
 			ValidateResponseStatus(response);
