@@ -27,8 +27,8 @@ namespace Scalarm
             // this.AddHandler("application/json", new JsonConvertDeserializer());
 		}
 
-
-		public string GetSimulationScenarioFiles(string scenarioId, string path)
+		//absolutePath must be to file with extension .tar.gz
+		public string GetSimulationScenarioFiles(string scenarioId, string absolutePath)
 		{
 			//var path = Environment.CurrentDirectory;
 			var request = new RestRequest("/simulation_scenarios/{id}/code_base", Method.GET);
@@ -40,12 +40,12 @@ namespace Scalarm
 				throw ResponseException;
 			} else {
 				var code = restResponse.RawBytes;
-				code.SaveAs(path + "/" + scenarioId + "code_base.tar.gz");
+				code.SaveAs(absolutePath);
 				return "OK";
 			}
 		}
-
-		public string GetExperimentBinaryFiles(string scenarioId, string path)
+		//absolutePath must be to file with extension .tar.gz
+		public string GetExperimentBinaryFiles(string scenarioId, string absolutePath)
 		{
 			//var path = Environment.CurrentDirectory;
 			var request = new RestRequest("/experiments/{id}/results_binaries", Method.GET);
@@ -57,7 +57,7 @@ namespace Scalarm
 				throw ResponseException;
 			} else {
 				var code = restResponse.RawBytes;
-				code.SaveAs(path + "/" + scenarioId + "_results_binaries.tar.gz");
+				code.SaveAs(absolutePath);
 				return "OK";
 			}
 		}
