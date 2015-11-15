@@ -28,7 +28,7 @@ namespace Scalarm
 		}
 
 		//absolutePath must be to file with extension .tar.gz
-		public string GetSimulationScenarioFiles(string scenarioId, string absolutePath)
+		public string GetSimulationScenarioFiles(string scenarioId, string path)
 		{
 			//var path = Environment.CurrentDirectory;
 			var request = new RestRequest("/simulation_scenarios/{id}/code_base", Method.GET);
@@ -40,12 +40,12 @@ namespace Scalarm
 				throw ResponseException;
 			} else {
 				var code = restResponse.RawBytes;
-				code.SaveAs(absolutePath);
+				code.SaveAs(path);
 				return "OK";
 			}
 		}
 		//absolutePath must be to file with extension .tar.gz
-		public string GetExperimentBinaryFiles(string scenarioId, string absolutePath)
+		public string GetExperimentBinaryFiles(string scenarioId, string path)
 		{
 			//var path = Environment.CurrentDirectory;
 			var request = new RestRequest("/experiments/{id}/results_binaries", Method.GET);
@@ -57,7 +57,7 @@ namespace Scalarm
 				throw ResponseException;
 			} else {
 				var code = restResponse.RawBytes;
-				code.SaveAs(absolutePath);
+				code.SaveAs(path);
 				return "OK";
 			}
 		}

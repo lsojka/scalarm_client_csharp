@@ -85,7 +85,16 @@ namespace Scalarm
             Id = experimentId;
 			SimulationParamsMap = new Dictionary<ValuesMap, ValuesMap>();
         }
-
+		/// <summary>
+		/// Gets and save experiment binary files
+		/// </summary>
+		/// <returns>OK when properly saved files, error otherwise</returns>
+		/// <param name="scenarioId">Scenario identifier.</param>
+		/// <param name="path">save files path </param>
+		public string GetandSaveExperimentBinaryFiles(string scenarioId, string path)
+		{
+			return Client.GetExperimentBinaryFiles(scenarioId, path);
+		}
 		public void CreateParamsMap(List<ValuesMap> parameters)
 		{
 			foreach (var p in parameters) {

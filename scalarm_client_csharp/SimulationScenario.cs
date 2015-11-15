@@ -47,6 +47,16 @@ namespace Scalarm
         public SimulationScenario()
         {}
 
+		/// <summary>
+		/// Gets the simulation scenario files.
+		/// </summary>
+		/// <returns>OK when properly saved files error otherwise.</returns>
+		/// <param name="scenarioId">Scenario identifier.</param>
+		/// <param name="path">Saved files path.</param>
+		public string GetandSaveSimulationScenarioFiles(string scenarioId, string path)
+		{
+			return Client.GetSimulationScenarioFiles(scenarioId, path);
+		}
 		// TODO: change to use CustomPointsExperiment
         public Experiment CreateExperimentWithPoints(List<ValuesMap> points, Dictionary<string, object> experimentParams)
         {
