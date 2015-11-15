@@ -350,20 +350,23 @@ namespace Scalarm
 		public static IList<ValuesMap> ConvertTypes(IList<ValuesMap> results)
 		{
 			var convertedResults = new List<ValuesMap>();
-			foreach (var item in results) {
+			foreach(var item in results) {
 				convertedResults.Add(item);
 			}
 
 			foreach (var record in convertedResults) {
                 // http://stackoverflow.com/a/18288740/1367361
                 List<string> keys = new List<string>(record.Keys);
-				foreach (string key in keys) {
+				foreach(string key in keys) {
 
 					// TODO: check with string values - probably there will bo problem with deserializing because lack of ""
 					try {
-						record [key] = JsonConvert.DeserializeObject(record[key].ToString());
+
+						record[key] = JsonConvert.DeserializeObject(record[key].ToString());
+						// exception happen when evaluate toString method on String object -> wrong Deserialize
+
 					} catch (Newtonsoft.Json.JsonReaderException e) {
-					// exception when evaluate toString on String object -> wrong Deserialize
+						//do nothing - it is already a String 
 					}
 				}
 
