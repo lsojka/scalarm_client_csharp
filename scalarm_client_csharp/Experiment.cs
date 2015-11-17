@@ -333,11 +333,11 @@ namespace Scalarm
 		//  Gets results in form od Dictionary: input parameters -> MoEs
 		//  Input parameters and MoEs are in form of dictionaries: id -> value; both keys and values are string!
 		// </summary>
-		public IList<SimulationParams> GetResults()
+		public IList<SimulationParams> GetResults(Boolean fetchFailed = false)
 		{
 			// TODO: iterate all this experiment's SimulationParams and fill results to outputs
 
-			IList<ValuesMap> results = Client.GetExperimentResults(Id);
+			IList<ValuesMap> results = Client.GetExperimentResults(Id, fetchFailed);
 			IList<string> parametersIds = InputDefinition.ParametersIdsForCategories(InputSpecification);
 
 			FillSimulationParamsMap(ConvertTypes(results), parametersIds);
