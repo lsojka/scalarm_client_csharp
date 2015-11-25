@@ -48,14 +48,12 @@ namespace Scalarm
         {}
 
 		/// <summary>
-		/// Gets the simulation scenario files.
+		/// Gets the simulation scenario files (adapters + simulation binaries packaged in .zip format).
 		/// </summary>
-		/// <returns>OK when properly saved files error otherwise.</returns>
-		/// <param name="scenarioId">Scenario identifier.</param>
-		/// <param name="path">Saved files path.</param>
-		public string GetandSaveSimulationScenarioFiles(string scenarioId, string path)
+		/// <param name="path">Local path to save results (.tar.gz file will be created)</param>
+		public void GetFiles(string path)
 		{
-			return Client.GetSimulationScenarioFiles(scenarioId, path);
+			Client.GetSimulationScenarioFiles(Id, path);
 		}
 		// TODO: change to use CustomPointsExperiment
         public Experiment CreateExperimentWithPoints(List<ValuesMap> points, Dictionary<string, object> experimentParams)

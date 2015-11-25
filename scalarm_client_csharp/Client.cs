@@ -27,10 +27,9 @@ namespace Scalarm
             // this.AddHandler("application/json", new JsonConvertDeserializer());
 		}
 
-		//absolutePath must be to file with extension .tar.gz
-		public string GetSimulationScenarioFiles(string scenarioId, string path)
+		// Save scenario package in .tar.gz format to provided file path.
+		public void GetSimulationScenarioFiles(string scenarioId, string path)
 		{
-			//var path = Environment.CurrentDirectory;
 			var request = new RestRequest("/simulation_scenarios/{id}/code_base", Method.GET);
 			request.AddUrlSegment("id", scenarioId);
 			IRestResponse restResponse = this.Execute (request);
@@ -41,15 +40,14 @@ namespace Scalarm
 			} else {
 				var code = restResponse.RawBytes;
 				code.SaveAs(path);
-				return "OK";
 			}
 		}
-		//absolutePath must be to file with extension .tar.gz
-		public string GetExperimentBinaryFiles(string scenarioId, string path)
+
+		// Save all experiment binary results in a .tar.gz format to provided file path.
+		public void GetExperimentBinaryResults(string experimentId, string path)
 		{
-			//var path = Environment.CurrentDirectory;
 			var request = new RestRequest("/experiments/{id}/results_binaries", Method.GET);
-			request.AddUrlSegment("id", scenarioId);
+			request.AddUrlSegment("id", experimentId);
 			IRestResponse restResponse = this.Execute(request);
 			if (restResponse.ErrorException != null) {
 				const string message = "Error retrieving response.  Check inner details for more info.";
@@ -58,10 +56,8 @@ namespace Scalarm
 			} else {
 				var code = restResponse.RawBytes;
 				code.SaveAs(path);
-				return "OK";
 			}
 		}
-
 
 		public SimulationScenario GetScenarioById(string scenarioId)
 		{
