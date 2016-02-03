@@ -1,7 +1,7 @@
 using System;
 namespace Scalarm
 {
-    public class ScalarmObject
+    public class ScalarmObject : IScalarmObject
     {
         public Scalarm.Client Client {get; set;}
 

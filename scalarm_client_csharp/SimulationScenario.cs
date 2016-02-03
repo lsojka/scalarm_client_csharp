@@ -56,16 +56,16 @@ namespace Scalarm
 			Client.GetSimulationScenarioFiles(Id, path);
 		}
 		// TODO: change to use CustomPointsExperiment
-        public Experiment CreateExperimentWithPoints(List<ValuesMap> points, Dictionary<string, object> experimentParams)
+        public IExperiment CreateExperimentWithPoints(List<ValuesMap> points, Dictionary<string, object> experimentParams)
         {
-            Experiment experiment = Client.CreateExperimentWithPoints(Id, points, experimentParams);
+            IExperiment experiment = Client.CreateExperimentWithPoints(Id, points, experimentParams);
 			experiment.InputSpecification = this.InputSpecification;
 			return experiment;
         }
 
-		public SupervisedExperiment CreateSupervisedExperiment(string supervisorId, Dictionary<string, object> experimentParams)
+		public ISupervisedExperiment CreateSupervisedExperiment(string supervisorId, Dictionary<string, object> experimentParams)
 		{
-			SupervisedExperiment experiment = Client.CreateSupervisedExperiment(Id, supervisorId, experimentParams);
+			ISupervisedExperiment experiment = Client.CreateSupervisedExperiment(Id, supervisorId, experimentParams);
 			experiment.InputSpecification = this.InputSpecification;
 			return experiment;
 		}

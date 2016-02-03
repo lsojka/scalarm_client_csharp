@@ -13,7 +13,7 @@ namespace Scalarm
 	public delegate void ExperimentCompletedEventHandler(object sender, IList<SimulationParams> results);
 	public delegate void NoResourcesEventHandler(object sender); // TODO: should got failed simulation managers list
 
-	public class Experiment : ScalarmObject
+	public class Experiment : ScalarmObject, IExperiment
 	{
 		public event ExperimentCompletedEventHandler ExperimentCompleted;
 		public event NoResourcesEventHandler NoResources;

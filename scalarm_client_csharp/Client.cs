@@ -107,7 +107,7 @@ namespace Scalarm
 		/// <returns>The experiment by identifier.</returns>
 		/// <param name="experimentId">Experiment identifier.</param>
 		/// <typeparam name="T">The class of Experiment. It can be Experiment or SupervisedExperiment.</typeparam>
-        public T GetExperimentById<T>(string experimentId) where T : Experiment
+        public T GetExperimentById<T>(string experimentId) where T : IExperiment
         {
 			var request = new RestRequest("/experiments/{id}", Method.GET);
 			request.AddUrlSegment("id", experimentId);
@@ -156,7 +156,7 @@ namespace Scalarm
 
 
         // TODO: handle wrong scenario id
-        public Experiment CreateExperimentWithPoints(
+        public IExperiment CreateExperimentWithPoints(
             string simulationScenarioId,
             List<ValuesMap> points,
             Dictionary<string, object> additionalParameters = null
@@ -180,13 +180,13 @@ namespace Scalarm
 			request.AddParameter ("replication_level", 1);
 
             var response = this.Execute<ExperimentCreationResult>(request);
-            return HandleExperimentCreationResponse<Experiment>(response);
+            return HandleExperimentCreationResponse<IExperiment>(response);
         }
 
 		// TODO: handle wrong scenario id
 		// Starts supervised experiment
 		// If supervisorId is null, do not start any supervisor (must be invoked manually)
-		public SupervisedExperiment CreateSupervisedExperiment(
+		public ISupervisedExperiment CreateSupervisedExperiment(
 			string simulationScenarioId,
 			string supervisorId,
 			Dictionary<string, object> additionalParameters = null
@@ -206,11 +206,11 @@ namespace Scalarm
 			}
 
 			var response = this.Execute<ExperimentCreationResult>(request);
-			return HandleExperimentCreationResponse<SupervisedExperiment>(response);
+			return HandleExperimentCreationResponse<ISupervisedExperiment>(response);
 		}
 
         private T HandleExperimentCreationResponse<T>(IRestResponse<ExperimentCreationResult> response)
-			where T : Experiment
+			where T : IExperiment
         {
             ValidateResponseStatus(response);
 
