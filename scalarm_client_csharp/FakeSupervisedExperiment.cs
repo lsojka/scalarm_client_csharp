@@ -74,12 +74,23 @@ namespace Scalarm
 			var results = new List<Scalarm.SimulationParams>();
 			foreach (Scalarm.ValuesMap point in StoredPoints) {
 				var output = new Scalarm.ValuesMap {
-					{"moe", Random.NextDouble()}
+					{"moe_first", FakeFunction(Array.ConvertAll<object, double>(point.Flatten(), o => (double)o))},
+					{"moe_random", Random.NextDouble()}
 				};
 				var sp = new Scalarm.SimulationParams(point, output);
 				results.Add(sp);
 			}
 			return results;
+		}
+
+		protected virtual double FakeFunction(double[] input) {
+			if (input.Length > 1) {
+				double x = input[0];
+				double y = input[1];
+				return 3 * x + y * y;
+			} else {
+				return Random.NextDouble();
+			}
 		}
 
 		/// <summary>
