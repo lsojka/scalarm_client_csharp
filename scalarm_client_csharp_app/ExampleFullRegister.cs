@@ -98,7 +98,7 @@ namespace Scalarm
                 }
 
                 // create new experiment based on scenario
-                Experiment experiment = scenario.CreateExperimentWithPoints(points, experimentParams);
+				Experiment experiment = scenario.CreateExperimentWithPoints(points, experimentParams);
 
                 Console.WriteLine("Got experiment with ID: {0}", experiment.Id);
 
