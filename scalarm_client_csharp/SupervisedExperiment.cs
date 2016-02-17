@@ -42,7 +42,7 @@ namespace Scalarm
 		#endregion
 
 
-		public void SchedulePoint(ValuesMap point)
+		public virtual void SchedulePoint(ValuesMap point)
 		{
 			var request = new RestRequest(String.Format("experiments/{0}/schedule_point", this.Id), Method.POST);
 			request.AddParameter("point", point.ToJson());
@@ -50,7 +50,7 @@ namespace Scalarm
 			HandleSchedulePointResponse(result);
 		}
 
-		public void SchedulePoints(IEnumerable<ValuesMap> points)
+		public virtual void SchedulePoints(IEnumerable<ValuesMap> points)
 		{
 			// TODO: implement multi-point scheduling in Scalarm
 
@@ -76,7 +76,7 @@ namespace Scalarm
 		}
 
 		// TODO: values parameter (point) support
-		public void MarkAsComplete(string results, bool success = true, string errorReason = null)
+		public virtual void MarkAsComplete(string results, bool success = true, string errorReason = null)
 		{
 			var request = new RestRequest(String.Format("experiments/{0}/mark_as_complete", this.Id), Method.POST);
 			request.AddParameter("status", success ? "ok" : "error");

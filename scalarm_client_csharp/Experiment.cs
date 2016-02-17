@@ -13,7 +13,7 @@ namespace Scalarm
 	public delegate void ExperimentCompletedEventHandler(object sender, IList<SimulationParams> results);
 	public delegate void NoResourcesEventHandler(object sender); // TODO: should got failed simulation managers list
 
-	public class Experiment : ScalarmObject, IExperiment
+	public class Experiment : ScalarmObject
 	{
 		public event ExperimentCompletedEventHandler ExperimentCompleted;
 		public event NoResourcesEventHandler NoResources;
@@ -28,50 +28,50 @@ namespace Scalarm
 			}
 		}
 
-		public Dictionary<ValuesMap, ValuesMap> SimulationParamsMap { get; private set; }
+		public Dictionary<ValuesMap, ValuesMap> SimulationParamsMap { get; protected set; }
 
 		// TODO support for parameter constraints
 
 		#region model
 
 		[DeserializeAs(Name = "_id")]
-        public string Id {get; private set;}
+        public string Id {get; protected set;}
 
 		[DeserializeAs(Name = "name")]
-		public string Name {get; private set;}
+		public string Name {get; protected set;}
 
 		[DeserializeAs(Name = "description")]
-		public string Description {get; private set;}
+		public string Description {get; protected set;}
 
 		[DeserializeAs(Name = "simulation_id")]
-		public string SimulationId {get; private set;}
+		public string SimulationId {get; protected set;}
 
 		[DeserializeAs(Name = "is_running")]
-		public bool IsRunning {get; private set;}
+		public bool IsRunning {get; protected set;}
 
 		[DeserializeAs(Name = "replication_level")]
-		public int ReplicationLevel {get; private set;}
+		public int ReplicationLevel {get; protected set;}
 
 		[DeserializeAs(Name = "time_constraint_in_sec")]
-		public int TimeConstraintSec {get; private set;}
+		public int TimeConstraintSec {get; protected set;}
 
 		[DeserializeAs(Name = "start_at")]
-		public DateTime StartAt {get; private set;}
+		public DateTime StartAt {get; protected set;}
 
 		[DeserializeAs(Name = "user_id")]
-		public string UserId {get; private set;}
+		public string UserId {get; protected set;}
 
 		[DeserializeAs(Name = "scheduling_policy")]
-		public string SchedulingPolicy {get; private set;}
+		public string SchedulingPolicy {get; protected set;}
 
 		[DeserializeAs(Name = "experiment_input")]
 		public List<Category> InputSpecification { get; set; }
 
 		[DeserializeAs(Name = "size")]
-		public int Size {get; private set;}
+		public int Size {get; protected set;}
 
 		[DeserializeAs(Name = "supervised")]
-		public bool IsSupervised {get; private set;}
+		public bool IsSupervised {get; protected set;}
 
 		#endregion
 
@@ -90,34 +90,34 @@ namespace Scalarm
 		/// Get and save experiment binary package in .zip format.
 		/// </summary>
 		/// <param name="path">Local path to save results (.zip file will be created)</param>
-		public void GetBinaryResults(string path)
+		public virtual void GetBinaryResults(string path)
 		{
 			Client.GetExperimentBinaryResults(Id, path);
 		}
 
-		public void CreateParamsMap(List<ValuesMap> parameters)
+		public virtual void CreateParamsMap(List<ValuesMap> parameters)
 		{
 			foreach (var p in parameters) {
 				SimulationParamsMap.Add(p, null);
 			}
 		}
 
-		protected void OnExperimentCompleted(EventArgs e)
+		protected virtual void OnExperimentCompleted(EventArgs e)
 		{
 			// TODO not this this
 			if (ExperimentCompleted != null) ExperimentCompleted(this, GetResults());
 		}
 
-		protected void OnNoResources(EventArgs e)
+		protected virtual void OnNoResources(EventArgs e)
 		{
 			if (NoResources != null) NoResources(this); // TODO: should send failed SiM list
 		}
 
-        public IList<SimulationManager> ScheduleSimulationManagers(string infrastructure, int count, IDictionary<string, object> parameters = null) {
+		public virtual IList<SimulationManager> ScheduleSimulationManagers(string infrastructure, int count, IDictionary<string, object> parameters = null) {
             return Client.ScheduleSimulationManagers(Id, infrastructure, count, parameters);
         }
 
-		public IList<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridPassword)
+		public virtual IList<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridPassword)
         {
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"}
@@ -133,7 +133,7 @@ namespace Scalarm
             return ScheduleSimulationManagers("qsub", count, reqParams);
         }
 
-		public IList<SimulationManager> ScheduleZeusJobs(int count, IDictionary<string, object> parameters = null)
+		public virtual IList<SimulationManager> ScheduleZeusJobs(int count, IDictionary<string, object> parameters = null)
 		{
 			// default time limit
 			var reqParams = new Dictionary<string, object> {
@@ -156,7 +156,7 @@ namespace Scalarm
 			return ScheduleSimulationManagers("qsub", count, reqParams);
 		}
 
-		public IList<SimulationManager> SchedulePrivateMachineJobs(int count, PrivateMachineCredentials credentials)
+		public virtual IList<SimulationManager> SchedulePrivateMachineJobs(int count, PrivateMachineCredentials credentials)
 		{
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"},
@@ -166,7 +166,7 @@ namespace Scalarm
 			return ScheduleSimulationManagers("private_machine", count, reqParams);
 		}
 
-		public IList<SimulationManager> SchedulePrivateMachineJobs(int count, string credentialsId)
+		public virtual IList<SimulationManager> SchedulePrivateMachineJobs(int count, string credentialsId)
 		{
 			var reqParams = new Dictionary<string, object> {
 				{"time_limit", "60"},
@@ -182,7 +182,7 @@ namespace Scalarm
 		/// <returns>The pl grid jobs.</returns>
 		/// <param name="plgridCe">Target Computing Engine (cluster). Allowed values are stored in PLGridCE class. If null, "zeus.cyfronet.pl" is used.</param>
 		/// <param name="count">How many jobs should be created (parallel computations).</param>
-		public IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPassword, string keyPassphrase)
+		public virtual IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPassword, string keyPassphrase)
 		{
 			var reqParams = DefaultQcgScheduleParams();
 
@@ -208,7 +208,7 @@ namespace Scalarm
 		/// <returns>The pl grid jobs.</returns>
 		/// <param name="plgridCe">Target Computing Engine (cluster). Allowed values are stored in PLGridCE class. If null, "zeus.cyfronet.pl" is used.</param>
 		/// <param name="count">How many jobs should be created (parallel computations).</param>
-		public IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridProxy)
+		public virtual IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridProxy)
 		{
 			var reqParams = DefaultQcgScheduleParams();
 
@@ -228,7 +228,7 @@ namespace Scalarm
 		/// <returns>The pl grid jobs.</returns>
 		/// <param name="plgridCe">Target Computing Engine (cluster). Allowed values are stored in PLGridCE class. If null, "zeus.cyfronet.pl" is used.</param>
 		/// <param name="count">How many jobs should be created (parallel computations).</param>
-		public IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count)
+		public virtual IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count)
 		{
 			if (!(Client is ProxyCertClient)) {
 				throw new Exception ("If not using ProxyCertClient, login and password or explicit proxy should be used.");
@@ -252,12 +252,12 @@ namespace Scalarm
 			};
 		}
 
-        public ExperimentStatistics GetStatistics()
+		public virtual ExperimentStatistics GetStatistics()
         {
             return Client.GetExperimentStatistics(Id);
         }
 
-        public bool IsDone()
+		public virtual bool IsDone()
         {
             var stats = GetStatistics();
 			Console.WriteLine("DEBUG: exp stats: " + stats.ToString());
@@ -268,7 +268,7 @@ namespace Scalarm
         /// <summary>
         ///  Actively waits for experiment for completion. 
         /// </summary>
-        public void WaitForDone(int timeoutSecs=-1, int pollingIntervalSeconds=5)
+		public virtual void WaitForDone(int timeoutSecs=-1, int pollingIntervalSeconds=5)
         {
             var startTime = DateTime.UtcNow;
 
@@ -285,7 +285,7 @@ namespace Scalarm
 
 		private BackgroundWorker _worker;
 
-		public void StartWatching()
+		public virtual void StartWatching()
 		{
 			if (_worker == null) {
 				_worker = new BackgroundWorker();
@@ -300,7 +300,7 @@ namespace Scalarm
 			}
 		}
 
-		public void StopWatching()
+		public virtual void StopWatching()
 		{
 			if (_worker != null) {
 				_worker.CancelAsync();
@@ -342,7 +342,7 @@ namespace Scalarm
 		//  Gets results in form od Dictionary: input parameters -> MoEs
 		//  Input parameters and MoEs are in form of dictionaries: id -> value; both keys and values are string!
 		// </summary>
-		public IList<SimulationParams> GetResults(Boolean fetchFailed = false)
+		public virtual IList<SimulationParams> GetResults(Boolean fetchFailed = false)
 		{
 			// TODO: iterate all this experiment's SimulationParams and fill results to outputs
 
@@ -385,7 +385,7 @@ namespace Scalarm
 			return convertedResults;
 		}
 
-		public void FillSimulationParamsMap(IList<ValuesMap> results, IList<string> parametersIds)
+		public virtual void FillSimulationParamsMap(IList<ValuesMap> results, IList<string> parametersIds)
 		{
 			foreach (var result in results) {
 				var resultDict = result.ShallowCopy();
@@ -413,7 +413,7 @@ namespace Scalarm
 		/// <returns>All simulation managers associated with this Experiment.</returns>
 		/// <param name="additionalParams">Additional query parameters.
 		/// See additionalParams for Client.GetAllSimulationManagers for details (except for experiment_id).</param>
-		public IList<SimulationManager> GetSimulationManagers(IDictionary<string, object> additionalParams = null)
+		public virtual IList<SimulationManager> GetSimulationManagers(IDictionary<string, object> additionalParams = null)
 		{
 			if (additionalParams == null) {
 				additionalParams = new Dictionary<string, object>();
@@ -422,7 +422,7 @@ namespace Scalarm
 			return Client.GetAllSimulationManagers(additionalParams);
 		}
 
-		public IList<SimulationManager> GetActiveSimulationManagers()
+		public virtual IList<SimulationManager> GetActiveSimulationManagers()
 		{
 			return GetSimulationManagers(new Dictionary<string, object>() {
 				{"states_not", new string[] {"error", "terminating"}}

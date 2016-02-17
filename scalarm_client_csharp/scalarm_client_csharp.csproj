@@ -7,8 +7,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Scalarm</RootNamespace>
     <AssemblyName>Scalarm</AssemblyName>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,10 +60,7 @@
     <Compile Include="exceptions\ScalarmException.cs" />
     <Compile Include="SupervisedExperiment.cs" />
     <Compile Include="exceptions\SchedulePointException.cs" />
-    <Compile Include="IExperiment.cs" />
-    <Compile Include="ISupervisedExperiment.cs" />
     <Compile Include="FakeSupervisedExperiment.cs" />
-    <Compile Include="IScalarmObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

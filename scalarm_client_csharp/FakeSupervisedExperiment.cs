@@ -6,7 +6,7 @@ namespace Scalarm
 	/// <summary>
 	/// Mock of Scalarm.Experiment for testing purposes.
 	/// </summary>
-	public class FakeSupervisedExperiment : ISupervisedExperiment
+	public class FakeSupervisedExperiment : SupervisedExperiment
 	{
 		public List<Scalarm.ValuesMap> StoredPoints { get; set; }
 		public Random Random { get; }
@@ -21,22 +21,7 @@ namespace Scalarm
 
 		public Scalarm.Client Client { get; set; }
 
-		public string Id {get;}
-		public string Name { get; }
-		public string Description {get;}
-		public string SimulationId {get;}
-		public bool IsRunning {get;}
-		public int ReplicationLevel {get;}
-		public int TimeConstraintSec {get;}
-		public DateTime StartAt {get;}
-		public string UserId {get;}
-		public string SchedulingPolicy {get;}
-		public List<ExperimentInput.Category> InputSpecification { get; set; }
-		public int Size {get;}
-		public bool IsSupervised {get;}
-
-
-		public void GetBinaryResults(string path) {
+		public override void GetBinaryResults(string path) {
 			throw new NotImplementedException();
 		}
 
@@ -48,20 +33,20 @@ namespace Scalarm
 		/// <param name="infrastructure">Infrastructure.</param>
 		/// <param name="count">Count.</param>
 		/// <param name="parameters">Parameters.</param>
-		public IList<Scalarm.SimulationManager> ScheduleSimulationManagers(string infrastructure,
+		public override IList<Scalarm.SimulationManager> ScheduleSimulationManagers(string infrastructure,
 			int count, IDictionary<string, object> parameters = null) {
 
 			throw new NotImplementedException();
 		}
 
-		public Scalarm.ExperimentStatistics GetStatistics() {
+		public override Scalarm.ExperimentStatistics GetStatistics() {
 			throw new NotImplementedException();
 		}
 
 		/// <summary>
 		/// Do exactly nothing. All parameters are fake.
 		/// </summary>
-		public void WaitForDone(int timeoutSecs=-1, int pollingIntervalSeconds=5) {}
+		public override void WaitForDone(int timeoutSecs=-1, int pollingIntervalSeconds=5) {}
 
 		/// <summary>
 		/// Return fake results for registered points.
@@ -70,7 +55,7 @@ namespace Scalarm
 		/// </summary>
 		/// <returns>The results.</returns>
 		/// <param name="fetchFailed">Fake parameter</param>
-		public IList<Scalarm.SimulationParams> GetResults(Boolean fetchFailed = false) {
+		public override IList<Scalarm.SimulationParams> GetResults(Boolean fetchFailed = false) {
 			var results = new List<Scalarm.SimulationParams>();
 			foreach (Scalarm.ValuesMap point in StoredPoints) {
 				var output = new Scalarm.ValuesMap {
@@ -96,7 +81,7 @@ namespace Scalarm
 		/// <summary>
 		/// Fake function. Throws NotImplementedException.
 		/// </summary>
-		public IList<Scalarm.SimulationManager> GetSimulationManagers(IDictionary<string, object> additionalParams = null) {
+		public override IList<Scalarm.SimulationManager> GetSimulationManagers(IDictionary<string, object> additionalParams = null) {
 			throw new NotImplementedException();
 		}
 
@@ -106,7 +91,7 @@ namespace Scalarm
 		/// <param name="results">Results.</param>
 		/// <param name="success">If set to <c>true</c> success.</param>
 		/// <param name="errorReason">Error reason.</param>
-		public void MarkAsComplete(string results, bool success = true, string errorReason = null) {
+		public override void MarkAsComplete(string results, bool success = true, string errorReason = null) {
 			Console.WriteLine("EXPERIMENT MOCK mark as complete\n" +
 				"Results:\n" + results + "\n" +
 				"Success? " + success + "\n" +
@@ -119,13 +104,13 @@ namespace Scalarm
 		/// Register point in this instance to use them for results "generation" in GetResults
 		/// </summary>
 		/// <param name="point">Point.</param>
-		public void SchedulePoint(Scalarm.ValuesMap point)
+		public override void SchedulePoint(Scalarm.ValuesMap point)
 		{
 			// TODO: register points in instance to use them in GetResults
 			StoredPoints.Add(point);
 		}
 
-		public void SchedulePoints(IEnumerable<Scalarm.ValuesMap> points)
+		public override void SchedulePoints(IEnumerable<Scalarm.ValuesMap> points)
 		{
 			foreach (Scalarm.ValuesMap point in points) {
 				SchedulePoint(point);
@@ -135,47 +120,47 @@ namespace Scalarm
 
 
 
-		public IList<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridPassword)
+		public override IList<SimulationManager> ScheduleZeusJobs(int count, string plgridLogin, string plgridPassword)
 		{
 			throw new NotImplementedException();
 		}
-		public IList<SimulationManager> ScheduleZeusJobs(int count, IDictionary<string, object> parameters = null)
+		public override IList<SimulationManager> ScheduleZeusJobs(int count, IDictionary<string, object> parameters = null)
 		{
 			throw new NotImplementedException();
 		}
-		public IList<SimulationManager> SchedulePrivateMachineJobs(int count, PrivateMachineCredentials credentials)
+		public override IList<SimulationManager> SchedulePrivateMachineJobs(int count, PrivateMachineCredentials credentials)
 		{
 			throw new NotImplementedException();
 		}
-		public IList<SimulationManager> SchedulePrivateMachineJobs(int count, string credentialsId)
+		public override IList<SimulationManager> SchedulePrivateMachineJobs(int count, string credentialsId)
 		{
 			throw new NotImplementedException();
 		}
-		public IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPassword, string keyPassphrase)
+		public override IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridLogin, string plgridPassword, string keyPassphrase)
 		{
 			throw new NotImplementedException();
 		}
-		public IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridProxy)
+		public override IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count, string plgridProxy)
 		{
 			throw new NotImplementedException();
 		}
-		public IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count)
+		public override IList<SimulationManager> SchedulePlGridJobs(string plgridCe, int count)
 		{
 			throw new NotImplementedException();
 		}
-		public bool IsDone()
+		public override bool IsDone()
 		{
 			throw new NotImplementedException();
 		}
-		public void StartWatching()
+		public override void StartWatching()
 		{
 			throw new NotImplementedException();
 		}
-		public void StopWatching()
+		public override void StopWatching()
 		{
 			throw new NotImplementedException();
 		}
-		public void FillSimulationParamsMap(IList<ValuesMap> results, IList<string> parametersIds)
+		public override void FillSimulationParamsMap(IList<ValuesMap> results, IList<string> parametersIds)
 		{
 			throw new NotImplementedException();
 		}

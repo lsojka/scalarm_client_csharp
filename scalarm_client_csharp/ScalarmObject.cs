@@ -1,11 +1,9 @@
 using System;
 namespace Scalarm
 {
-    public class ScalarmObject : IScalarmObject
+    public class ScalarmObject
     {
         public Scalarm.Client Client {get; set;}
-
-
 
         public ScalarmObject()
         {}
