@@ -9,7 +9,7 @@ namespace Scalarm
 	public class FakeSupervisedExperiment : SupervisedExperiment
 	{
 		public List<Scalarm.ValuesMap> StoredPoints { get; set; }
-		public Random Random { get; }
+		public Random Random { get; private set; }
 
 		public FakeSupervisedExperiment ()
 		{
