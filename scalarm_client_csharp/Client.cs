@@ -7,11 +7,72 @@ using RestSharp.Extensions;
 using System.Linq;
 using System.Collections;
 using System.Globalization;
+using System.Threading;
+using RestSharp.Deserializers;
 
 namespace Scalarm
-{	
+{
 	public abstract class Client : RestClient
 	{
+		public int MaxRequestTries { get; set; }
+		public int RequestRetryTimeMs { get; set; }
+
+		// I'm very sorry, but Execute<T> and Execute must be copied because of some private methods in RestSharp
+
+		public new IRestResponse<T> Execute<T>(IRestRequest request) where T : new() {
+			HttpStatusCode status = HttpStatusCode.Unused;
+			IRestResponse<T> response = null;
+			bool continueRequesting = true;
+			int requestCount = 0;
+			do {
+				response = base.Execute<T>(request);
+				status = response.StatusCode;
+				if (status != HttpStatusCode.OK) {
+					requestCount += 1;
+					Console.WriteLine(
+						String.Format("Request {0} returned with HTTP code '{1}', try {2}",
+					              request.ToString(), status.ToString(), requestCount));
+					if (requestCount > MaxRequestTries) {
+						Console.WriteLine("Max failed request limit exceeded, returning failed response");
+						continueRequesting = false;
+					} else {
+						Thread.Sleep(RequestRetryTimeMs);
+					}
+				} else {
+					continueRequesting = false;
+				}
+			} while (continueRequesting);
+
+			return response;
+		}
+
+		public new IRestResponse Execute(IRestRequest request) {
+			HttpStatusCode status = HttpStatusCode.Unused;
+			IRestResponse response = null;
+			bool continueRequesting = true;
+			int requestCount = 0;
+			do {
+				response = base.Execute(request);
+				status = response.StatusCode;
+				if (status != HttpStatusCode.OK) {
+					requestCount += 1;
+					Console.WriteLine(
+						String.Format("Request {0} returned with HTTP code '{1}', try {2}",
+					              request.ToString(), status.ToString(), requestCount));
+					if (requestCount > MaxRequestTries) {
+						Console.WriteLine("Max failed request limit exceeded, returning failed response");
+						continueRequesting = false;
+					} else {
+						Thread.Sleep(RequestRetryTimeMs);
+					}
+				} else {
+					continueRequesting = false;
+				}
+			} while (continueRequesting);
+
+			return response;
+		}
+
 		public static string PrepareStringForHeader(string value) {
 			return value.Replace ("\n", "\\r\\n");
 		}
@@ -23,6 +84,10 @@ namespace Scalarm
         		(sender, certificate, chain, sslPolicyErrors) => true;
 			
 			this.BaseUrl = new Uri(baseUrl);
+
+			MaxRequestTries = 10;
+			RequestRetryTimeMs = 5000;
+
             // Cannot use this because of bug in JSON.net for Mono!
             // this.AddHandler("application/json", new JsonConvertDeserializer());
 		}
