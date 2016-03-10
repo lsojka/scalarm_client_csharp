@@ -14,6 +14,8 @@ namespace Scalarm
 {
 	public abstract class Client : RestClient
 	{
+		public const string VERSION = "2016_03_10_2112";
+
 		public int MaxRequestTries { get; set; }
 		public int RequestRetryTimeMs { get; set; }
 
@@ -30,8 +32,8 @@ namespace Scalarm
 				if (status != HttpStatusCode.OK) {
 					requestCount += 1;
 					Console.WriteLine(
-						String.Format("Request {0} returned with HTTP code '{1}', try {2}",
-					              request.ToString(), status.ToString(), requestCount));
+						String.Format("Request {0} returned with HTTP code '{1}', try {2}/{3}",
+					              request.ToString(), status.ToString(), requestCount, MaxRequestTries));
 					if (requestCount > MaxRequestTries) {
 						Console.WriteLine("Max failed request limit exceeded, returning failed response");
 						continueRequesting = false;
@@ -57,8 +59,8 @@ namespace Scalarm
 				if (status != HttpStatusCode.OK) {
 					requestCount += 1;
 					Console.WriteLine(
-						String.Format("Request {0} returned with HTTP code '{1}', try {2}",
-					              request.ToString(), status.ToString(), requestCount));
+						String.Format("Request {0} returned with HTTP code '{1}', try {2}/{3}",
+					              request.ToString(), status.ToString(), requestCount, MaxRequestTries));
 					if (requestCount > MaxRequestTries) {
 						Console.WriteLine("Max failed request limit exceeded, returning failed response");
 						continueRequesting = false;
@@ -77,16 +79,18 @@ namespace Scalarm
 			return value.Replace ("\n", "\\r\\n");
 		}
 
-		public Client(string baseUrl)
+		public Client(string baseUrl, int maxRequestTries = 480, int requestRetryTimeSec = 15)
 		{
+			Console.WriteLine("Created Scalarm Client C# instance, version: " + VERSION);
+
 			// TODO: certificate check by default, optional insecure
 			ServicePointManager.ServerCertificateValidationCallback +=
         		(sender, certificate, chain, sslPolicyErrors) => true;
 			
 			this.BaseUrl = new Uri(baseUrl);
 
-			MaxRequestTries = 10;
-			RequestRetryTimeMs = 5000;
+			MaxRequestTries = maxRequestTries;
+			RequestRetryTimeMs = requestRetryTimeSec * 1000;
 
             // Cannot use this because of bug in JSON.net for Mono!
             // this.AddHandler("application/json", new JsonConvertDeserializer());
