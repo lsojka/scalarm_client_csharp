@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Dynamic.Utils;
+//using System.Dynamic.Utils;
 
 namespace Scalarm
 {
@@ -13,6 +13,11 @@ namespace Scalarm
     {
         public void Run()
         {
+            // Idle loop looking for someone to clik on/activate element.
+            // TODO - Google it
+
+            // 1. Get json, passes, scenario
+            // TODO - Method that extracts from file and stores for use
 			var config = Application.ReadConfig ("config.json");
             var client = Application.CreateClient(config);
 
@@ -22,18 +27,22 @@ namespace Scalarm
 			                                           ? Application.ReadString("Enter PL-Grid login:") : config.plgrid_login);
 
 			string plgPass = usingProxyClient ? "" : Application.ReadPassword("Enter PL-Grid UI password:");
-			string plgKeyPass = usingProxyClient ? "" : Application.ReadPassword("Enter PL-Grid Certificate password:");
+			string plgKeyPass = usingProxyClient ? "" : Application.ReadPassword("Enter PL-Grid Certificate / current scalarm password:");
 
-            var randomNum = Application.GetRandomNumber(1000);
+            
+            var randomNum = Application.GetRandomNumber(999);
             var simulationName = String.Format("New simulation {0}", randomNum);
-			var baseScenarioPath = "example_scenario";
+		    
+            var baseScenarioPath = "example_scenario";
 
 			Func<string, string> scenarioPath = p => string.Format("{0}{1}{2}", baseScenarioPath, Path.DirectorySeparatorChar, p);
             var simulationBinariesPath = scenarioPath("bin.zip");
             var executorPath = scenarioPath("executor.py");
 
+            // 2. Load params.  scenario & experiment
             var scenarioParams = new Dictionary<string, object>() { };
 
+            // injected scenario data
             var experimentParams = new Dictionary<string, object>()
 			{
 	            {"experiment_name", String.Format("New experiment {0}", randomNum)},
@@ -42,13 +51,22 @@ namespace Scalarm
 				{"execution_time_constraint", 3600}
 			};
 
+
+            /* 3.1. Parameter specification
+             *
+             * 
+             *    Parameters have to be read from supplied file - hardcoded and loaded from disk or GUI loader
+             *    TODO - Verifier - parser, or just lean on Scalarm?
+             */
+             
             try
             {
                 // TODO: below method with executor id instead of path overload
                 
                 // define input parameters specification
                 var simulationParameters = new List<ExperimentInput.Parameter>() {
-                    new Parameter("parameter1", "Param 1") {
+                    new Parameter("paramteer1", "Param 1") {
+                        // this is initialization for a parameter
                         ParametrizationType = ExperimentInput.ParametrizationType.RANGE,
                         Type = ExperimentInput.Type.FLOAT,
                         Min = 0, Max = 1000
@@ -60,7 +78,8 @@ namespace Scalarm
                 	}
                 };
 
-                // create new scenario based on parameters specification
+                // 3.2.
+                // create scenario based and stuff it with parameter space
                 SimulationScenario scenario = client.RegisterSimulationScenario(
                     simulationName, simulationBinariesPath, simulationParameters, executorPath, scenarioParams);
                 
@@ -97,7 +116,7 @@ namespace Scalarm
 				    });
                 }
 
-                // create new experiment based on scenario
+                // 4. Create new experiment based on scenario
 				Experiment experiment = scenario.CreateExperimentWithPoints(points, experimentParams);
 
                 Console.WriteLine("Got experiment with ID: {0}", experiment.Id);
@@ -105,9 +124,10 @@ namespace Scalarm
                 // will contain list of worker objects
                 List<SimulationManager> jobs = new List<SimulationManager>();
 
-                // -- workers scheduling on PL-Grid --
-                
-                // TODO: parametrize!
+                // 5. -- Workers scheduling on PL-Grid --
+                // Not for now.
+                /*
+                // TODO: parametrize! - legacy todo
 
                 // schedule directly on Zeus PBS (preferred for Zeus)
 
@@ -154,6 +174,7 @@ namespace Scalarm
                 experiment.WatchingIntervalSecs = 4;
                 experiment.StartWatching();
 
+                
                 // idle loop... remove if using WaitForDone!
                 while (Application.ShouldWait)
                 {
@@ -162,6 +183,7 @@ namespace Scalarm
 					Console.WriteLine("State of Simulation Managers: {0}", string.Join(", ", jobs.Select(i => i.State)));
                     Thread.Sleep(1000);
                 }
+                */
             }
             catch (RegisterSimulationScenarioException e)
             {

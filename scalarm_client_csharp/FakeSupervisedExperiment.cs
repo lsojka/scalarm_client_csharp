@@ -18,7 +18,7 @@ namespace Scalarm
 
 			Id = "FakeExperiment";
 		}
-
+        // FIXME
 		public Scalarm.Client Client { get; set; }
 
 		public override void GetBinaryResults(string path) {
