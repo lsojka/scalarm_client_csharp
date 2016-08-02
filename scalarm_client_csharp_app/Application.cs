@@ -106,6 +106,7 @@ namespace Scalarm
 
 		static void Main()
 		{
+            // TODO - Run(configFile.Decomposed)
 			new ExampleFullRegister().Run();
 		}
 

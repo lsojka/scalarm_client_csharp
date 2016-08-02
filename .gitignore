@@ -13,3 +13,9 @@ scalarm_client_csharp_tests/scalarm_client_csharp_tests.pidb
 scalarm_client_csharp_tests/test-results
 test-results/
 .DS_Store
+.nuget/NuGet.Config
+.nuget/NuGet.targets
+*.exe
+scalarm_client_csharp_tests/example_scenario/input_definition.json
+scalarm_client_csharp_tests/example_scenario/bin.zip
+*.py
