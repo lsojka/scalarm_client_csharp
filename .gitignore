@@ -19,3 +19,10 @@ test-results/
 scalarm_client_csharp_tests/example_scenario/input_definition.json
 scalarm_client_csharp_tests/example_scenario/bin.zip
 *.py
+
+# monitor project
+scalarm_client_csharp_monitor/bin/
+scalarm_client_csharp_monitor/obj/
+
+# ignore tests as a whole
+scalarm_client_csharp_tests/
