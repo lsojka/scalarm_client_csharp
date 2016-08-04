@@ -21,8 +21,18 @@ namespace scalarm_client_csharp_monitor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("220 v");
+  
             ExperimentStatistics h;
+        }
+
+        private void passwordBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void loginBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
