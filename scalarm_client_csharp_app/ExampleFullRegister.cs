@@ -88,7 +88,7 @@ namespace Scalarm
                 List<ValuesMap> points;
 
                 // define few point of parameter space
-                points = new List<ValuesMap>() {
+                points = new List<ValuesMap>(){ 
                 	new ValuesMap() {
                 	    {"parameter1", 1.5},
                 		{"parameter2", 3}
