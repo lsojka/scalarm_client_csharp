@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Scalarm;
 
 
+
 namespace scalarm_client_csharp_monitor
 {
     public partial class Form1 : Form
@@ -22,7 +23,11 @@ namespace scalarm_client_csharp_monitor
         private void button1_Click(object sender, EventArgs e)
         {
   
-            ExperimentStatistics h;
+            //ExperimentStatistics h;
+            // model
+            Supervisor supervisor = new Supervisor();
+            supervisor.register();
+            
         }
 
         private void passwordBox_TextChanged(object sender, EventArgs e)
