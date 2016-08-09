@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using AppLogic;
+
 namespace scalarm_client_csharp_monitor
 {
     static class Program
@@ -16,7 +18,7 @@ namespace scalarm_client_csharp_monitor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
     }
 }

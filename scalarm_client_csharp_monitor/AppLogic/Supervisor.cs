@@ -12,10 +12,10 @@ using System.Reflection;
 using Newtonsoft.Json;
 using RestSharp.Deserializers;
 using Scalarm.ExperimentInput;
+using Scalarm;
 
 
-
-namespace Scalarm
+namespace AppLogic
 {
 	public class Supervisor
 	{

@@ -1,0 +1,1686 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="5f92751b-62ff-4619-8e1a-e6475a5cbaf2"
+  name="AppLogic"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="6128f97f-f78e-4d06-a2c4-503077d9feb2"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DAppLogic"
+      tag="ViewCode" />
+  </referencesInternal>
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="9d266f02-59ca-429c-a640-57a3f6894993">
+      <profileInstance
+        Id="6443cd31-98d8-40b8-9b17-75eb3df5c19e"
+        name="CSharpProfile" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="423d59eb-6309-4135-a272-fd9dfe4d88ee"
+        name="ScalarmAppConfig"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="c3b262f6-3817-4e61-b3fe-31fa87227dd4"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3D(Name%3DScalarmAppConfig ParentType%3DSupervisor)"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="ee89bd69-5683-4eb0-b5fb-d57d42c5f125"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="86b5fe88-fc8d-4f01-b21d-b809ad46aaf3">
+                <propertyInstance
+                  Id="8dd626dd-f1f0-4dc0-b61e-f49c5be76e4f"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="121453be-f812-40ea-abe1-ac1b956ea6ab">
+                <propertyInstance
+                  Id="3931a5e0-56f9-43e0-b795-4ce0b6c843d6"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3c2eb6e0-0402-4456-9ad5-561e740be6ee">
+                <propertyInstance
+                  Id="608af0ee-4478-4b4d-8b1a-caa9428b36da"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9f820178-e807-4e4a-ad7b-6780aed82f61">
+                <propertyInstance
+                  Id="66aff1e0-ddfa-4c5e-94f6-b5b5a3d4ef2d"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d78e8155-c067-44fb-8aa0-54e1634d46a3">
+                <propertyInstance
+                  Id="f8e10541-b0a0-4c06-9589-47703035b9af"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="70c97f20-0d50-4042-9931-2af98e4dd8b8"
+            name="base_url"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="8f4ccc21-85dd-45df-b870-74cffbacea8e"
+                handle="viewcode://./CodeSchema_Field?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3D(Name%3DScalarmAppConfig ParentType%3DSupervisor) Member%3Dbase_url"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="449ab0ca-51d8-4d2b-be2e-ebecbc8cd7b4"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0a65da56-9398-4bbd-82c7-f686441a07dc">
+                    <propertyInstance
+                      Id="0a09ee61-b9c5-4a58-9bbc-dc59536abb66"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c2161c35-244e-4d8f-873f-a3911cb313fe">
+                    <propertyInstance
+                      Id="cc5aeb06-d78f-425c-bfa0-55e88583ec62"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="150602fd-1fa2-4804-9a87-97573532dd6a">
+                    <propertyInstance
+                      Id="2931baf5-bc93-4d16-a0f8-fe9d669dfd84"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1b631a3e-0eb1-4678-85ed-9eb44f8b6111">
+                    <propertyInstance
+                      Id="7637d837-7115-4892-aede-6cfa28ae85ae"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b858ccc6-7893-41de-ad2c-97ad2b165111">
+                    <propertyInstance
+                      Id="87a0d6e6-a742-4cee-b647-221fdd421731"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="MainModellingProject.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="64f6d866-29da-40e6-baa2-fdc3e98e45e1"
+            name="login"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="8b0b25f7-0d6a-4964-b850-a0eba9aee8b2"
+                handle="viewcode://./CodeSchema_Field?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3D(Name%3DScalarmAppConfig ParentType%3DSupervisor) Member%3Dlogin"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="a670ec7a-08ac-4738-a44e-7d2b141e2854"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="22335c3e-f8ae-4bff-a61d-e49082a05ecd">
+                    <propertyInstance
+                      Id="0f30fb6e-d38c-44e9-acf1-64b24a0e08e6"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bbd39bb2-b43c-49b8-93a1-cec12298b4ac">
+                    <propertyInstance
+                      Id="407d80a0-2833-48f1-b02b-af7d332f2970"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f2237c7d-ca44-495d-be39-6826c139747b">
+                    <propertyInstance
+                      Id="83887d95-e341-4daf-b7da-b3032c39f664"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="40ee3284-207a-4083-8956-6c854b0ad81b">
+                    <propertyInstance
+                      Id="aeffe8da-0f8d-4209-9cdc-603bd25e8968"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bfc7f2ac-8d7a-4dc9-9480-c63ca50897a8">
+                    <propertyInstance
+                      Id="785afee3-c5cb-4682-a61d-83f4f0af3eac"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="MainModellingProject.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="bf36105a-01da-4294-bd72-fcbf50a99e07"
+            name="password"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="c17acd57-1e44-474c-a301-1c35c9d48df2"
+                handle="viewcode://./CodeSchema_Field?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3D(Name%3DScalarmAppConfig ParentType%3DSupervisor) Member%3Dpassword"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="16d64bff-4e61-4089-a8d0-4fa5150e165a"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="002f2139-69ef-4ff9-a466-2da712be0576">
+                    <propertyInstance
+                      Id="17966b42-fa8c-49a3-be81-7346f60837ec"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7a39a90f-2919-4a35-9a51-850766d0ef02">
+                    <propertyInstance
+                      Id="d59dbb13-f3b1-4d4b-86f6-604bdb5555f0"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8c39c180-fb04-4cca-94eb-107644aa7305">
+                    <propertyInstance
+                      Id="ecca2554-3c44-40fd-adba-a5d760b41bad"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="afe37990-416e-47fb-9005-8ec7f33990dd">
+                    <propertyInstance
+                      Id="d023b826-c6a6-47f0-8745-a3aeabdfb596"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3e71168c-aa6a-401b-8f9a-dee0340e3526">
+                    <propertyInstance
+                      Id="d8d5d6c1-c9dd-40fa-85ee-c4510a91cb84"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="MainModellingProject.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="ae8a4e64-d4c5-4829-a128-8fd4264084df"
+            name="plgrid_login"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="8e4e941e-7c26-4f4b-baf1-a2af37b58aaa"
+                handle="viewcode://./CodeSchema_Field?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3D(Name%3DScalarmAppConfig ParentType%3DSupervisor) Member%3Dplgrid_login"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="efaf1a8b-c341-400b-93e1-03b718ec1b7e"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="64e83cfe-75e7-4534-a1b8-ea2b836e844b">
+                    <propertyInstance
+                      Id="ee6ee27d-4a76-4da5-82ee-418d29d6f66e"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1c95d79c-c0cc-46e8-9475-3603cc627ef4">
+                    <propertyInstance
+                      Id="1daa8c5c-437a-4ef9-95a4-2cf56687ebb9"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="caf252a2-698e-4796-b99b-9c735639b826">
+                    <propertyInstance
+                      Id="3b21a001-68c0-469d-a80f-14943ebccad4"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="13c7d851-4af2-4b65-b1b2-0333ce875187">
+                    <propertyInstance
+                      Id="13ddfcf8-1485-46d8-99d1-896e1bc26427"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="975a28e9-3be0-4518-9cc2-ce874b94ef45">
+                    <propertyInstance
+                      Id="30935d0d-7b75-440a-bf16-beb47a1fed77"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="MainModellingProject.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="fc031b02-6a8a-4d60-a29e-885acaf7eab6"
+            name="proxy_path"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="e8ead065-0fb2-45c4-a01e-7edb3c1d24ae"
+                handle="viewcode://./CodeSchema_Field?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3D(Name%3DScalarmAppConfig ParentType%3DSupervisor) Member%3Dproxy_path"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="ddc4c342-23b7-40b7-a17f-8543d620f8c9"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="742cf25d-d94a-4172-89a1-d4c99fb69ea7">
+                    <propertyInstance
+                      Id="886a0d5a-0933-473b-a106-98600a749cee"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="59bbc008-2543-4639-80ad-2c5aa2b4c9e2">
+                    <propertyInstance
+                      Id="9a747c4e-f234-4eac-a4f0-b8db4d00831a"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="db3d2ac8-e8d0-40f2-8434-d366944c6bce">
+                    <propertyInstance
+                      Id="9ead8b9a-a093-464a-b039-4a6b385f1e2b"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a2a982e2-c83d-427e-8bf3-603cd382a440">
+                    <propertyInstance
+                      Id="46da2e6a-3792-4b48-a43a-e19e34eebd11"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="61f31b55-ca62-44b9-9506-95af54082bad">
+                    <propertyInstance
+                      Id="f8480dd8-8182-4c96-9ab3-16452790c5bc"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="MainModellingProject.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="df630a9f-9323-4ae1-ba61-0ef1fda1e1e8"
+            name="experiment_id"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="7ccdc2de-10bf-4d5c-8a98-3fdd7a824da2"
+                handle="viewcode://./CodeSchema_Field?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3D(Name%3DScalarmAppConfig ParentType%3DSupervisor) Member%3Dexperiment_id"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="215388d5-32cf-4499-9180-c8d541e31f41"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f6c6aaf2-77f6-4ff7-9aa9-57a3623ed2cb">
+                    <propertyInstance
+                      Id="089469f5-6cb4-4993-bf94-cd63e31f80cf"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="312cf4c0-3f0f-4e26-9f97-b4f02ebdc5d5">
+                    <propertyInstance
+                      Id="7c830860-abf6-49ed-9292-b7543df280d7"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f393be73-c8f8-4dde-bbe6-962613e67b25">
+                    <propertyInstance
+                      Id="30bc6d0e-e2f0-4534-8999-04a7518f9fcf"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2ae8d8a2-3a5d-4daa-a0a3-2a7cdf284c40">
+                    <propertyInstance
+                      Id="f7f15023-7058-4857-9da4-653e0a758365"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="869255e6-9d22-406f-abb6-eb318decaa8a">
+                    <propertyInstance
+                      Id="66360726-af5f-4a2a-bf81-ff708c1650f6"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="MainModellingProject.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="3ddedad2-f135-4044-b442-4f5b7e6cb726"
+            name="ScalarmAppConfig"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="935c9ecd-ade5-49fe-ad2f-cf3514f54deb"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3D(Name%3DScalarmAppConfig ParentType%3DSupervisor) Member%3D.ctor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="96d8e170-43e0-43c1-ab72-d4d50003c152"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2f2c8792-7dd4-41bd-85a5-5de1e5cc76ee">
+                    <propertyInstance
+                      Id="5ee29bd7-c5a7-409a-9728-5c7eb1f2ff36"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f80fe10f-98c2-468d-a3a0-dea38e8ce805">
+                    <propertyInstance
+                      Id="ab48853b-de2c-47be-8eb4-0ea521d620e0"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="94579b3f-2517-4087-9f99-bae6aaea0491">
+                    <propertyInstance
+                      Id="fad101ff-47de-469f-b3f3-1112a45e374b"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c0872f59-637a-40a1-abdf-22016b62133e">
+                    <propertyInstance
+                      Id="573a64bf-bdcc-4ca2-ba6a-7fda82822e8c"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="aee5b211-5ac3-4a1f-bb77-f17ccb07f799">
+                    <propertyInstance
+                      Id="ad2be7df-d786-4c6e-a574-0402e1df87cd"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bb9b75ba-f335-4032-a5cf-b46309547ea0">
+                    <propertyInstance
+                      Id="a936ca48-93d1-4451-9665-9ce5c6fefe5f"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="04679d17-d71c-4e6a-9e8c-e75fdf298a2a"
+        name="Supervisor"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="7a799232-e96e-4136-9feb-8c6340bb0dc0"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="3062a0ef-add5-4ade-a71c-62a6270ce1b1"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b10cf6b9-882f-43f4-8ad8-6801cbbcc616">
+                <propertyInstance
+                  Id="0d836be7-23b1-48d0-962a-8ff0b5f8ea18"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="6fda6727-c9b7-42d7-b6ef-58440e962952">
+                <propertyInstance
+                  Id="acb25677-30c9-4c4f-84d5-d99cf0b55af6"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3fb2f01b-3bed-4b5c-b4a1-98187d91c1d8">
+                <propertyInstance
+                  Id="15a62844-f1fb-48b6-8de0-9e18de8024bd"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="633f0974-5067-4e30-ab3b-102fbb4f5cc4">
+                <propertyInstance
+                  Id="a2a1d008-4f07-4ce7-b260-816d1bd90dde"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1f1ea5da-8894-4e55-ba2d-6249f0c11f59">
+                <propertyInstance
+                  Id="cece9505-82b4-4b02-89ea-0c8316438d9f"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="722bd07f-0884-4221-b0a6-994195fad46e"
+            name="config"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="ca137deb-b45c-410c-bb16-03c18b7079ae"
+                handle="viewcode://./CodeSchema_Field?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3Dconfig"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="fcab4b03-2a8d-4c8a-ae9e-5915fa86c787"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a8991f48-8ed3-4e1b-aaf8-210de68729e8">
+                    <propertyInstance
+                      Id="6725c997-bcf4-430c-a1d0-f1303016ac6d"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bf4e583f-1a8c-42fe-b199-fc820892d571">
+                    <propertyInstance
+                      Id="1cb3f357-442d-4257-8cd2-497abea8c395"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1874b060-d104-4989-9b76-3b0ba12de431">
+                    <propertyInstance
+                      Id="6b9a5ed5-0cbc-4d4a-bc6b-5e9be05a86db"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="75cca0bd-41fc-4dcb-beb7-d48402fc69f0">
+                    <propertyInstance
+                      Id="ecd43545-7bac-4475-afe3-172b3b5946d2"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="482903d5-1966-4116-a918-2e1ede1bc3b1">
+                    <propertyInstance
+                      Id="647fe61b-3fbc-4d84-832c-703cb68f060f"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="423d59eb-6309-4135-a272-fd9dfe4d88ee"
+                LastKnownName="ScalarmAppConfig"
+                LastKnownLocation="Package_2342.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="0465831b-99d7-48ae-8fad-2ef8f29c64c5"
+            name="client"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="3391e2fb-ca20-4274-8082-d82da9bf9aaa"
+                handle="viewcode://./CodeSchema_Field?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3Dclient"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="552648d5-def9-48f0-8c7e-68cbe618518b"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c207cdb2-45e4-4279-944f-880638016004">
+                    <propertyInstance
+                      Id="415b74bb-2079-44b5-a2bf-aa2fe7e8f9d6"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b770d54b-32ec-41b7-86f7-a65e19ae309a">
+                    <propertyInstance
+                      Id="da60eeaf-99f8-4ac8-88b2-63a2a4ae79e5"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8ec9ad02-3d12-4fd7-ba33-39bc9dcc231c">
+                    <propertyInstance
+                      Id="9edd8e56-6cbd-40ce-8f4a-5480b027ec50"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d961e1be-4225-48aa-9456-54e0f9865094">
+                    <propertyInstance
+                      Id="de89006a-98a3-428c-a7fa-e3ff88aff574"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="97b1ef52-ebaa-44fe-863a-8cf103bbd757">
+                    <propertyInstance
+                      Id="78a83ef1-1a8a-4149-9bd8-d31e8bae2c15"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="7c673384-8488-448b-9b29-8af6a1180bf5"
+                LastKnownName="Client"
+                LastKnownLocation="Package4_2342.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="3abd77e9-fc03-4851-940c-9356e358be4f"
+            name="ShouldWait"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="54e5eeff-7f3f-4b9c-8470-c6f5d80c5404"
+                handle="viewcode://./CodeSchema_Field?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3DShouldWait"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="b463d03a-1f9c-447b-8bd2-207dac552a53"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="081cd52d-8123-44ea-93aa-fe7266121543">
+                    <propertyInstance
+                      Id="cd14ff3b-8a81-40bd-9363-526577c93ae5"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a1df2c1b-e8c0-460e-8a1c-e80c4ac454fe">
+                    <propertyInstance
+                      Id="a5e4d5e5-1a21-4e5d-9084-82ff8399cc47"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="09445b0d-031d-4d53-9dd0-215c6f4aa61e">
+                    <propertyInstance
+                      Id="bbd2e7eb-b0c6-42af-9a72-ccff746d9b3b"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3fe5ae09-7404-4998-b132-53cd72de9413">
+                    <propertyInstance
+                      Id="a4fe411c-5ac1-456a-920b-b046326138a9"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dccc4ed3-f544-41a0-911d-8da5455e913a">
+                    <propertyInstance
+                      Id="6de8b542-46b7-4e3a-9178-65fd4ca34e29"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                LastKnownName="Boolean"
+                LastKnownLocation="MainModellingProject.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="488be2ef-d69f-431c-ac8e-e7042c1b0890"
+            name="RAND"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="0b92564c-0c03-4c3b-8623-a392dbc1f8fe"
+                handle="viewcode://./CodeSchema_Field?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3DRAND"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="d13eb490-74a8-4091-b609-e18690eb884a"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="57dcf4c7-0baa-4998-a609-fb9d189570a6">
+                    <propertyInstance
+                      Id="82eb9bbc-877c-45d7-b854-d489c99fd796"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="31cd4408-bbda-40b1-9573-99fdf78d0734">
+                    <propertyInstance
+                      Id="323ea750-dcd0-49f4-bac9-ceed03681064"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bfea4913-fe24-4c02-acbd-f0bf8de577c4">
+                    <propertyInstance
+                      Id="630968b1-a2fc-49fb-bb24-dabba6048907"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3651ec87-9b72-4354-8dcf-45ffc600e29c">
+                    <propertyInstance
+                      Id="e630c4a5-31a8-4628-8cd9-1ad5490315b8"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c5b14b54-6ad4-4e42-ab94-ccfe46765462">
+                    <propertyInstance
+                      Id="ff6f8c0a-9b95-45c7-9f8c-c20759341fca"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="6c6cf575-93ae-492b-ab6e-64d313c8db07"
+                LastKnownName="Random"
+                LastKnownLocation="Package1_2342.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="cab9cbed-c630-4e6a-974b-a23ac5980ad8"
+            name="ShowResults"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="b0f53d94-5d2b-429e-a9dd-726274d0f4ff"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DShowResults OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DObject)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem.Collections.Generic Type%3D(Name%3DIList GenericParameterCount%3D1 GenericArguments%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp%2Fbin%2FDebug%2FScalarm.dll&quot; Namespace%3DScalarm Type%3DSimulationParams)]))])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="94e01b3f-8162-4dfc-80e0-a6e2b72415a2"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="eb76a9ff-8353-4282-aa3f-9dbf0b47f0c0">
+                    <propertyInstance
+                      Id="583c6001-3b5d-4344-861f-4b341f11763e"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3277343e-69ac-432c-890f-aeed9b341c26">
+                    <propertyInstance
+                      Id="95c297cb-ad63-40e4-92c1-fe76343e8435"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b4166cc3-9d87-4779-a918-ee4f09861e2a">
+                    <propertyInstance
+                      Id="5ef14274-0244-43f2-9dea-977bb65f3c61"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2ec670e0-0fa3-42d8-9da3-5e033b62db06">
+                    <propertyInstance
+                      Id="97a6a9a6-7cc4-4785-b329-15b72bcd88a1"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5603d8d8-b295-4f98-863e-53a57b8b1fa1">
+                    <propertyInstance
+                      Id="d7391c0b-9cba-4a14-8f4f-3759d0811ca4"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3bb896d9-ed04-42a9-82e1-e9b2a34d7ceb">
+                    <propertyInstance
+                      Id="9ec2ad64-97b2-44fa-a648-aa1a6874021e"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d57ac045-8e12-4062-ac76-7d1ecda4fb81"
+                  name="sender"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="9dc30f58-3d5a-4328-a193-c13faee4a015"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DShowResults OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DObject)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem.Collections.Generic Type%3D(Name%3DIList GenericParameterCount%3D1 GenericArguments%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp%2Fbin%2FDebug%2FScalarm.dll&quot; Namespace%3DScalarm Type%3DSimulationParams)]))]) ParameterIdentifier%3Dsender"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="8bbfb936-31aa-4487-91b6-9a0cfac1f1f5"
+                      LastKnownName="Object"
+                      LastKnownLocation="Package1_2342.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f5fa2d4e-43e7-43ac-ac7b-352aa0c532f6"
+                  name="results"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="bdaf9ae1-bfc9-487f-b8bb-79a66da8f739"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DShowResults OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DObject)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem.Collections.Generic Type%3D(Name%3DIList GenericParameterCount%3D1 GenericArguments%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp%2Fbin%2FDebug%2FScalarm.dll&quot; Namespace%3DScalarm Type%3DSimulationParams)]))]) ParameterIdentifier%3Dresults"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="d7f912b5-5383-4a2d-a2a7-8e3417533c2a"
+                      LastKnownName="IList&lt;SimulationParams‎&gt;"
+                      LastKnownLocation="Package3_2342.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="0c4c9cde-161a-4de3-859c-7a458ec9be27"
+            name="HandleNoResources"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="5c434a51-2555-433f-96b4-aeae4acec6b2"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DHandleNoResources OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DObject)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="15e899a5-379d-4b7b-878d-5dac701586e9"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ebfa5c2e-9ef4-41d8-b284-1152a7aa1eb6">
+                    <propertyInstance
+                      Id="7e541eaa-8ce0-40ac-8fd8-eb2fbb7286d3"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="395119f2-30c6-451c-8efb-ba3e80bea96c">
+                    <propertyInstance
+                      Id="37ab0c0e-2836-4b70-b63b-d2d279b01fdb"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d533fa65-daa2-411d-ae5a-73b3c6a80e53">
+                    <propertyInstance
+                      Id="ab1cd4e9-d4b5-441c-88cd-954bb53906bb"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7974090d-9568-4f97-aae5-ff9dd9d44c87">
+                    <propertyInstance
+                      Id="aabb03f3-d4b5-4bbf-9acc-d30a543f986a"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7666b3bd-ed98-42ba-bd6a-99c1933aa6aa">
+                    <propertyInstance
+                      Id="289f4d56-2d13-4a72-8559-72303aa61db3"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5328dd64-16a6-4613-842e-e791aaff1f5e">
+                    <propertyInstance
+                      Id="e4e398f2-a320-460d-a715-5cf6f788c829"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b458c198-aad6-4b5b-81be-f6f86a2e74d8"
+                  name="sender"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="c67620fd-a0c9-46bb-9286-6aad48718bed"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DHandleNoResources OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DObject)]) ParameterIdentifier%3Dsender"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="8bbfb936-31aa-4487-91b6-9a0cfac1f1f5"
+                      LastKnownName="Object"
+                      LastKnownLocation="Package1_2342.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="0f90520e-a79c-4788-a9e9-6bed7dc64977"
+            name="ReadString"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="68f2ea16-0083-4372-8a7e-1683229bd080"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DReadString OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="98712750-a81a-4f6a-9dda-d3071774c046"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c1f4f609-7ef3-4207-9536-b85f2b165e15">
+                    <propertyInstance
+                      Id="1ce6a95a-918f-4e8b-aa52-ae9f2d73ba1b"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1b9af41b-5f15-4fe6-880c-4526bbeef2b9">
+                    <propertyInstance
+                      Id="5afcf5e1-0b90-406c-819a-71ac3f1a670f"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ab924dcc-889b-4451-95fd-9bf5b5baad2e">
+                    <propertyInstance
+                      Id="80e896a7-5b51-466e-8d6b-3456d7a3384c"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="47cca715-dfb2-46a0-af99-ccd83d1731f5">
+                    <propertyInstance
+                      Id="9b08c5a4-fb74-452c-9a09-ff4a7778728a"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="136aaa02-b341-468d-a161-513acd250980">
+                    <propertyInstance
+                      Id="febebcc4-340e-4261-9682-99c4fe78274c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6451814c-35a5-4359-99ca-ec78f90f9354">
+                    <propertyInstance
+                      Id="b91adf07-24d6-4627-95b0-04ec1a86148a"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="5566e711-2cf1-4d12-9503-e73c8d512dcd"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="MainModellingProject.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="61e8a602-e82c-4a49-a372-765cd51cba93"
+                  name="prompt"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="9b3c8f27-a682-4603-b4c6-033c7d3f72d7"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DReadString OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dprompt"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="MainModellingProject.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="86a1dae6-db91-46c8-9d11-f6860f41ae84"
+            name="ReadPassword"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="ae25dbd3-5524-423e-bf04-e5ad248a1a85"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DReadPassword OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="e6ce8f70-f313-4e69-a8e8-18e3014b9275"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e8cf9044-ce8b-4963-ae21-b8c8bf113814">
+                    <propertyInstance
+                      Id="3277865e-c2d1-444e-9c66-a16c803705b6"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="87d870cb-b6c9-4715-b412-806aa4f32188">
+                    <propertyInstance
+                      Id="da896cdc-aee0-48a1-a297-4d73faf853f3"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e33eb32b-11af-4b71-b606-18950e6bcb6d">
+                    <propertyInstance
+                      Id="191c25a7-ef3b-49f6-9ffb-3c10545aeac2"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="eaff09d5-a7cc-4535-af4a-7d9224c5c21c">
+                    <propertyInstance
+                      Id="3900fc11-1e37-4dc4-a9ef-f52d924237b2"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fa36fa96-db69-4ece-bc11-25b6ef4eafaf">
+                    <propertyInstance
+                      Id="62845b04-3500-4f1a-9287-ad9b44597c46"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="75a04761-c3d2-4ef0-9bdb-b72b05fe67b8">
+                    <propertyInstance
+                      Id="d1cdbf79-4124-48b5-b65c-a78586105500"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="0ce85ea7-a1ac-440a-8800-9898ae920522"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="MainModellingProject.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2a7a9b3f-1d13-4303-9611-46cffa597738"
+                  name="prompt"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="483900f6-6d74-4dc5-a9a5-90aac87ef2de"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DReadPassword OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dprompt"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="MainModellingProject.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="41ceb054-2148-4fad-9fe5-d5a4a2d0f716"
+            name="GetRandomNumber"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="ae2ca77e-fb1f-4e67-bd24-0cb69f36437c"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DGetRandomNumber OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DInt32)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="0f54b466-bc37-421a-8b9d-c4a0dac8a703"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2904204c-1495-4596-8dd6-0c8c79415e47">
+                    <propertyInstance
+                      Id="2f6f8179-4785-40fa-b8d6-35e049c05d83"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="991e5648-025c-4015-9018-41cad6f974a8">
+                    <propertyInstance
+                      Id="fe89b418-9d63-41a9-9cee-10ff6c6d63b3"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="97feffb7-97af-4765-bee8-e4fef14f3779">
+                    <propertyInstance
+                      Id="dae99249-6394-4a41-beb4-7c600140e4dc"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c37d1dbf-9c0e-4cc6-bd6a-d116184dbc7e">
+                    <propertyInstance
+                      Id="0e1bedca-755d-4e7f-a6b1-da3c6da20675"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="65a70c18-a565-4f92-b8bf-f34b560e4579">
+                    <propertyInstance
+                      Id="4fba962c-02a6-4992-899f-495097434e27"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0470f6c6-bf52-4132-b14a-f412761efaec">
+                    <propertyInstance
+                      Id="dcd47b59-4546-4d33-ab33-92a706bc86fd"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7db9fa37-47f5-4628-acab-0262063fd0ff"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="220a3521-e091-4221-bae9-3ef9018e845c"
+                      LastKnownName="Integer"
+                      LastKnownLocation="MainModellingProject.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="cc30bbfe-e8e2-4fd9-bf86-87beecb80ff8"
+                  name="n"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="ec82385d-cb1a-44cc-a578-0fb3d0c800c2"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DGetRandomNumber OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DInt32)]) ParameterIdentifier%3Dn"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="220a3521-e091-4221-bae9-3ef9018e845c"
+                      LastKnownName="Integer"
+                      LastKnownLocation="MainModellingProject.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="c97849f6-1bc2-4a6e-af1f-692625d9fde0"
+            name="ReadConfig"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="35e49d18-736a-408c-903b-452104595049"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DReadConfig OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="abc877f6-5e1c-4c66-8070-41cfab60ae01"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f7932171-160f-417e-bde6-e774f37461bf">
+                    <propertyInstance
+                      Id="80fb4613-cd57-4993-b6f0-5dfefbeca7e7"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="23ec8e0f-292e-4108-8769-a7615d73c6a1">
+                    <propertyInstance
+                      Id="9531b316-dad5-41af-b1c1-571cca108e0d"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1fd789cb-b2cf-4ca5-ae4b-39e067f2817d">
+                    <propertyInstance
+                      Id="31316a53-ef8c-4410-9564-eacc5b2e11ee"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dadcc38b-33bb-4c12-acfe-f8d5506c9f5e">
+                    <propertyInstance
+                      Id="033366f3-3d63-4e2e-9db6-58c6f3e6eb0a"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a30efcf0-6449-4a93-8502-4ac8d19af5d6">
+                    <propertyInstance
+                      Id="a5ffc52c-1c41-4974-a644-42ce40cc3148"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b4cd4745-4a2e-45c6-8c30-daf165bdbd54">
+                    <propertyInstance
+                      Id="4b6c974f-1ec2-4315-aaa4-46b249210f36"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="15c6b188-7bb9-4122-aa21-ce0160819473"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="423d59eb-6309-4135-a272-fd9dfe4d88ee"
+                      LastKnownName="ScalarmAppConfig"
+                      LastKnownLocation="Package_2342.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="54af9af2-2690-4bf1-82bd-3b7edac04e0b"
+                  name="path"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="78207d24-5a1f-4c44-a1fb-ec722de40644"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DReadConfig OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.0%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dpath"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="MainModellingProject.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="8b605350-584f-485d-b5cc-5afbbd971d1f"
+            name="CreateClient"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="880003ef-0cc9-440a-8174-4f400db6fa92"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DCreateClient OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3D(Name%3DScalarmAppConfig ParentType%3DSupervisor))])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="35658009-1336-40f1-8731-edd02537c415"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4d04a61b-4bde-4a30-a239-e2eaaf262d94">
+                    <propertyInstance
+                      Id="07419f59-186c-49a7-9664-71a1f71633f7"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b13b78b1-9f65-4e83-a7dd-a91c513a8922">
+                    <propertyInstance
+                      Id="c1008fa7-5395-4298-9faf-4313ae5afe44"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5e5ef506-4ff2-456a-ac7f-1bc35a604648">
+                    <propertyInstance
+                      Id="d684d1d4-6ec1-49fb-8cb9-78234a5eb760"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="17b53778-9e4c-414a-bef9-381effb6e8f8">
+                    <propertyInstance
+                      Id="8e9c68a3-1b38-4703-a0c8-011b4d5bdac2"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d6d0c84c-bf44-4559-b9d2-6a9324e095a1">
+                    <propertyInstance
+                      Id="d0a3f28e-1c93-444b-b51c-70d2bc331cc6"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1716a41e-5db8-4dd4-b73c-57f579960ea7">
+                    <propertyInstance
+                      Id="ac93f4a1-68e6-45ca-8308-7cfac80c8ac4"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="9c9b21f9-aa7d-4ef0-aa97-451bf6103a1c"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="7c673384-8488-448b-9b29-8af6a1180bf5"
+                      LastKnownName="Client"
+                      LastKnownLocation="Package4_2342.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="41c722e9-9766-49a1-973c-dd2c8c73dcae"
+                  name="config"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="21e3d576-d56c-4652-8767-5b3a1fb21e3c"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D(Name%3DCreateClient OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3D(Name%3DScalarmAppConfig ParentType%3DSupervisor))]) ParameterIdentifier%3Dconfig"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="423d59eb-6309-4135-a272-fd9dfe4d88ee"
+                      LastKnownName="ScalarmAppConfig"
+                      LastKnownLocation="Package_2342.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="a8c6d8ba-0747-4cb5-9e6c-c50d5782658f"
+            name="register"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="04025d81-a96b-4848-b872-81d2af5e3ba5"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3Dregister"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="915e0fcc-4d43-4ff1-ad21-4fe0b248386d"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0fbbc496-0d2a-4220-9fc3-e07c91bfe882">
+                    <propertyInstance
+                      Id="ce61c1ba-e407-432e-888a-71f86643ac1a"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1527bb1b-95a5-4771-a8ed-0f291e816706">
+                    <propertyInstance
+                      Id="3ca95e48-6da4-4401-b4a3-a9de2545b156"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dd43bc3a-18ad-4e37-a175-7af169998c6d">
+                    <propertyInstance
+                      Id="e4f613a9-a19f-4570-98ad-6c017181e930"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="085a3ad1-671a-46f3-a589-8d780ce839e3">
+                    <propertyInstance
+                      Id="054ab4ff-06d4-4e98-8085-0b0f7009ab6d"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4880a1c5-f64b-42de-906f-0ab0daccfd4c">
+                    <propertyInstance
+                      Id="c9bae75e-7a55-4b9b-bfcd-00af8382eb20"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b1dcd793-9739-47fb-9c54-abd1c3b6e477">
+                    <propertyInstance
+                      Id="4c8a35fb-e854-4c57-9fdc-3888a3d5690e"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+          <operation
+            Id="69fe9fe0-d8ae-4e9c-9141-930b4091f347"
+            name="Supervisor"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="874d7fb1-513b-4641-97ca-994f611fb07f"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FPonyman%2FDocuments%2FVisual Studio 2012%2FProjects%2Fscs%2Fscalarm_client_csharp%2Fscalarm_client_csharp_monitor%2Fbin%2FDebug%2Fscalarm_client_csharp_monitor.exe&quot; Namespace%3DAppLogic Type%3DSupervisor Member%3D.ctor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="21b755af-f5ac-4435-8a4e-559d49b954a3"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a7d7a6fe-5ed2-4731-98c8-7b4a84537aef">
+                    <propertyInstance
+                      Id="9cd3eb92-5599-4f03-8717-4eb22217309b"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="13c30337-041a-499b-8701-40706e9020f0">
+                    <propertyInstance
+                      Id="81bb81fb-460f-4879-a533-a0cfd014e70b"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="859d17f1-d586-4f14-bb8d-2eef81c2a920">
+                    <propertyInstance
+                      Id="3b9c76d2-7805-42ac-b3b0-1585f8199659"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8973f597-b15a-49a7-b167-f4b19e714b9f">
+                    <propertyInstance
+                      Id="4a14bb0c-21c2-44da-9fab-301b5c89c24d"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="928d7f1e-702e-41f9-9ceb-a2ab128b3296">
+                    <propertyInstance
+                      Id="197e835b-0aba-4ffc-8a9d-6b565d979243"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2615f9d3-bbac-48e9-8057-527f5e374f06">
+                    <propertyInstance
+                      Id="7d0ece84-dc24-41cb-99c8-7a18dab2e8ed"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

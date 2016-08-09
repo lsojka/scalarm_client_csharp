@@ -9,23 +9,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Scalarm;
 
+using AppLogic;
+
 
 
 namespace scalarm_client_csharp_monitor
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        Supervisor supervisor;
+
+        public MainForm()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-  
-            //ExperimentStatistics h;
             // model
-            Supervisor supervisor = new Supervisor();
+            supervisor = new Supervisor();
             supervisor.register();
             
         }
@@ -39,5 +41,12 @@ namespace scalarm_client_csharp_monitor
         {
 
         }
+
+        private void newFormBox_Click(object sender, EventArgs e)
+        {
+            MonitorForm frm = new MonitorForm();
+            frm.Show();
+        }
+
     }
 }
