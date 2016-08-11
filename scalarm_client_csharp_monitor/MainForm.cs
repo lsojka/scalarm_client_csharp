@@ -17,19 +17,19 @@ namespace scalarm_client_csharp_monitor
 {
     public partial class MainForm : Form
     {
+        // supervises config reading and setting up the xperiment
         Supervisor supervisor;
+
 
         public MainForm()
         {
             InitializeComponent();
+            supervisor = new Supervisor();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // model
-            supervisor = new Supervisor();
-            supervisor.register();
-            
+            supervisor.readConfig();
         }
 
         private void passwordBox_TextChanged(object sender, EventArgs e)
@@ -46,6 +46,11 @@ namespace scalarm_client_csharp_monitor
         {
             MonitorForm frm = new MonitorForm();
             frm.Show();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
 
     }

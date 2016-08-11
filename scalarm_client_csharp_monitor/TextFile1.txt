@@ -1,0 +1,17 @@
+﻿public delegate void OnNazwaZdarzeniaHandler (object source, TwojaKlasaZDanymiDoPrzekazania args);
+public class TwojaKlasaZDanymiDoPrzekazania : EventArgs
+{
+    // struktury na przekazywane dane
+}
+public event OnNazwaZdarzeniaHandler NazwaZdarzenia;
+I później w logice jak chcesz odpalić zdarzenie to dajesz:
+if (NazwaZdarzenia != null)
+  NazwaZdarzenia (this, wczesniejPrzygotowanyObiektZDanymi);
+A w wartstwie prezentacji:
+podpinasz metodę obsługującą:
+  obiektLogiki += OnNazwaZdarzenia;
+i robisz metodę obsługującą
+public void OnNazwaZdarzenia (object source, TwojaKlasaZDanymiDoPrzekazania args) {
+  // robię coś...
+}
+

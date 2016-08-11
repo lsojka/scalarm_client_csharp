@@ -71,7 +71,7 @@
             this.newFormBox.UseVisualStyleBackColor = true;
             this.newFormBox.Click += new System.EventHandler(this.newFormBox_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -80,8 +80,9 @@
             this.Controls.Add(this.loginBox);
             this.Controls.Add(this.passwordBox);
             this.Controls.Add(this.loginButton);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
