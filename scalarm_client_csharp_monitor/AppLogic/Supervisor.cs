@@ -80,15 +80,19 @@ namespace AppLogic
 
             // scenario definition
             
-            var scenarioName = String.Format("Simulation {0}", randomNum);
+            var scenarioName = String.Format("Simulation - annealing - {0}", randomNum);
             // returns {baseScenarioPath}/{0}"
             Func<string, string> scenarioPath = p => string.Format("{0}{1}{2}", baseScenarioPath, Path.DirectorySeparatorChar, p);
             var sscenarioBinariesPath = scenarioPath("bin.zip");
+            var simulationInputDefinition = scenarioPath("input_definition.json");
             var executorPath = scenarioPath("executor.py");
             // open other files here
             var scenarioParams = new Dictionary<string, object>() { };
-
-            var simulationInputDefinition = scenarioPath("input_definition.json");
+            scenarioParams.Add("input_writer", scenarioPath("input_writer.py"));
+            scenarioParams.Add("output_reader", scenarioPath("output_reader.py"));
+            
+            
+ 
             // tu idzie TRY
             try
             {
