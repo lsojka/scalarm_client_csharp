@@ -24,6 +24,7 @@ namespace AppLogic
 
         List<Experiment> experiments = new List<Experiment>();
         List<SimulationScenario> scenarios = new List<SimulationScenario>();
+        ExperimentsListResult serverExperiments;
 
         public class ScalarmAppConfig
         {
@@ -96,36 +97,16 @@ namespace AppLogic
             // tu idzie TRY
             try
             {
-                // TODO: below method with executor id instead of path overload
-
-                // define input parameters specification
-                var scenarioParameters = new List<Scalarm.ExperimentInput.Parameter>() {
-                    new Parameter("paramteer1", "Param 1") {
-                        // this is initialization for a parameter
-                        ParametrizationType = Scalarm.ExperimentInput.ParametrizationType.RANGE,
-                        Type = Scalarm.ExperimentInput.Type.FLOAT,
-                        Min = 0, Max = 1000
-                    },
-                	new Parameter("parameter2", "Param 2") {
-                		ParametrizationType = Scalarm.ExperimentInput.ParametrizationType.RANGE,
-                		Type = Scalarm.ExperimentInput.Type.FLOAT,
-                		Min = -100, Max = 100
-                	}
-                };
-
                 // 3.2.
                 // create scenario based and stuff it with parameter space
                 SimulationScenario scenario = client.RegisterSimulationScenario(
                     scenarioName, 
                     sscenarioBinariesPath, 
-                    //scenarioParameters, 
                     simulationInputDefinition,
                     executorPath, 
                     scenarioParams);
                 
-                
                 MessageBox.Show("Got scenario with name: " + scenario.Name);
-                //Console.WriteLine("Got scenario with name: {0}, created at: {1}", scenario.Name, scenario.CreatedAt);
 
                 List<ValuesMap> points;
 
@@ -193,6 +174,26 @@ namespace AppLogic
             {
                 Console.WriteLine("Error getting Scalarm SimulationScenario resource: {0}", e.Resource.ErrorCode);
             }
+        }
+
+        public void getExperimentsFromServer()
+        {
+            this.serverExperiments = client.GetAllExperimentIds();
+
+            IList<Scalarm.ValuesMap> result = client.GetExperimentResults(serverExperiments.completed[0]);
+            
+            MessageBox.Show("serverExperiments.status = " + serverExperiments.status
+                            + " completed [0] = " + serverExperiments.completed[0]
+                            + " \n results = \n" + result[0].ToString() + "\n" + result[1].ToString()
+                            + "\n" + result[2].ToString()
+
+                            );
+        }
+
+        public void createClient()
+        {
+            config = Supervisor.ReadConfig("config.json");
+            client = Supervisor.CreateClient(config);
         }
 
 

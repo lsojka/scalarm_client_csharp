@@ -26,3 +26,6 @@ scalarm_client_csharp_monitor/obj/
 
 # ignore tests as a whole
 scalarm_client_csharp_tests/
+scalarm_client_csharp_monitor/TextFile1.txt
+scalarm_client_csharp_monitor/TextFile1.txt
+*.txt

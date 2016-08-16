@@ -25,6 +25,7 @@ namespace scalarm_client_csharp_monitor
         {
             InitializeComponent();
             supervisor = new Supervisor();
+            supervisor.createClient();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -51,6 +52,16 @@ namespace scalarm_client_csharp_monitor
         private void MainForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void fetchButton_Click(object sender, EventArgs e)
+        {
+            supervisor.getExperimentsFromServer();
+        }
+
+        private void credentialsButton_Click(object sender, EventArgs e)
+        {
+            supervisor.createClient();
         }
 
     }
