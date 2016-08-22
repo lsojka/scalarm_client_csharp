@@ -91,10 +91,8 @@ namespace AppLogic
             var scenarioParams = new Dictionary<string, object>() { };
             scenarioParams.Add("input_writer", scenarioPath("input_writer.py"));
             scenarioParams.Add("output_reader", scenarioPath("output_reader.py"));
+            scenarioParams.Add("progress_monitor", scenarioPath("progress_monitor.py"));
             
-            
- 
-            // tu idzie TRY
             try
             {
                 // 3.2.

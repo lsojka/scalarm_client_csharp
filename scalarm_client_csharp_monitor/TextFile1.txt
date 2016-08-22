@@ -1,4 +1,10 @@
-﻿public delegate void OnNazwaZdarzeniaHandler (object source, TwojaKlasaZDanymiDoPrzekazania args);
+﻿x AP: Schedule experiment, add workers by hand, download results.
+
+AP: Get results continuosly. Monitor_file? / experiment_monitor.
+
+
+
+public delegate void OnNazwaZdarzeniaHandler (object source, TwojaKlasaZDanymiDoPrzekazania args);
 public class TwojaKlasaZDanymiDoPrzekazania : EventArgs
 {
     // struktury na przekazywane dane
@@ -15,3 +21,6 @@ public void OnNazwaZdarzenia (object source, TwojaKlasaZDanymiDoPrzekazania args
   // robię coś...
 }
 
+https://system.scalarm.com/experiments/542ec20f4269a878f500030d/intermediate_results?simulations=runningx
+
+AP: Metoda ściągająca zapytaniem get wyniki z intermediate z użyciem "progress_monitor", "intermediate_results.json".
