@@ -4,6 +4,7 @@ AP: Get results continuosly. Monitor_file? / experiment_monitor.
 
 
 
+
 public delegate void OnNazwaZdarzeniaHandler (object source, TwojaKlasaZDanymiDoPrzekazania args);
 public class TwojaKlasaZDanymiDoPrzekazania : EventArgs
 {
@@ -24,3 +25,28 @@ public void OnNazwaZdarzenia (object source, TwojaKlasaZDanymiDoPrzekazania args
 https://system.scalarm.com/experiments/542ec20f4269a878f500030d/intermediate_results?simulations=runningx
 
 AP: Metoda ściągająca zapytaniem get wyniki z intermediate z użyciem "progress_monitor", "intermediate_results.json".
+
+
+
+
+
+
+Logika.Singl.NazwaMetody/Właściwości
+za każdym razem, jak się chcesz odwołać tam
+Jak się często odwołujesz, to dla wygody możesz nawet dać w każdej formie deklarację:
+Logika Logic = Logika.Singl;
+I wtedy w formach odwołujesz się po prostu przez tę właściwość:
+Logic.ZróbCoś ()
+A jeszcze bardziej zajebiście to możesz zrobić klasę FormWithLogic z tą deklaracją i wszystkie formy dziedziczyć z niej.
+Czyli jebąć plik FormWithLogic.cs o treści:
+public class FormWithLogic: Form 
+{
+  private Logika Logic = Logika.Singl;
+}
+A później przy każdej formie tam gdzie masz:
+  public partial class Form1: Form
+  {
+     ...
+  }
+zamieniasz na 
+public partial class Form1: FormWithLogic

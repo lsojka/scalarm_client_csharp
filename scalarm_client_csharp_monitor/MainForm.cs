@@ -11,8 +11,6 @@ using Scalarm;
 
 using AppLogic;
 
-
-
 namespace scalarm_client_csharp_monitor
 {
     public partial class MainForm : Form
@@ -26,6 +24,9 @@ namespace scalarm_client_csharp_monitor
             InitializeComponent();
             supervisor = new Supervisor();
             supervisor.createClient();
+
+            supervisor.FetchingExperimentsEvent += FetchingExperimentsEvent;
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -62,6 +63,18 @@ namespace scalarm_client_csharp_monitor
         private void credentialsButton_Click(object sender, EventArgs e)
         {
             supervisor.createClient();
+        }
+
+        private void FetchingExperimentsEvent(object sender, FetchedExperimentsEventArgs e)
+        {
+
+            fetchedExperimentsListBox.DataSource = e.runningExperiments;
+            fetchedExperimentsListBox.Refresh();
+        }
+
+        private void fetchedExperimentsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
 
     }

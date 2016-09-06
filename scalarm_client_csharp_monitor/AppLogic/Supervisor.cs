@@ -35,6 +35,11 @@ namespace AppLogic
             public string proxy_path = null;
             public string experiment_id = null;
         }
+        
+        public delegate void FetchingExperimentsHandler(object source, FetchedExperimentsEventArgs e);
+
+        public event FetchingExperimentsHandler FetchingExperimentsEvent;
+
 
         // private static List<ValuesMap> points = new List<ValuesMap>();
 		static private Random RAND = new Random((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
@@ -44,12 +49,10 @@ namespace AppLogic
 			return RAND.Next(n);
 		}
 
-        // ------------------------
 		public static ScalarmAppConfig ReadConfig(string path)
 		{
 			string configText = System.IO.File.ReadAllText(path);
 			return JsonConvert.DeserializeObject<ScalarmAppConfig> (configText);
-            // DEBUG
 
 		}
 
@@ -80,8 +83,8 @@ namespace AppLogic
             var baseScenarioPath = "example_scenario";
 
             // scenario definition
-            
-            var scenarioName = String.Format("Simulation - annealing - {0}", randomNum);
+
+            var scenarioName = String.Format("SSRVE - monitored - {0}", randomNum);
             // returns {baseScenarioPath}/{0}"
             Func<string, string> scenarioPath = p => string.Format("{0}{1}{2}", baseScenarioPath, Path.DirectorySeparatorChar, p);
             var sscenarioBinariesPath = scenarioPath("bin.zip");
@@ -176,25 +179,34 @@ namespace AppLogic
 
         public void getExperimentsFromServer()
         {
+            //rezultat ¿¹dania wszystkich eksperymentów
             this.serverExperiments = client.GetAllExperimentIds();
-
-            IList<Scalarm.ValuesMap> result = client.GetExperimentResults(serverExperiments.completed[0]);
             
-            MessageBox.Show("serverExperiments.status = " + serverExperiments.status
-                            + " completed [0] = " + serverExperiments.completed[0]
-                            + " \n results = \n" + result[0].ToString() + "\n" + result[1].ToString()
-                            + "\n" + result[2].ToString()
 
-                            );
+            if (FetchingExperimentsEvent != null)
+            {
+                var dataObject = new FetchedExperimentsEventArgs(serverExperiments.running);
+                //dataObject.runningExperiments = serverExperiments.running
+                FetchingExperimentsEvent(this, dataObject);
+            }
         }
+
 
         public void createClient()
         {
             config = Supervisor.ReadConfig("config.json");
             client = Supervisor.CreateClient(config);
         }
-
-
 	}
+}
+
+public class FetchedExperimentsEventArgs : EventArgs
+{
+    public List<string> runningExperiments { get; set; }
+
+    public FetchedExperimentsEventArgs(List<string> _e)
+    {
+        runningExperiments = new List<string>(_e);
+    }
 }
 

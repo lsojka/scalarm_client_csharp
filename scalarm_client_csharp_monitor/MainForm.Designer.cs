@@ -32,6 +32,7 @@
             this.newFormBox = new System.Windows.Forms.Button();
             this.fetchButton = new System.Windows.Forms.Button();
             this.credentialsButton = new System.Windows.Forms.Button();
+            this.fetchedExperimentsListBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // loginButton
@@ -47,7 +48,7 @@
             // newFormBox
             // 
             this.newFormBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.newFormBox.Location = new System.Drawing.Point(0, 160);
+            this.newFormBox.Location = new System.Drawing.Point(0, 247);
             this.newFormBox.Name = "newFormBox";
             this.newFormBox.Size = new System.Drawing.Size(557, 23);
             this.newFormBox.TabIndex = 4;
@@ -57,7 +58,7 @@
             // 
             // fetchButton
             // 
-            this.fetchButton.Location = new System.Drawing.Point(194, 16);
+            this.fetchButton.Location = new System.Drawing.Point(12, 55);
             this.fetchButton.Name = "fetchButton";
             this.fetchButton.Size = new System.Drawing.Size(75, 23);
             this.fetchButton.TabIndex = 5;
@@ -75,11 +76,21 @@
             this.credentialsButton.UseVisualStyleBackColor = true;
             this.credentialsButton.Click += new System.EventHandler(this.credentialsButton_Click);
             // 
+            // fetchedExperimentsListBox
+            // 
+            this.fetchedExperimentsListBox.FormattingEnabled = true;
+            this.fetchedExperimentsListBox.Location = new System.Drawing.Point(12, 105);
+            this.fetchedExperimentsListBox.Name = "fetchedExperimentsListBox";
+            this.fetchedExperimentsListBox.Size = new System.Drawing.Size(313, 108);
+            this.fetchedExperimentsListBox.TabIndex = 7;
+            this.fetchedExperimentsListBox.SelectedIndexChanged += new System.EventHandler(this.fetchedExperimentsListBox_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(557, 183);
+            this.ClientSize = new System.Drawing.Size(557, 270);
+            this.Controls.Add(this.fetchedExperimentsListBox);
             this.Controls.Add(this.credentialsButton);
             this.Controls.Add(this.fetchButton);
             this.Controls.Add(this.newFormBox);
@@ -97,6 +108,7 @@
         private System.Windows.Forms.Button newFormBox;
         private System.Windows.Forms.Button fetchButton;
         private System.Windows.Forms.Button credentialsButton;
+        private System.Windows.Forms.ListBox fetchedExperimentsListBox;
 
     }
 }
