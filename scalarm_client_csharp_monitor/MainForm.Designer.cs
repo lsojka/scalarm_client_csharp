@@ -33,6 +33,7 @@
             this.fetchButton = new System.Windows.Forms.Button();
             this.credentialsButton = new System.Windows.Forms.Button();
             this.fetchedExperimentsListBox = new System.Windows.Forms.ListBox();
+            this.fetchDetailsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // loginButton
@@ -85,11 +86,22 @@
             this.fetchedExperimentsListBox.TabIndex = 7;
             this.fetchedExperimentsListBox.SelectedIndexChanged += new System.EventHandler(this.fetchedExperimentsListBox_SelectedIndexChanged);
             // 
+            // fetchDetailsButton
+            // 
+            this.fetchDetailsButton.Location = new System.Drawing.Point(340, 105);
+            this.fetchDetailsButton.Name = "fetchDetailsButton";
+            this.fetchDetailsButton.Size = new System.Drawing.Size(75, 23);
+            this.fetchDetailsButton.TabIndex = 8;
+            this.fetchDetailsButton.Text = "Get results";
+            this.fetchDetailsButton.UseVisualStyleBackColor = true;
+            this.fetchDetailsButton.Click += new System.EventHandler(this.fetchDetailsButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(557, 270);
+            this.Controls.Add(this.fetchDetailsButton);
             this.Controls.Add(this.fetchedExperimentsListBox);
             this.Controls.Add(this.credentialsButton);
             this.Controls.Add(this.fetchButton);
@@ -109,6 +121,7 @@
         private System.Windows.Forms.Button fetchButton;
         private System.Windows.Forms.Button credentialsButton;
         private System.Windows.Forms.ListBox fetchedExperimentsListBox;
+        private System.Windows.Forms.Button fetchDetailsButton;
 
     }
 }

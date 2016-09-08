@@ -540,6 +540,20 @@ namespace Scalarm
 			return ParseExperimentsConfigurationsCsv(response.Content);
 		}
 
+        public /*IList<ValuesMap>*/ string GetIntermediateExperimentResults(string experimentId)
+        {
+            var request = new RestRequest("/experiments/{id}//intermediate_results?simulations=running", Method.GET);
+            request.AddUrlSegment("id", experimentId);
+            var response = this.Execute(request);
+
+            ValidateResponseStatus(response);
+
+            var con = response.Content;
+            return con;
+
+        }
+
+
 		public static IList<ValuesMap> ParseExperimentsConfigurationsCsv(string responseCsv)
 		{
             string[] lines = responseCsv.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);

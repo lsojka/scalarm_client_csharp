@@ -20,7 +20,7 @@ namespace AppLogic
 	public class Supervisor
 	{
         ScalarmAppConfig config;
-        Client client;
+        public Client client;
 
         List<Experiment> experiments = new List<Experiment>();
         List<SimulationScenario> scenarios = new List<SimulationScenario>();
@@ -189,6 +189,11 @@ namespace AppLogic
                 //dataObject.runningExperiments = serverExperiments.running
                 FetchingExperimentsEvent(this, dataObject);
             }
+        }
+
+        public void LaunchPeriodicalUpdates(string Id)
+        {
+
         }
 
 

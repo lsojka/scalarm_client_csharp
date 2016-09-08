@@ -77,5 +77,24 @@ namespace scalarm_client_csharp_monitor
             
         }
 
+        private void fetchDetailsButton_Click(object sender, EventArgs e)
+        {
+            //supervisor.client.GetIntermediateExperimentResults( - this should be wrapped
+            //supervisor.instantiateButlerForm(ex_id) -> runs on thread
+            //Butler constantly runs in the background, downloading results
+
+            //var res = supervisor.client.GetExperimentResults("57cddf1c4269a81e5e103391");
+            var index = fetchedExperimentsListBox.SelectedIndex;
+            //var Id = fetchedExperimentsListBox.GetItemText(index);
+            var Id = fetchedExperimentsListBox.Items[index].ToString();
+
+            var res = supervisor.client.GetIntermediateExperimentResults(Id);
+            MessageBox.Show(res);
+            // launchPerdiodicalUpdates
+            Task.Run (new Action ( delegate {
+                supervisor.LaunchPeriodicalUpdates(Id);
+            }));
+        }
+
     }
 }
