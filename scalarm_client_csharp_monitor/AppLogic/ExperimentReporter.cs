@@ -6,14 +6,29 @@ using Scalarm;
 
 namespace scalarm_client_csharp_monitor.AppLogic
 {
-    class ExperimentReporter
+    public class ExperimentReporter
     {
-        public string experimentId { get; set; }
+        Client client;
+        public List<IntermediateResult> intermediateResults;
 
-        public ExperimentReporter(string _experimentId)
+        public string experimentId { get; set; }
+        Experiment experiment;
+
+
+        public ExperimentReporter(string _experimentId, Client _client)
         {
             experimentId = _experimentId;
+            client = _client;
+            experiment = client.GetExperimentById<Experiment>(experimentId);
+
+            
+            intermediateResults = new List<IntermediateResult>();
             // getMeGoing!
+        }
+
+        public void CollectUpdates()
+        {
+            
         }
     }
 

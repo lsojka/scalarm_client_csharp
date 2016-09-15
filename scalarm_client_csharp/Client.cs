@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using RestSharp.Extensions;
 using System.Linq;
@@ -540,7 +541,7 @@ namespace Scalarm
 			return ParseExperimentsConfigurationsCsv(response.Content);
 		}
 
-        public /*IList<ValuesMap>*/ string GetIntermediateExperimentResults(string experimentId)
+        public /*IList<ValuesMap>*/ IntermediateResult GetIntermediateExperimentResults(string experimentId)
         {
             var request = new RestRequest("/experiments/{id}//intermediate_results?simulations=running", Method.GET);
             request.AddUrlSegment("id", experimentId);
@@ -548,11 +549,17 @@ namespace Scalarm
 
             ValidateResponseStatus(response);
 
-            var con = response.Content;
-            return con;
+            // http://stackoverflow.com/questions/16530060/
+            // http://stackoverflow.com/questions/12376474/
+            RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
+            NurbsIntermediateResult nr = JsonConvert.DeserializeObject<NurbsIntermediateResult>(response.Content);
+            // Array obj = JsonConvert.DeserializeObject<Array>(response.Content);
+            // var ob = obj.ToString();
+            nr.ParseAaDaata();
+
+            return new IntermediateResult(response.Content);
 
         }
-
 
 		public static IList<ValuesMap> ParseExperimentsConfigurationsCsv(string responseCsv)
 		{
@@ -685,5 +692,15 @@ namespace Scalarm
 		}
     }
 
+    public class IntermediateResult : EventArgs
+    {
+        public string data { get; set; }
+        public string timestamp { get; set; }
+
+        public IntermediateResult(string _data)
+        {
+            data = _data;
+        }
+    }
 }
 

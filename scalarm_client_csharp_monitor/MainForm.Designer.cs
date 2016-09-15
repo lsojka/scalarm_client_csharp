@@ -34,6 +34,7 @@
             this.credentialsButton = new System.Windows.Forms.Button();
             this.fetchedExperimentsListBox = new System.Windows.Forms.ListBox();
             this.fetchDetailsButton = new System.Windows.Forms.Button();
+            this.resultTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // loginButton
@@ -49,9 +50,9 @@
             // newFormBox
             // 
             this.newFormBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.newFormBox.Location = new System.Drawing.Point(0, 247);
+            this.newFormBox.Location = new System.Drawing.Point(0, 384);
             this.newFormBox.Name = "newFormBox";
-            this.newFormBox.Size = new System.Drawing.Size(557, 23);
+            this.newFormBox.Size = new System.Drawing.Size(565, 23);
             this.newFormBox.TabIndex = 4;
             this.newFormBox.Text = "newFormBox";
             this.newFormBox.UseVisualStyleBackColor = true;
@@ -96,11 +97,20 @@
             this.fetchDetailsButton.UseVisualStyleBackColor = true;
             this.fetchDetailsButton.Click += new System.EventHandler(this.fetchDetailsButton_Click);
             // 
+            // resultTextBox
+            // 
+            this.resultTextBox.Location = new System.Drawing.Point(12, 220);
+            this.resultTextBox.Name = "resultTextBox";
+            this.resultTextBox.Size = new System.Drawing.Size(403, 20);
+            this.resultTextBox.TabIndex = 9;
+            this.resultTextBox.TextChanged += new System.EventHandler(this.resultTextBox_TextChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(557, 270);
+            this.ClientSize = new System.Drawing.Size(565, 407);
+            this.Controls.Add(this.resultTextBox);
             this.Controls.Add(this.fetchDetailsButton);
             this.Controls.Add(this.fetchedExperimentsListBox);
             this.Controls.Add(this.credentialsButton);
@@ -111,6 +121,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -122,6 +133,7 @@
         private System.Windows.Forms.Button credentialsButton;
         private System.Windows.Forms.ListBox fetchedExperimentsListBox;
         private System.Windows.Forms.Button fetchDetailsButton;
+        private System.Windows.Forms.TextBox resultTextBox;
 
     }
 }

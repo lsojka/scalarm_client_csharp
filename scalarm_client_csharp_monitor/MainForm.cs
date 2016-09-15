@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Scalarm;
 
-using AppLogic;
+//using AppLogic;
+using scalarm_client_csharp_monitor.AppLogic;
 
 namespace scalarm_client_csharp_monitor
 {
@@ -83,18 +84,36 @@ namespace scalarm_client_csharp_monitor
             //supervisor.instantiateButlerForm(ex_id) -> runs on thread
             //Butler constantly runs in the background, downloading results
 
-            //var res = supervisor.client.GetExperimentResults("57cddf1c4269a81e5e103391");
+            
             var index = fetchedExperimentsListBox.SelectedIndex;
-            //var Id = fetchedExperimentsListBox.GetItemText(index);
             var Id = fetchedExperimentsListBox.Items[index].ToString();
 
-            var res = supervisor.client.GetIntermediateExperimentResults(Id);
-            MessageBox.Show(res);
+            //
+            supervisor.StartMonitoring(Id);
+            var intermediateResults = supervisor.client.GetIntermediateExperimentResults(Id);
+            resultTextBox.Text = intermediateResults.data;
+            Application.DoEvents();
+            
             // launchPerdiodicalUpdates
+            /*
             Task.Run (new Action ( delegate {
                 supervisor.LaunchPeriodicalUpdates(Id);
             }));
+             * 
+             * 
+             * 
+             *
+            Task.Run (new Action ( delegate {
+                supervisor.LaunchPipelineMethodThatStacksNurbsIntermediateResults(Id);
+            }));
+             */
         }
+
+        private void resultTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

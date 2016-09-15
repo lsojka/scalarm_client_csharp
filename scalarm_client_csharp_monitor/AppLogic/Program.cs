@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using AppLogic;
+using scalarm_client_csharp_monitor.AppLogic;
 
 namespace scalarm_client_csharp_monitor
 {

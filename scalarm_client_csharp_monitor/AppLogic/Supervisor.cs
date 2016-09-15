@@ -15,7 +15,7 @@ using Scalarm;
 using Scalarm.ExperimentInput;
 
 
-namespace AppLogic
+namespace scalarm_client_csharp_monitor.AppLogic
 {
 	public class Supervisor
 	{
@@ -25,6 +25,7 @@ namespace AppLogic
         List<Experiment> experiments = new List<Experiment>();
         List<SimulationScenario> scenarios = new List<SimulationScenario>();
         ExperimentsListResult serverExperiments;
+        List<ExperimentReporter> _reporters = new List<ExperimentReporter>();
 
         public class ScalarmAppConfig
         {
@@ -37,8 +38,10 @@ namespace AppLogic
         }
         
         public delegate void FetchingExperimentsHandler(object source, FetchedExperimentsEventArgs e);
+        //public delegate void PassIntermediateResultsHandler(object source, )
 
         public event FetchingExperimentsHandler FetchingExperimentsEvent;
+
 
 
         // private static List<ValuesMap> points = new List<ValuesMap>();
@@ -191,11 +194,16 @@ namespace AppLogic
             }
         }
 
-        public void LaunchPeriodicalUpdates(string Id)
+        public void StartMonitoring(string _Id)
         {
+            // get response
+            var intermediateResults = client.GetIntermediateExperimentResults(_Id);
+            RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
+            //NurbsIntermediateResult nr = deserial.Deserialize<NurbsIntermediateResult>(intermediateResults.data);
+            
+            // throwing an event to form/form factory
 
         }
-
 
         public void createClient()
         {

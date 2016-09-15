@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 
 namespace Scalarm
@@ -74,4 +75,22 @@ namespace Scalarm
 		public List<string> historical { get; set; }
 	}
 }
+   public class NurbsIntermediateResult
+    {
+       public List<List<string>> aaData { get; set; }
 
+       public string sim_id { get; set; }
+       public string timestamp { get; set; }
+       public string min_error { get; set; }
+
+       public void ParseAaDaata()
+       {
+           sim_id = aaData[0][0];
+           timestamp = aaData[0][1];
+           string pat = @"([0-9]+\.[0-9])+\w+";
+           Regex r = new Regex(pat, RegexOptions.IgnoreCase);
+           Match m = r.Match(aaData[0][2]);
+           min_error = m.Groups[0].ToString();
+
+       }
+    }

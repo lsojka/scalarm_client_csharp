@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppLogic\ExperimentReporter.cs" />
+    <Compile Include="AppLogic\NurbsIntermediateResult.cs" />
     <Compile Include="AppLogic\Supervisor.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
