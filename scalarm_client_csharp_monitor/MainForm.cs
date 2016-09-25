@@ -17,7 +17,8 @@ namespace scalarm_client_csharp_monitor
     public partial class MainForm : Form
     {
         // supervises config reading and setting up the xperiment
-        Supervisor supervisor;
+        protected Supervisor supervisor;
+        protected MonitorForm monitorForm;
 
 
         public MainForm()
@@ -26,7 +27,9 @@ namespace scalarm_client_csharp_monitor
             supervisor = new Supervisor();
             supervisor.createClient();
 
+            // add handlers to events delegates
             supervisor.FetchingExperimentsEvent += FetchingExperimentsEvent;
+            supervisor.IntermediateResultUpdateEvent += IntermediateResultUpdateEvent;
             
         }
 
@@ -80,20 +83,15 @@ namespace scalarm_client_csharp_monitor
 
         private void fetchDetailsButton_Click(object sender, EventArgs e)
         {
-            //supervisor.client.GetIntermediateExperimentResults( - this should be wrapped
-            //supervisor.instantiateButlerForm(ex_id) -> runs on thread
-            //Butler constantly runs in the background, downloading results
+            if (!this.IsHandleCreated && !this.IsDisposed) return;
 
-            
+            // order updates
             var index = fetchedExperimentsListBox.SelectedIndex;
             var Id = fetchedExperimentsListBox.Items[index].ToString();
-
-            //
             supervisor.StartMonitoring(Id);
-            var intermediateResults = supervisor.client.GetIntermediateExperimentResults(Id);
-            resultTextBox.Text = intermediateResults.data;
             Application.DoEvents();
             
+ 
             // launchPerdiodicalUpdates
             /*
             Task.Run (new Action ( delegate {
@@ -114,6 +112,24 @@ namespace scalarm_client_csharp_monitor
 
         }
 
+        // EVENT HANDLERS
+        public void IntermediateResultUpdateEvent(object sender, EventArgs e)
+        {
+            InterformSupervisorPassable passable = new InterformSupervisorPassable(this.supervisor);
+            // call comes from worker Supervisor thread
+            // form can be chagned only by gui thread
+            // MethodInvoker enables execution on gui thread
+            Invoke ((MethodInvoker) delegate
+            {
+                this.monitorForm = new MonitorForm(passable);
+                monitorForm.Show();
+
+                monitorForm.readFromQueue();
+            }) ;           
+            
+            
+            
+        }
 
     }
 }

@@ -55,8 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppLogic\ExperimentReporter.cs" />
+    <Compile Include="AppLogic\ExperimentChecker.cs" />
+    <Compile Include="AppLogic\InterformSupervisorPassable.cs" />
     <Compile Include="AppLogic\NurbsIntermediateResult.cs" />
+    <Compile Include="AppLogic\StatusChecker.cs" />
     <Compile Include="AppLogic\Supervisor.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -71,12 +73,21 @@
     <Compile Include="MonitorForm.Designer.cs">
       <DependentUpon>MonitorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProjectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectorForm.Designer.cs">
+      <DependentUpon>ProjectorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MonitorForm.resx">
       <DependentUpon>MonitorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectorForm.resx">
+      <DependentUpon>ProjectorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

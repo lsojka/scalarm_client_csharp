@@ -50,3 +50,31 @@ A później przy każdej formie tam gdzie masz:
   }
 zamieniasz na 
 public partial class Form1: FormWithLogic
+
+
+rza zrobić kolejną metodę bez argumentów, wsadzić w nią to wywołanie i podać do new Action ()
+Idąc dalej możesz tę nową metodę zdefiniować w wywołaniu new Action ()
+Task.Run (new Action (delegate {
+                supervisor.LaunchPeriodicalUpdates (Id);
+            }));
+Łukasz Sojka
+8.09.2016 21:55
+Łukasz Sojka
+rozumiem że to jest 100% legitny workaround na zawsze i wszędzie, jeśli chcę używać parametryzowanej metody?
+Grzegorz Sojka
+8.09.2016 21:55
+Grzegorz Sojka
+yup
+Łukasz Sojka
+8.09.2016 21:56
+Łukasz Sojka
+bo Id musze podać, a inne sposby na to wydają się bolesne
+Grzegorz Sojka
+8.09.2016 21:56
+Grzegorz Sojka
+delegate {
+  supervisor.Launch (Id);
+}
+W ten sposób tworzysz nową metodę => nowaMetoda
+która staje się od razu argumentem =>
+new Action (nowaMetoda)

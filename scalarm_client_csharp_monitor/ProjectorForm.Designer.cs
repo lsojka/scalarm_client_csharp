@@ -1,6 +1,6 @@
 ﻿namespace scalarm_client_csharp_monitor
 {
-    partial class MonitorForm
+    partial class ProjectorForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,31 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
-            // richTextBox1
+            // ProjectorForm
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(87, 42);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(100, 96);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-            // 
-            // MonitorForm
-            // 
-            this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.richTextBox1);
-            this.Name = "MonitorForm";
-            this.Load += new System.EventHandler(this.MonitorForm_Load);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(293, 269);
+            this.Name = "ProjectorForm";
+            this.Text = "ProjectorForm";
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox richTextBox1;
-
     }
 }

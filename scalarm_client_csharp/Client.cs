@@ -541,7 +541,7 @@ namespace Scalarm
 			return ParseExperimentsConfigurationsCsv(response.Content);
 		}
 
-        public /*IList<ValuesMap>*/ IntermediateResult GetIntermediateExperimentResults(string experimentId)
+        public /*IList<ValuesMap>*/ NurbsIntermediateResult GetIntermediateExperimentResults(string experimentId)
         {
             var request = new RestRequest("/experiments/{id}//intermediate_results?simulations=running", Method.GET);
             request.AddUrlSegment("id", experimentId);
@@ -552,12 +552,12 @@ namespace Scalarm
             // http://stackoverflow.com/questions/16530060/
             // http://stackoverflow.com/questions/12376474/
             RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
-            NurbsIntermediateResult nr = JsonConvert.DeserializeObject<NurbsIntermediateResult>(response.Content);
+            NurbsIntermediateResult nir = JsonConvert.DeserializeObject<NurbsIntermediateResult>(response.Content);
             // Array obj = JsonConvert.DeserializeObject<Array>(response.Content);
             // var ob = obj.ToString();
-            nr.ParseAaDaata();
+            nir.ParseAaDaata();
 
-            return new IntermediateResult(response.Content);
+            return nir;
 
         }
 
