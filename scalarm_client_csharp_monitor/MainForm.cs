@@ -18,7 +18,7 @@ namespace scalarm_client_csharp_monitor
     {
         // supervises config reading and setting up the xperiment
         protected Supervisor supervisor;
-        protected MonitorForm monitorForm;
+        protected ProjectorForm projectorForm;
 
 
         public MainForm()
@@ -50,8 +50,8 @@ namespace scalarm_client_csharp_monitor
 
         private void newFormBox_Click(object sender, EventArgs e)
         {
-            MonitorForm frm = new MonitorForm();
-            frm.Show();
+            //MonitorForm frm = new MonitorForm();
+            //frm.Show();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -121,10 +121,13 @@ namespace scalarm_client_csharp_monitor
             // MethodInvoker enables execution on gui thread
             Invoke ((MethodInvoker) delegate
             {
-                this.monitorForm = new MonitorForm(passable);
-                monitorForm.Show();
+                this.projectorForm = new ProjectorForm(passable);
+                projectorForm.Show();
 
-                monitorForm.readFromQueue();
+
+                var nir = supervisor.buffer1.Take();
+                projectorForm.update(nir.min_error);
+                //projectorForm.SetUpProjector();
             }) ;           
             
             

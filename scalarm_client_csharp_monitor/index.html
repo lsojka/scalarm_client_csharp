@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">  
+    <title>Projector</title>
+
+    
+
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/libs/Three.js"></script>
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/libs/jquery-1.6.4.js"></script>
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/libs/jquery.mousewheel.js"></script>
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/libs/RequestAnimationFrame.js"></script>
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/libs/Stats.js"></script>
+
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/sim.js"></script>
+
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/cptosp.js"></script>
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/filereader.js"></script>
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/model.js"></script>
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/point.js"></script>
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/projector.js"></script>
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/triangle.js"></script>
+    
+
+<script src="file:///C:/Users/Ponyman/Documents/Visual Studio 2012/Projects/scs/scalarm_client_csharp/scalarm_client_csharp_monitor/okay.js"></script>
+
+    <script type="text/javascript">
+        function HelloComm() {
+            HHello();
+        }
+   </script>
+
+
+            .txt z nurbsem
+            <b>L-klik</b> - obrót, <b>Kółko-klik + ruch myszką przód/tył</b> - zoom, <b>P-klik</b> - pan-perspektywa
+  
+
+    <script>
+        var stats = new Stats();
+        stats.setMode(1);
+        document.body.appendChild(stats.domElement);
+        var uploadedFile;
+
+        window.onload = function () {
+                    // process nurbs.txt
+            uploadedFile = "0 0 50; 0 0 50; 0 0 50; 0 0 50; 0 0 50; 0 0 50; 0 0 50; 0 0 50; 0 0 50; 0 0 50; 86.013 0 50; 94.26025 68.48408 50; 20.18901 62.13541 50; -6.549449 20.15713 50; -48.52026 35.25203 50; -5.297763 -4.631452E-07 50; -76.81949 -55.81264 50; -17.82177 -54.84974 50; 9.58987 -29.51457 50; 77.69569 -56.44918 50; 172.026 0 100; 188.5205 136.9682 100; 40.37803 124.2708 100; -13.0989 40.31425 100; -97.04053 70.50406 100; -10.59553 -9.262904E-07 100; -153.639 -111.6253 100; -35.64354 -109.6995 100; 19.17974 -59.02915 100; 155.3914 -112.8984 100; 126.3218 0 150; 219.1446 159.2179 150; 30.68408 94.43591 150; -56.38966 173.5495 150; -77.00313 55.94604 150; -183.8597 -1.607352E-05 150; -184.135 -133.782 150; -50.55079 -155.5793 150; 17.45882 -53.7327 150; 103.2557 -75.0196 150; 271.367 0 200; 108.4414 78.78728 200; 32.44759 99.86342 200; -2.232579 6.871169 200; -33.95925 24.67284 200; -42.15836 -3.685601E-06 200; -232.517 -168.9336 200; -8.930645 -27.48569 200; 60.56034 -186.3855 200; 206.0134 -149.6774 200; 137.2317 0 250; 202.4157 147.0636 250; 43.54682 134.0233 250; -81.74117 251.5734 250; -89.41413 64.96316 250; -60.60019 -5.297837E-06 250; -63.3008 -45.99073 250; -64.8613 -199.6225 250; 29.5715 -91.01168 250; 195.7511 -142.2213 250; 44.50768 0 300; 228.6893 166.1525 300; 50.39533 155.1009 300; -79.53054 244.7698 300; -198.8592 144.4796 300; -200.2017 -1.750219E-05 300; -82.95135 -60.2677 300; -55.77004 -171.6425 300; 28.31512 -87.14495 300; 226.4253 -164.5075 300; 134.1414 0 350; 17.4182 12.65506 350; 59.31956 182.5668 350; -33.93877 104.4528 350; -115.6554 84.02854 350; -42.98505 -3.757873E-06 350; -107.6167 -78.1881 350; -39.69055 -122.1549 350; 1.672702 -5.148045 350; 66.9788 -48.66291 350; 23.18865 0 400; 134.3034 97.5771 400; 67.7883 208.631 400; -33.19474 102.1629 400; -48.41365 35.17457 400; -176.1223 -1.53971E-05 400; -109.1826 -79.32585 400; -41.64804 -128.1794 400; 23.78159 -73.19218 400; 32.02163 -23.26506 400; 110.6156 0 450; 18.37111 13.34739 450; 22.52437 69.32288 450; -35.39369 108.9306 450; -71.2933 51.79761 450; -288.6914 -2.523821E-05 450; -219.2098 -159.2653 450; -45.62217 -140.4106 450; 18.98024 -58.41514 450; 114.6978 -83.33276 450; 239.6248 0 500; 90.55432 65.79156 500; 73.32063 225.6577 500; -66.77867 205.5236 500; -101.5358 73.77003 500; -120.7016 -1.055207E-05 500; -51.16014 -37.17003 500; -11.15314 -34.32583 500; 39.10984 -120.3676 500; 58.68359 -42.63609 500; 227.5787 0 550; 202.0947 146.8304 550; 64.73365 199.2297 550; -5.532958 17.02869 550; -181.0361 131.5304 550; -178.4996 -1.560493E-05 550; -55.26236 -40.15046 550; -18.74569 -57.69328 550; 62.58327 -192.6114 550; 60.41838 -43.89649 550; 70.24455 0 600; 216.6205 157.384 600; 33.53352 103.2056 600; -17.62903 54.25656 600; -140.9805 102.4283 600; -116.4335 -1.017894E-05 600; -201.1537 -146.1468 600; -25.47097 -78.39155 600; 8.25224 -25.39777 600; 124.8043 -90.67552 600; 72.02685 0 650; 230.8814 167.7451 650; 22.25539 68.49506 650; -50.56716 155.6297 650; -115.8233 84.15055 650; -211.2573 -1.84687E-05 650; -185.0525 -134.4486 650; -2.554727 -7.862638 650; 87.11667 -268.1174 650; 193.4691 -140.5634 650; 117.8848 0 700; 84.02843 61.05023 700; 4.08329 12.56708 700; -2.911538 8.960791 700; -90.61171 65.83325 700; -160.8127 -1.40587E-05 700; -91.60129 -66.55225 700; -18.5365 -57.04947 700; 58.94919 -181.4269 700; 169.5892 -123.2137 700; 225.3834 0 750; 174.1781 126.5478 750; 75.744 233.1161 750; -88.60757 272.706 750; -61.91381 44.98301 750; -271.8672 -2.376738E-05 750; -6.807505 -4.945943 750; -57.23671 -176.1564 750; 14.47399 -44.54634 750; 11.38418 -8.271088 750; 172.0619 0 800; 227.1814 165.057 800; 4.445986 13.68334 800; -84.14396 258.9684 800; -4.457713 3.238718 800; -242.1936 -2.117323E-05 800; -147.8744 -107.4371 800; -15.71159 -48.35529 800; 53.99751 -166.1872 800; 14.17036 -10.29536 800; 249.7621 0 850; 52.61909 38.23 850; 24.33414 74.89281 850; -81.38974 250.4918 850; -207.7527 150.9411 850; -266.3797 -2.328765E-05 850; -209.9754 -152.5561 850; -32.16708 -99.00006 850; 75.72356 -233.0531 850; 14.92535 -10.84389 850; 124.881 0 900; 26.30954 19.115 900; 12.16707 37.4464 900; -40.69487 125.2459 900; -103.8763 75.47055 900; -133.1898 -1.164383E-05 900; -104.9877 -76.27805 900; -16.08354 -49.50003 900; 37.86178 -116.5265 900; 7.462673 -5.421945 900; 0 0 900; 0 0 900; 0 0 900; 0 0 900; 0 0 900; 0 0 900; 0 0 900; 0 0 900; 0 0 900; 0 0 900;";
+
+                    // discretizationPointsCount = 20;
+                    var spts = ControlPointsToSurfacePoints(fileDataToControlPoints(uploadedFile), 20);
+                    console.log("Wierzcholkow/spts: " + spts.length);
+                    var geom = SurfacePointsToGeometry(spts);
+                    // visualize
+                    var container = document.getElementById("container");
+                    var app = new Viewer();
+                    app.stats = stats;
+                    app.init({ container: container });
+
+                    app.CreateModelThenAddToScene(geom); // przenieść do inita
+
+                    //app.createLocalCube();            
+                    stats.begin();
+                    app.run();
+                    stats.end();
+        }
+
+
+	</script>
+</head>
+<body>
+    <div id="container" style="width:98%; height:98%; overflow:hidden; position:absolute; background-color:#000000"></div>
+</body>
+</html>

@@ -555,7 +555,7 @@ namespace Scalarm
             NurbsIntermediateResult nir = JsonConvert.DeserializeObject<NurbsIntermediateResult>(response.Content);
             // Array obj = JsonConvert.DeserializeObject<Array>(response.Content);
             // var ob = obj.ToString();
-            nir.ParseAaDaata();
+            //nir.ParseAaDaata();
 
             return nir;
 

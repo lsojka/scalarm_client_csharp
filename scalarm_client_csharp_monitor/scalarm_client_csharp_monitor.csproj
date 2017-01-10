@@ -67,12 +67,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AppLogic\Program.cs" />
-    <Compile Include="MonitorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MonitorForm.Designer.cs">
-      <DependentUpon>MonitorForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ProjectorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,9 +76,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MonitorForm.resx">
-      <DependentUpon>MonitorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectorForm.resx">
       <DependentUpon>ProjectorForm.cs</DependentUpon>
@@ -122,7 +113,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="cptosp.js" />
+    <Content Include="filereader.js" />
+    <Content Include="index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="model.js" />
+    <Content Include="okay.js" />
+    <Content Include="point.js" />
+    <Content Include="projector.js" />
+    <Content Include="sim.js" />
     <Content Include="TextFile1.txt" />
+    <Content Include="triangle.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
